@@ -1,4 +1,4 @@
-# restaurant_management
+## our final project FT system for lewi cafe
 
 ## Project setup
 ```
