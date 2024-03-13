@@ -7,7 +7,7 @@
             <router-link @click="scrollToTop()" to="/table">table</router-link>
             <router-link @click="scrollToTop()" to="/about">about</router-link>
             <router-link @click="scrollToTop()" to="/pay">pay</router-link>
-            <router-link @click="scrollToTop()" to="/voice">chapa</router-link>
+            <!-- <router-link @click="scrollToTop()" to="/voice">chapa</router-link> -->
 
           
         </nav>

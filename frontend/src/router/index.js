@@ -18,7 +18,7 @@ import MyTables from '../pages/MyTables.vue';
 import DpRegister from '../admin/DpRegister.vue';
 import DpLogin from '../admin/DpLogin.vue';
 // import  Chapa  from "../chapa.vue";
-import Voice from "../pages/Voice.vue";
+// import Voice from "../pages/Voice.vue";
 import Pay from "../pages/pay.vue";
 
 
@@ -119,11 +119,11 @@ const routes = [
   //   name: "Chapa",
   //   component: Chapa,
   // },
-  {
-    path: "/voice",
-    name: "Voice",
-    component: Voice,
-  },
+  // {
+  //   path: "/voice",
+  //   name: "Voice",
+  //   component: Voice,
+  // },
   {
     path: "/pay",
     name: "Pay",
