@@ -1,13 +1,13 @@
 ## our final project FT system for lewi cafe
 
-## Project setup
+## Project setup(to install node modules and dependencies)
 ```
-npm install //to install node modules and dependencies
+npm install    
 ```
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run serve  
 ```
 
 ### Compiles and minifies for production

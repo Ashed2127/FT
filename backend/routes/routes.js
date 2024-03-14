@@ -64,7 +64,7 @@ import { format } from "mysql2";
 // init express router
 import {
     responseData,
-
+    getCheckoutUrl
 } from "../pay.js"
 const router = express.Router();
 
@@ -86,15 +86,14 @@ router.delete("/api/foods/:id", deleteFood);
 
 
 
-////////////////////////// USER ////////////////////////////////
+////////////////////////// USER ///////////////////////
 // get all user
 router.get("/api/users/:email", showAUser);
 
 // create account
 router.post("/api/users/", createAccount);
 
-//////////////////////////ADMIN/////////////////////////////////
-//get all admin
+//////////////////////////ADMIN/////////////////////////
 router.get("/api/admin/:email", showAAdmin);
 
 //create admin account
@@ -111,7 +110,7 @@ router.get("/api/dp/:email", showADp);
 router.post("/api/dp/", createDpAccount);
 
 
-////////////////////////// CART ////////////////////////////////
+////////////////////////// CART ///////////////////////
 // add to cart
 router.post("/api/cartItem", addItems);
 
@@ -161,15 +160,15 @@ router.put("/api/billstatus/paid/:id", updateBillPaid);
 
 router.put("/api/billstatus/undo/:id", undoBillStatusBtn);
 
-/////////////////////PAYMENT////////////////////////////////
+///////////////////PAYMENT////////////////////////////////
 router.post('/api/initiate-payment/', responseData);
 router.get('/api/checkout-url/', async (req, res) => {
     try {
-      const checkoutUrl = await responseData(req, res);
-      res.send(checkoutUrl); // Send the checkout URL directly
+        const checkoutUrl = await getCheckoutUrl(req, res);
+        res.send(checkoutUrl); // Send the checkout URL directly
     } catch (error) {
-      // ... error handling
+        console.error('Error fetching checkout URL:', error);
+        res.status(500).json({ error: 'Internal server error.' });
     }
-  });
-
+});
 export  default router
