@@ -72,7 +72,7 @@
         <div class="d-grid gap-2 mt-4">
           <button type="submit" class="btn btn-primary" :disabled="paymentProcessing">
             Pay Now
-            <span v-if="paymentProcessing" class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>
+            <span v-if="paymentProcessing && checkoutUrl.length>0" class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>
           </button>
         </div>
 
@@ -103,6 +103,7 @@ export default {
   methods: {
   async initiatePayment() {
     this.paymentProcessing = true; // Set processing flag
+    // let checkoutUrl = '';
     let response = {
         amount: this.amount,
         currency: this.currency,
@@ -112,9 +113,10 @@ export default {
     }
        await axios.post('/initiate-payment/', response);
       console.log('Payment initiated successfully!');
-      const paymentCheckoutUrl = await axios.get('/checkout-url/', this.checkoutUrl);
-          window.location.href = paymentCheckoutUrl;
+      const paymentCheckoutUrl = await axios.get('/checkout-url/', this.checkoutUrl)
+          // window.location.href = paymentCheckoutUrl.data;
           console.log('Checkout URL:', paymentCheckoutUrl);
+          console.log('Payment URL:', paymentCheckoutUrl.data);
           
   },
 }
