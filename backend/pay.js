@@ -23,11 +23,11 @@ export const responseData = async (req, res) => {
         };
 
         const chapaResponse = new Chapa(api_key);
-        const response = await chapaResponse.initialize(userData, { autoRef: true });
+        var response = await chapaResponse.initialize(userData, { autoRef: true });
 
         if (response.status === 'success') {
             const checkoutUrl = response.data.checkout_url;
-            console.log('url: ', checkoutUrl);
+            // console.log('url: ', checkoutUrl);
 
             // Send the checkoutUrl as a response
             return res.status(200).json({ checkoutUrl });
@@ -43,15 +43,12 @@ export const responseData = async (req, res) => {
 export const getCheckoutUrl = async (req, res) => {
   try {
       // Here, you would fetch the checkout URL from your database or some other source
-      const checkoutUrl = 'https://checkout.chapa.co/checkout/payment/:token'; // Example URL
-      return checkoutUrl;
+    //   const checkoutUrls = checkoutUrl; // Example URL
+    //   return checkoutUrls;
   } catch (error) {
       console.error('Error fetching checkout URL:', error);
       return res.status(500).json({ error: 'Internal server error.' });
   }
 };
-
-// router.post('/api/initiate-payment/', responseData);
-// router.get('/api/checkout-url/', getCheckoutUrl);
 
 export default router;
