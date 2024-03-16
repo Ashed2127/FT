@@ -2,7 +2,7 @@ import Chapa from 'chapa';
 import express from 'express';
 
 const router = express.Router();
-
+let checkoutUrl; // Define a variable in a shared scope
 export const responseData = async (req, res) => {
     try {
         const user = req.body;
@@ -23,11 +23,11 @@ export const responseData = async (req, res) => {
         };
 
         const chapaResponse = new Chapa(api_key);
-        var response = await chapaResponse.initialize(userData, { autoRef: true });
+        const response = await chapaResponse.initialize(userData, { autoRef: true });
 
         if (response.status === 'success') {
-            const checkoutUrl = response.data.checkout_url;
-            // console.log('url: ', checkoutUrl);
+            checkoutUrl = response.data.checkout_url;
+            console.log('url: ', checkoutUrl);
 
             // Send the checkoutUrl as a response
             return res.status(200).json({ checkoutUrl });
@@ -39,16 +39,23 @@ export const responseData = async (req, res) => {
         return res.status(500).json({ error: 'Internal server error.' });
     }
 };
+
 // Handle fetching checkout URL
 export const getCheckoutUrl = async (req, res) => {
-  try {
-      // Here, you would fetch the checkout URL from your database or some other source
-    //   const checkoutUrls = checkoutUrl; // Example URL
-    //   return checkoutUrls;
-  } catch (error) {
-      console.error('Error fetching checkout URL:', error);
-      return res.status(500).json({ error: 'Internal server error.' });
-  }
+    try {
+        // Here, you would fetch the checkout URL from your database or some other source
+        if (checkoutUrl) {
+            return res.status(200).json({ checkoutUrl }); // Return the stored checkoutUrl
+        } else {
+            return res.status(404).json({ error: 'Checkout URL not found.' });
+        }
+    } catch (error) {
+        console.error('Error fetching checkout URL:', error);
+        return res.status(500).json({ error: 'Internal server error.' });
+    }
 };
+
+// router.post('/api/initiate-payment/', responseData);
+// router.get('/api/checkout-url/', getCheckoutUrl);
 
 export default router;

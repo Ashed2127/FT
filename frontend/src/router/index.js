@@ -18,7 +18,7 @@ import MyTables from '../pages/MyTables.vue';
 import DpRegister from '../admin/DpRegister.vue';
 import DpLogin from '../admin/DpLogin.vue';
 // import  Chapa  from "../chapa.vue";
-// import Voice from "../pages/Voice.vue";
+// import newPay from "../pages/Voice.vue";
 import Pay from "../pages/pay.vue";
 
 
@@ -129,6 +129,11 @@ const routes = [
     name: "Pay",
     component: Pay,
   },
+  // {
+  //   path: "/newPay",
+  //   name: "newPay",
+  //   component: newPay,
+  // },
   {
     path: '/:pathMatch(.*)*',
     component: Home,

@@ -114,9 +114,9 @@ export default {
        await axios.post('/initiate-payment/', response);
       console.log('Payment initiated successfully!');
       const paymentCheckoutUrl = await axios.get('/checkout-url/', this.checkoutUrl)
-          // window.location.href = paymentCheckoutUrl.data;
+          window.location.href = paymentCheckoutUrl.data.checkoutUrl;
           console.log('Checkout URL:', paymentCheckoutUrl);
-          console.log('Payment URL:', paymentCheckoutUrl.data);
+          console.log('Checkout URL:', paymentCheckoutUrl.data.checkoutUrl);
           
   },
 }
