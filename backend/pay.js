@@ -27,6 +27,7 @@ export const responseData = async (req, res) => {
 
         if (response.status === 'success') {
             checkoutUrl = response.data.checkout_url;
+            
             console.log('url: ', checkoutUrl);
 
             // Send the checkoutUrl as a response
@@ -45,7 +46,7 @@ export const getCheckoutUrl = async (req, res) => {
     try {
         // Here, you would fetch the checkout URL from your database or some other source
         if (checkoutUrl) {
-            return res.status(200).json({ checkoutUrl }); // Return the stored checkoutUrl
+            return checkoutUrl ; // Return the stored checkoutUrl
         } else {
             return res.status(404).json({ error: 'Checkout URL not found.' });
         }
@@ -54,8 +55,5 @@ export const getCheckoutUrl = async (req, res) => {
         return res.status(500).json({ error: 'Internal server error.' });
     }
 };
-
-// router.post('/api/initiate-payment/', responseData);
-// router.get('/api/checkout-url/', getCheckoutUrl);
 
 export default router;
