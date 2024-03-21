@@ -6,10 +6,12 @@
                 <h3>quick links</h3>
                 <div class="box">
                 <router-link @click="scrollToTop()" to="/"      class="footer-items">  home</router-link>
-                <router-link @click="scrollToTop()" to="/about" class="footer-items"> about</router-link>
                 <router-link @click="scrollToTop()" to="/menu"  class="footer-items">  menu</router-link>
                 <router-link @click="scrollToTop()" to="/table" class="footer-items"> book a table
                 </router-link>
+                <router-link @click="scrollToTop()" to="/about" class="footer-items"> about</router-link>
+           
+                
                 </div>
         </div>
 
@@ -20,11 +22,24 @@
 import { mapState } from 'vuex'
 export default {
     name: 'FooterComponent',
-
+data(){
+        return{
+        languageStatus : 0,
+        // engIndex : 1,
+        // oroIndex : 1,
+        langObj: [
+                { words: ["home", "menu", "book a table", "about"] },
+                
+                { words: ["mana", "menu", "gabatee buufachuu", "waa'ee"] },
+        ],
+         newLangStatus : 0,
+         interval: "",
+        }},
+        
     computed: {
         ...mapState(['user'])
     },
-
+       
     methods: {
         scrollToTop() {
             window.scrollTo(0, 0);

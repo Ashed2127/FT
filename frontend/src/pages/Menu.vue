@@ -100,6 +100,7 @@ export default {
             previousCategoryClicked: "",
             previousPriceClicked: "",
             previousTypeClicked: "",
+            
         };
     },
 

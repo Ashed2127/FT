@@ -1,4 +1,3 @@
-/////////////////NAVBAR//////////////////////
 <template>
     <div class="header">
 
@@ -85,7 +84,7 @@ export default {
         { words: ["mana", "meenuu", "Minjaala", "Waa'ee"] },
         ],
          newLangStatus : 0,
-
+         interval: "",
             //  langObj[0].words[0]
             //  langObj[1].words[0] 
     }},
@@ -96,6 +95,7 @@ export default {
     },
 
     mounted() {
+      this.autoUpdate(); 
         window.addEventListener('scroll', this.handleScroll);
     },
     unmounted() {
@@ -124,8 +124,8 @@ export default {
         async getStatus(){
           let langStatus = await axios.get('/langstatus/', this.languageStatus);
           this.newLangStatus = langStatus.data[0].langstatus;
-          console.log(this.newLangStatus);
-          console.log(this.langObj[this.newLangStatus].words[0] )
+          // console.log(this.newLangStatus);
+          // console.log(this.langObj[this.newLangStatus].words[0] )
         
         },
         
@@ -151,6 +151,11 @@ export default {
 
         handleLogout: function () {
             this.setUser("");
+        },
+        autoUpdate: function () {
+            this.interval = setInterval(function () {
+                this.getStatus();
+            }.bind(this), 0);
         }
     }
 }

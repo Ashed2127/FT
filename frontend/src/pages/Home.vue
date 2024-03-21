@@ -16,16 +16,16 @@
                 <div class="grid col-md-4">
                     <img src="../assets/images/ethio-foods.jpg" alt="">
                     <div class="content">
-                        <h3>Make it easy </h3>
-                        <h3>with delivery</h3>
-                        <router-link @click="scrollToTop()" to="/menu" class="btn">order now</router-link>
+                        <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
+                        <h3>{{ langObj[this.newLangStatus].words[1] }}</h3>
+                        <router-link @click="scrollToTop()" to="/menu" class="btn">{{ langObj[this.newLangStatus].words[2] }}</router-link>
                     </div>
                 </div>
 
                 <div class="grid col-md-4">
                     <img src="../assets/images/delivery-bike.jpg" alt="">
                     <div class="content center">
-                        <span>ready to deliver</span>
+                        <span>{{ langObj[this.newLangStatus].words[3] }}</span>
                       
                     </div>
                 </div>
@@ -33,8 +33,8 @@
                 <div class="grid col-md-4">
                     <img src="../assets/images/tables.jpg" alt="">
                     <div class="content">
-                        <h3>reserve table</h3>
-                        <router-link @click="scrollToTop()" to="/table" class="btn">book now</router-link>
+                        <h3>{{ langObj[this.newLangStatus].words[4] }}</h3>
+                        <router-link @click="scrollToTop()" to="/table" class="btn">{{ langObj[this.newLangStatus].words[5] }}</router-link>
                     </div>
                 </div>
 
@@ -45,9 +45,9 @@
         <div class="home-about">
             
             <div class="content">
-                <h3 class="title">delicious food</h3>
-                <p>We guarantee exceptional quality in every dish. Explosive, delicate, and unforgettable flavors await, whether you dine in or enjoy our seamless delivery service.</p>
-                <router-link @click="scrollToTop()" to="/about" class="btn">read more</router-link>
+                <h3 class="title">{{ langObj[this.newLangStatus].words[6] }}</h3>
+                <p>{{ langObj[this.newLangStatus].words[7] }}</p>
+                <router-link @click="scrollToTop()" to="/about" class="btn">{{ langObj[this.newLangStatus].words[8] }}</router-link>
 
                
             </div>
@@ -56,13 +56,59 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: "Home",
+    data(){
+        return{
+        languageStatus : 0,
+        // engIndex : 1,
+        // oroIndex : 1,
+        langObj: [
+                { words: ["Make it easy","with delivery","order now","ready to deliver","reserve table","book now","delicious food","We guarantee exceptional quality in every dish. Explosive, delicate, and unforgettable flavors await, whether you dine in or enjoy our seamless delivery service.","read more"] },
+                
+                { words: ["Salphaa godhaa", "geejjibaa wajjin", "amma ajajaa", "geessuuf qophaa'aa", "gabatee rizaabii", "amma kitaaba", "nyaata mi’aawaa", "Nyaata hunda keessatti qulqullina addaa wabii ni kennina. Mi'aan dhoo'aa, micciiramaa fi hin dagatamne isin eegaa, tajaajila geejjibaa keenya isa walxaxaa ta'e keessa nyaattan ykn itti gammaddan.","bal'inaan dubbisaa"] },
+        ],
+         newLangStatus : 0,
+         interval: "",
+
+            //  langObj[0].words[0]
+            //  langObj[1].words[0] 
+    }},
+
+    created() {
+        this.getStatus()
+    },
+    mounted: function () {
+        this.autoUpdate(); 
+        window.addEventListener('scroll', this.handleScroll);
+    },
+
+    beforeUnmount() {
+        // clearInterval(this.interval);
+        window.removeEventListener('scroll', this.handleScroll);
+    },
+
 
     methods: {
         scrollToTop() {
             window.scrollTo(0, 0);
+        },
+        async getStatus(){
+          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          this.newLangStatus = langStatus.data[0].langstatus;
+        //   console.log(this.newLangStatus);
+        //   console.log(this.langObj[this.newLangStatus].words[0] )
+        
+        },
+
+        autoUpdate: function () {
+            this.interval = setInterval(function () {
+                this.getStatus();
+            }.bind(this), 0);
         }
+
+        
     }
 };
 </script>
