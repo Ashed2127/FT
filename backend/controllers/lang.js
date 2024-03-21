@@ -1,6 +1,7 @@
 import {
     updateEngIndex,
-    updateOroIndex
+    updateOroIndex,
+    langStatus
 } from "../models/lang.js"
 
 export const engIndex = (req, res) => {
@@ -30,6 +31,17 @@ export const oroIndex = (req, res) => {
 //getAllStatus
 export const getAllStatus = (req, res) => {
   getStatus((err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(results);
+    }
+  });
+};
+
+// getLangStatus
+export const getLangStatus = (req, res) => {
+  langStatus((err, results) => {
     if (err) {
       res.send(err);
     } else {

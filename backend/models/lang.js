@@ -31,7 +31,23 @@ export const updateOroIndex = (data, result) => {
 };
 
 //getStatus
-export const getStatus = (id, result) => {
+// export const getStatus = (id, result) => {
+//   db.query(
+//     "SELECT langstatus FROM languagestatus WHERE lang_id = 1",
+//     id,
+//     (err, results) => {
+//       if (err) {
+//         console.log(err);
+//         result(err, null);
+//       } else {
+//         result(null, results);
+//       }
+//     }
+//   );
+// };
+
+//  langStatus
+export const langStatus = (id, result) => {
   db.query(
     "SELECT langstatus FROM languagestatus WHERE lang_id = 1",
     id,

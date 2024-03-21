@@ -68,7 +68,8 @@ import {
 
 import {
     engIndex,
-    oroIndex
+    oroIndex,
+    getLangStatus
 } from "../controllers/lang.js"
 const router = express.Router();
 
@@ -180,6 +181,7 @@ router.get('/api/checkout-url/', async (req, res) => {
 ////////////////////////language/////////////////////////
 router.put('/api/english/', engIndex);
 router.put("/api/oromo/", oroIndex);
+router.get('/api/langstatus/', getLangStatus);
 
 export  default router
 
