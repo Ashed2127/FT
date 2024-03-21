@@ -120,3 +120,16 @@ CREATE TABLE billstatus (
   bill_status INT(11),
   primary key (bill_id)
 );
+
+
+CREATE TABLE languagestatus (
+  lang_id INT(11) PRIMARY KEY AUTO_INCREMENT,
+  langstatus INT CHECK (langstatus IN (0, 1))
+);
+
+INSERT INTO languagestatus (lang_id, langstatus) VALUES (1, 0);
+
+////////////////SQL////////////
+// UPDATE YourTableName
+// SET YourColumnName = 1
+// WHERE YourCondition;

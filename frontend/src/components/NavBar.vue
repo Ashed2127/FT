@@ -1,3 +1,4 @@
+/////////////////NAVBAR//////////////////////
 <template>
     <div class="header">
 
@@ -12,6 +13,8 @@
           
         </nav>
 
+        <!-- language drop down  -->
+        
         <div class="icons">
             <div id="menu-btn" class="fas fa-bars menu-btn" @click="showNav"></div>
             <router-link @click="scrollToTop()" to="cart">
@@ -30,6 +33,8 @@
 
             </div>
 
+
+
             <div v-else class="fas fa-user account" style="background: #f38609;color: white;" @click="showLog">
                 <ul class="drop-down-select">
                     <li>
@@ -44,15 +49,41 @@
                     </li>
                 </ul>
             </div>
-
+            
+          
+            <div class="fas fa-user account"  style="background: #f38609;color: white; width: 40px;" @click="showLog">
+                <ul class="drop-down-select">
+                    <li>
+                        <router-link @click="english()" to="#">english</router-link>
+                    </li>
+                    <li>
+                        <router-link @click="oromo()" to="#">afaan oromo</router-link>
+                    </li>
+                   
+                    <!-- <li>
+                        <router-link @click="handleLogout" to="#">amharic</router-link>
+                    </li> -->
+                </ul>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { mapState, mapMutations } from "vuex";
+import axios from 'axios';
 export default {
     name: 'NavBar',
+    data(){
+        return{
+        // let index = [];
+        engIndex : 1,
+        oroIndex : 1,
+        
+    }},
+ 
 
     computed: {
         ...mapState(["user"])
@@ -70,6 +101,14 @@ export default {
 
         scrollToTop() {
             window.scrollTo(0, 0);
+        },
+       async english(){
+                let eng = await axios.put('/english/', this.engIndex);
+                console.log(eng);
+        },
+        async oromo(){
+                let oro = await axios.put('/oromo/', this.oroIndex);
+                console.log(oro);
         },
 
         showNav: function () {
