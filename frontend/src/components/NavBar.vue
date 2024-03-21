@@ -22,10 +22,10 @@
             <div v-if="!user" class="fas fa-user account" @click="showLog">
                 <ul class="drop-down-select">
                     <li>
-                        <router-link @click="scrollToTop()" to="/login">login</router-link>
+                        <router-link @click="scrollToTop()" to="/login">{{ langObj[this.newLangStatus].words[4] }}</router-link>
                     </li>
                     <li>
-                        <router-link @click="scrollToTop()" to="/register">register</router-link>
+                        <router-link @click="scrollToTop()" to="/register">{{ langObj[this.newLangStatus].words[5] }}</router-link>
                     </li>
                 </ul>
 
@@ -36,20 +36,20 @@
             <div v-else class="fas fa-user account" style="background: #f38609;color: white;" @click="showLog">
                 <ul class="drop-down-select">
                     <li>
-                        <router-link @click="scrollToTop()" to="/myorder">my orders</router-link>
+                        <router-link @click="scrollToTop()" to="/myorder">{{ langObj[this.newLangStatus].words[6] }}</router-link>
                     </li>
                     <li>
-                        <router-link @click="scrollToTop()" to="/mytables">my tables</router-link>
+                        <router-link @click="scrollToTop()" to="/mytables">{{ langObj[this.newLangStatus].words[7] }}</router-link>
                     </li>
                    
                     <li>
-                        <router-link @click="handleLogout" to="/">logout</router-link>
+                        <router-link @click="handleLogout" to="/">{{ langObj[this.newLangStatus].words[8] }}</router-link>
                     </li>
                 </ul>
             </div>
             
           
-            <div class="fas fa-user account"  style="background: #f38609;color: white; width: 40px;" @click="showLog">
+            <div class="fas fa-solid fa-language account" style="background: #f38609;color: white; width: 40px;" @click="showLog">
                 <ul class="drop-down-select">
                     <li>
                         <router-link @click="english()" to="#">english</router-link>
@@ -80,8 +80,12 @@ export default {
         engIndex : 1,
         oroIndex : 1,
         langObj: [
-        { words: ["home", "menu", "table", "about"] },
-        { words: ["mana", "meenuu", "Minjaala", "Waa'ee"] },
+        { words: ["home", "menu", "table", "about","login","register","my orders","my tables","logout"] },
+        { words: ["mana", "meenuu", "Minjaala", "Waa'ee","seenuu","galmeessuu","ajaja koo", "minjaalota koo", "ba'uu"] },
+        // { words: ["home", "menu", "table", "about"] },
+        // { words: ["mana", "meenuu", "Minjaala", "Waa'ee"] },
+
+
         ],
          newLangStatus : 0,
          interval: "",
@@ -99,6 +103,8 @@ export default {
         window.addEventListener('scroll', this.handleScroll);
     },
     unmounted() {
+      clearInterval(this.interval);
+
         window.removeEventListener('scroll', this.handleScroll);
     },
 

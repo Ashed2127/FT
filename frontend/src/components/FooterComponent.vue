@@ -3,13 +3,13 @@
     
 
         <div class="box-container">
-                <h3>quick links</h3>
+                <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
                 <div class="box">
-                <router-link @click="scrollToTop()" to="/"      class="footer-items">  home</router-link>
-                <router-link @click="scrollToTop()" to="/menu"  class="footer-items">  menu</router-link>
-                <router-link @click="scrollToTop()" to="/table" class="footer-items"> book a table
+                <router-link @click="scrollToTop()" to="/"      class="footer-items">  {{ langObj[this.newLangStatus].words[1] }}</router-link>
+                <router-link @click="scrollToTop()" to="/menu"  class="footer-items"> {{ langObj[this.newLangStatus].words[2] }}</router-link>
+                <router-link @click="scrollToTop()" to="/table" class="footer-items"> {{ langObj[this.newLangStatus].words[3] }}
                 </router-link>
-                <router-link @click="scrollToTop()" to="/about" class="footer-items"> about</router-link>
+                <router-link @click="scrollToTop()" to="/about" class="footer-items"> {{ langObj[this.newLangStatus].words[4] }}</router-link>
            
                 
                 </div>
@@ -19,7 +19,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
+import axios from 'axios'
 export default {
     name: 'FooterComponent',
 data(){
@@ -28,22 +29,48 @@ data(){
         // engIndex : 1,
         // oroIndex : 1,
         langObj: [
-                { words: ["home", "menu", "book a table", "about"] },
+                { words: ["quick links","home", "menu", "book a table", "about"] },
                 
-                { words: ["mana", "menu", "gabatee buufachuu", "waa'ee"] },
+                { words: ["hidhannoo saffisaa","mana", "menu", "gabatee buufachuu", "waa'ee"] },
         ],
          newLangStatus : 0,
          interval: "",
         }},
-        
-    computed: {
-        ...mapState(['user'])
+
+    // computed: {
+    //     ...mapState(['user'])
+    // },
+    created() {
+        this.getStatus()
     },
-       
+    mounted: function () {
+        this.autoUpdate(); 
+        window.addEventListener('scroll', this.handleScroll);
+    },
+
+    beforeUnmount() {
+        clearInterval(this.interval);
+        window.removeEventListener('scroll', this.handleScroll);
+    },
+
     methods: {
         scrollToTop() {
             window.scrollTo(0, 0);
+        },
+        async getStatus(){
+          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          this.newLangStatus = langStatus.data[0].langstatus;
+        //   console.log(this.newLangStatus);
+        //   console.log(this.langObj[this.newLangStatus].words[0] )
+        
+        },
+
+        autoUpdate: function () {
+            this.interval = setInterval(function () {
+                this.getStatus();
+            }.bind(this), 0);
         }
+
     }
 }
 </script>

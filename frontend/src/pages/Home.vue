@@ -85,7 +85,7 @@ export default {
     },
 
     beforeUnmount() {
-        // clearInterval(this.interval);
+        clearInterval(this.interval);
         window.removeEventListener('scroll', this.handleScroll);
     },
 
