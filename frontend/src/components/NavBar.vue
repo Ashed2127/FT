@@ -2,16 +2,15 @@
 <template>
     <div class="header">
 
-        <nav class="navbar">
-            <router-link @click="scrollToTop()" to="/">home</router-link>
-            <router-link @click="scrollToTop()" to="/menu">menu</router-link>
-            <router-link @click="scrollToTop()" to="/table">table</router-link>
-            <router-link @click="scrollToTop()" to="/about">about</router-link>
-            <router-link @click="scrollToTop()" to="/pay">pay</router-link>
-            <!-- <router-link @click="scrollToTop()" to="/newPay">neway</router-link> -->
-
-          
-        </nav>
+      <nav class="navbar">
+        <router-link @click="scrollToTop()" to="/">{{ langObj[this.newLangStatus].words[0] }}</router-link>
+        <router-link @click="scrollToTop()" to="/menu">{{ langObj[this.newLangStatus].words[1] }}</router-link>
+        <router-link @click="scrollToTop()" to="/table">{{ langObj[this.newLangStatus].words[2] }}</router-link>
+        <router-link @click="scrollToTop()" to="/about">{{ langObj[this.newLangStatus].words[3] }}</router-link>
+        <router-link @click="scrollToTop()" to="/pay">pay</router-link>
+        <!-- <router-link @click="scrollToTop()" to="/newPay">neway</router-link> -->
+    </nav>
+    
 
         <!-- language drop down  -->
         
@@ -78,13 +77,20 @@ export default {
     name: 'NavBar',
     data(){
         return{
-        // let index = [];
+        languageStatus : 0,
         engIndex : 1,
         oroIndex : 1,
-        
-    }},
- 
+        langObj: [
+        { words: ["home", "menu", "table", "about"] },
+        { words: ["mana", "meenuu", "Minjaala", "Waa'ee"] },
+        ],
+         newLangStatus : 0,
 
+            //  langObj[0].words[0]
+            //  langObj[1].words[0] 
+    }},
+   
+  
     computed: {
         ...mapState(["user"])
     },
@@ -103,14 +109,26 @@ export default {
             window.scrollTo(0, 0);
         },
        async english(){
-                let eng = await axios.put('/english/', this.engIndex);
-                console.log(eng);
-        },
-        async oromo(){
-                let oro = await axios.put('/oromo/', this.oroIndex);
-                console.log(oro);
+                 await axios.put('/english/', this.engIndex);
+                // console.log(eng);
+                this.getStatus();
+
         },
 
+        async oromo(){
+               await axios.put('/oromo/', this.oroIndex);
+                // console.log(oro);
+                this.getStatus();
+        },
+
+        async getStatus(){
+          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          this.newLangStatus = langStatus.data[0].langstatus;
+          console.log(this.newLangStatus);
+          console.log(this.langObj[this.newLangStatus].words[0] )
+        
+        },
+        
         showNav: function () {
             let navbar = document.querySelector('.header .navbar');
             navbar.classList.toggle('active');
