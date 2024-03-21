@@ -1,4 +1,3 @@
-// import express 
 import express, { Router } from "express";
 // import functions from controller 
 import {
@@ -66,6 +65,11 @@ import {
     responseData,
     getCheckoutUrl
 } from "../pay.js"
+
+import {
+    engIndex,
+    oroIndex
+} from "../controllers/lang.js"
 const router = express.Router();
 
 ////////////////////////// FOOD ////////////////////////////////
@@ -171,4 +175,11 @@ router.get('/api/checkout-url/', async (req, res) => {
         res.status(500).json({ error: 'Internal server error.' });
     }
 });
+
+
+////////////////////////language/////////////////////////
+router.put('/api/english/', engIndex);
+router.put("/api/oromo/", oroIndex);
+
 export  default router
+
