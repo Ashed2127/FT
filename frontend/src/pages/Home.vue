@@ -62,18 +62,13 @@ export default {
     data(){
         return{
         languageStatus : 0,
-        // engIndex : 1,
-        // oroIndex : 1,
         langObj: [
-                { words: ["Make it easy","with delivery","order now","ready to deliver","reserve table","book now","delicious food","We guarantee exceptional quality in every dish. Explosive, delicate, and unforgettable flavors await, whether you dine in or enjoy our seamless delivery service.","read more"] },
+            { words: ["Make it easy","with delivery","order now","ready to deliver","reserve table","book now","delicious food","We guarantee exceptional quality in every dish. Explosive, delicate, and unforgettable flavors await, whether you dine in or enjoy our seamless delivery service.","read more"] },
                 
                 { words: ["Salphaa godhaa", "geejjibaa wajjin", "amma ajajaa", "geessuuf qophaa'aa", "gabatee rizaabii", "amma kitaaba", "nyaata mi’aawaa", "Nyaata hunda keessatti qulqullina addaa wabii ni kennina. Mi'aan dhoo'aa, micciiramaa fi hin dagatamne isin eegaa, tajaajila geejjibaa keenya isa walxaxaa ta'e keessa nyaattan ykn itti gammaddan.","bal'inaan dubbisaa"] },
         ],
          newLangStatus : 0,
          interval: "",
-
-            //  langObj[0].words[0]
-            //  langObj[1].words[0] 
     }},
 
     created() {

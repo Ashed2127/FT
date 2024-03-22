@@ -251,7 +251,6 @@ export default {
     font-weight: 500;
     float: left;
     width: 95px;
-    border-radius: 5%;
 
 }
 

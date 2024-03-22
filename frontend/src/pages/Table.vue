@@ -4,15 +4,15 @@
 
         <div class="heading">
             
-            <h3>Table Form</h3>
+            <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
         </div>
 
         <div class="icons-container">
 
             <div class="icons ">
                 
-                <h2>Opening Hours</h2>
-                <h3>2:00am to 6:00pm</h3>
+                <h2>{{ langObj[this.newLangStatus].words[1] }}</h2>
+                <h3>{{ langObj[this.newLangStatus].words[2] }}</h3>
             </div>
 
 
@@ -23,25 +23,25 @@
 
             <div class="row">
                 <div class="input-box">
-                    <label for="uName">your name</label>
-                    <input type="text" name="uName" id="uName" v-model="orderObj.name" placeholder="write your account name" >
+                    <label for="uName">{{ langObj[this.newLangStatus].words[3] }}</label>
+                    <input type="text" name="uName" id="uName" v-model="orderObj.name" :placeholder=" langObj[this.newLangStatus].words[4]" >
                     <p v-if="errorObj.nameErr.length > 0">{{ errorObj.nameErr[0] }}</p>
                 </div>
                 <div class="input-box">
-                    <label for="uPhone">your phone number</label>
-                    <input type="text" name="uPhone" id="uPhone" v-model="orderObj.phone" placeholder="write your account number">
+                    <label for="uPhone">{{ langObj[this.newLangStatus].words[5] }}</label>
+                    <input type="text" name="uPhone" id="uPhone" v-model="orderObj.phone" :placeholder="langObj[this.newLangStatus].words[6]">
                     <p v-if="errorObj.phoneErr.length > 0">{{ errorObj.phoneErr[0] }}</p>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-box">
-                    <label for="oPeople">how many people</label>
+                    <label for="oPeople">{{ langObj[this.newLangStatus].words[7] }}</label>
                     <input type="number" name="oPeople" id="oPeople" v-model="orderObj.people">
                     <p v-if="errorObj.peopleErr.length > 0">{{ errorObj.peopleErr[0] }}</p>
                 </div>
                 <div class="input-box">
-                    <label forinput-box="oTables">how many tables</label>
+                    <label forinput-box="oTables">{{ langObj[this.newLangStatus].words[8] }}</label>
                     <input type="number" name="oTables" id="oTables" v-model="orderObj.tables">
                     <p v-if="errorObj.tablesErr.length > 0">{{ errorObj.tablesErr[0] }}</p>
                 </div>
@@ -49,7 +49,7 @@
 
             <div class="row">
                 <div class="input-box">
-                    <label for="oWhen">when</label>
+                    <label for="oWhen">{{ langObj[this.newLangStatus].words[9] }}</label>
                     <input type="datetime-local" name="oWhen" id="oWhen" v-model="orderObj.when"
                         @click="availableTime()">
                     <p v-if="errorObj.whenErr.length > 0">{{ errorObj.whenErr[0] }}</p>
@@ -58,8 +58,8 @@
 
             <div class="row">
                 <div class="input-box">
-                    <label for="uMessage">note</label>
-                    <textarea placeholder="your message, do you want to decorate your table?" name="uMessage"
+                    <label for="uMessage">{{ langObj[this.newLangStatus].words[10] }}</label>
+                    <textarea :placeholder="langObj[this.newLangStatus].words[11]" name="uMessage"
                         id="uMessage" cols="30" rows="10" v-model="orderObj.note"></textarea>
                 </div>
                 <div class="input-box">
@@ -69,7 +69,7 @@
                 </div>
             </div>
 
-            <input type="submit" value="Book Now" class="btn">
+            <input type="submit" :value="langObj[this.newLangStatus].words[12]" class="btn">
         </form>
 
     </section>
@@ -86,6 +86,16 @@ export default {
         return {
             orderObj: { name: "", phone: "", people: "", tables: "", card: "", when: "", note: "" },
             errorObj: { nameErr: [], phoneErr: [], peopleErr: [], tablesErr: [], cardErr: [], whenErr: [] },
+            languageStatus : 0,
+            langObj: [
+                
+                    { words: ["Table Form","Opening Hours","2:00am To 6:00pm","Your Name","write your account name","your phone number","write your account number","how many people","how many tables","when","note","your message", "do you want to decorate your table?","Book Now"
+                     ] },
+                    { words: ["Unka Gabatee","Sa'aatii Baniinsaa", "2:00am Hanga 6:00pm","Maqaa Kee", "maqaa herrega keessanii barreessaa", "lakkoofsa bilbila keessanii", "lakkoofsa herrega keessanii barreessaa", "namoota meeqa", "gabatee meeqa", "yoom","yaadannoo","ergaa kee", "minjaala kee faayuu barbaaddaa?","Amma Kitaaba"] },
+                     ],
+         newLangStatus : 0,
+         interval: "",
+
         }
     },
     // computed: {
@@ -95,7 +105,18 @@ export default {
     //     //     return this.allBooks.filter((allbook) => allbook.book_status < 4 && allbook.book_status > 0);
     //     // },
     // },
+    created() {
+        this.getStatus()
+    },
+    mounted: function () {
+        this.autoUpdate(); 
+        window.addEventListener('scroll', this.handleScroll);
+    },
 
+    beforeUnmount() {
+        clearInterval(this.interval);
+        window.removeEventListener('scroll', this.handleScroll);
+    },
     methods: {
         availableTime: function () {
             var now = new Date();
@@ -254,6 +275,22 @@ export default {
                 this.$refs.alert.showAlert('Booking Successfully !')
                 document.getElementById("bookTableForm").reset();
             }
+        },
+        scrollToTop() {
+            window.scrollTo(0, 0);
+        },
+        async getStatus(){
+          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          this.newLangStatus = langStatus.data[0].langstatus;
+        //   console.log(this.newLangStatus);
+        //   console.log(this.langObj[this.newLangStatus].words[0] )
+        
+        },
+
+        autoUpdate: function () {
+            this.interval = setInterval(function () {
+                this.getStatus();
+            }.bind(this), 0);
         }
     },
 

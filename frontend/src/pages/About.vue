@@ -1,114 +1,145 @@
 <template>
     <section class="about-section">
-        <div class="heading">
-            <h3>Our Cafe</h3>
+      <div class="heading">
+        <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
+      </div>
+  
+      <div class="row">
+        <div class="about-content">
+          <img src="../assets/images/dp.jpg" class="image" alt="">
+          <div class="about-content-text">
+            <h2>
+                {{ langObj[this.newLangStatus].words[1] }}
+            </h2>
+          </div>
         </div>
-
-        <div class="row">
-            <div class="about-content">
-                <img src="../assets/images/dp.jpg" class="image" alt="">
-                <div class="about-content-text">
-                    <h2>In 2003, Lewi Café began its journey in Woliso, Ethiopia, starting as a modest establishment with no delivery services and reservations made informally through word-of-mouth. The café's primary focus was on sharing the flavors of "Lewi's secret-spiced magic" with the local community. As time passed, the café evolved, introducing delivery services facilitated by dedicated young men on bicycles and transitioning to using a paper book for reservations, reflecting its growing popularity. Lewi Café has transformed into a multifaceted establishment that serves as a restaurant, a community hub, and a meeting place where Ethiopian cuisine meets modernity. Today, Lewi Café not only offers authentic dishes but also provides a welcoming space for locals to gather, connect, and share experiences. Despite its growth and evolution, Lewi Café's core mission remains steadfast: to foster community unity and bring people together through the shared experience of food.
-</h2>
-                </div>
-            </div>
-        </div>
-
-   
+      </div>
     </section>
-</template>
-
-<script>
-export default {
+  </template>
+  
+  <script>
+  import axios from 'axios';
+  export default {
     name: "About",
-};
-</script>
+    data(){
+        return{
+        languageStatus : 0,
+        // engIndex : 1,
+        // oroIndex : 1,
+        langObj: [
+                { words: ["Our Cafe","In 2003, Lewi Café started in Woliso, Ethiopia, without delivery or formal reservations. Initially focused on sharing unique flavors, it evolved with delivery services and a community space. Today, it's a multifaceted establishment offering authentic dishes and fostering community unity through food."] },
+                
+                { words: ["Caffeen keenya,", "Bara 2003tti, Lewi Café, Ethiopia Woliso keessatti, osoo hin geessin ykn sirnaan reservation malee eegale. Jalqaba mi'aa addaa qooddachuu irratti kan xiyyeeffate yoo ta'u, tajaajila geejjibaa fi iddoo hawaasaa waliin guddate. Har'a dhaabbata roga hedduu qabuu fi nyaata dhugaa dhiyeessuu fi tokkummaa hawaasaa karaa nyaataa guddisudha."] },
+        ],
+         newLangStatus : 0,
+         interval: "",
 
-<style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Satisfy&display=swap");
+            //  langObj[0].words[0]
+            //  langObj[1].words[0] 
+    }},
 
-.about-section {
-    padding: 2% 9%;
-    height: 80vh;
-}
-
-.about-section .about-content {
-    display: flex;
-    width: 100%;
-
-}
-
-.about-section .about-content img {
-    background-color: rgb(249, 249, 249);
-}
-
-.about-section .about-content .about-content-text {
-    font-size: 16px;
-    padding-left: 50px;
     
-}
-.heading h3, .about-content-text {
-    padding-top: 20px;
-}
+    created() {
+        this.getStatus()
+    },
+    mounted: function () {
+        this.autoUpdate(); 
+        window.addEventListener('scroll', this.handleScroll);
+    },
 
-.about-section .gallery .wrapper img:nth-child(7n + 1) {
-    grid-column: 2 / span 2;
-}
+    beforeUnmount() {
+        clearInterval(this.interval);
+        window.removeEventListener('scroll', this.handleScroll);
+    },
+    methods: {
+        scrollToTop() {
+            window.scrollTo(0, 0);
+        },
+        async getStatus(){
+          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          this.newLangStatus = langStatus.data[0].langstatus;
+        //   console.log(this.newLangStatus);
+        //   console.log(this.langObj[this.newLangStatus].words[0] )
+        
+        },
 
-.about-section .gallery .wrapper img:hover {
-    z-index: 2;
-    transform: scale(1);
-}
-.image{
-        height: 65%;
+        autoUpdate: function () {
+            this.interval = setInterval(function () {
+                this.getStatus();
+            }.bind(this), 0);
+        }
+
+        
     }
 
-@media (max-width: 768px) {
-    .about-section .about-content img {
-        width: 250px;
+  };
+  </script>
+  
+  <style scoped>
+  @import url("https://fonts.googleapis.com/css2?family=Satisfy&display=swap");
+  
+  /* Body and Container Styles */
+  body {
+    background-color: #f7f7f7;
+    font-family: 'Satisfy', cursive;
+  }
+  
+  .about-section {
+    width: 85%;
+    padding: 2% 5%;
+    margin: auto;
+    height: auto;
+  }
+  
+  /* Heading Styles */
+  .heading {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .heading h3 {
+    font-size: 32px;
+    color: #333;
+  }
+  
+  /* Content Styles */
+  .about-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 50px;
+  }
+  
+  .about-content img {
+    width: 35%;
+    border-radius: 10px;
+  }
+  
+  .about-content-text {
+    width: 60%;
+  }
+  
+  .about-content-text h2 {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #666;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .about-content {
+      flex-direction: column;
+      text-align: center;
     }
-
-    .about-section .gallery .wrapper img:hover {
-        transform: scale(2.5);
+  
+    .about-content img {
+      width: 80%;
+      margin-bottom: 30px;
     }
-    .image{
-        height: 60vh;
+  
+    .about-content-text {
+      width: 100%;
     }
-
-}
-
-@media (max-width: 576px) {
-    .about-section .about-content img {
-        width: inherit;
-    }
-
-    .about-section .about-content {
-        display: block;
-    }
-
-    .about-section .about-content .about-content-text {
-        padding-left: 0px;
-    }
-
-    .about-section .gallery {
-        padding: 50px 0px;
-    }
-
-    .about-section .gallery .wrapper img {
-        max-width: 100%;
-
-    }
-
-    .about-section .gallery .wrapper {
-        grid-gap: 2vmin;
-    }
-
-    .about-section .gallery .wrapper img:hover {
-        transform: scale(2);
-    }
-    .image{
-        height: 50%;
-    }
-
-}
-</style>
+  }
+  </style>
+  

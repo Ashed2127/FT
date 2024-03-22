@@ -31,7 +31,7 @@ data(){
         langObj: [
                 { words: ["quick links","home", "menu", "book a table", "about"] },
                 
-                { words: ["hidhannoo saffisaa","mana", "menu", "gabatee buufachuu", "waa'ee"] },
+                { words: ["hidhannoo saffisaa","mana", "meenuu", "gabatee buufachuu", "waa'ee"] },
         ],
          newLangStatus : 0,
          interval: "",

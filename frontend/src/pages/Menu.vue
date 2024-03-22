@@ -1,13 +1,13 @@
 <template>
     <div class="menu-section">
         <div class="heading">
-            <h3>our special dishes</h3>
+            <h3>{{langObj[this.newLangStatus].words[7]}}</h3>
         </div>
 
         <div class="row">
             <div class="col-sm-4 col-12 filter-box ">
                 <div class="row search-box ">
-                    <input type="text" class="search-input col-sm-10 col-md-10 col-lg-4" v-model="foodObj.name" placeholder="Search Food..." />
+                    <input type="text" class="search-input col-sm-10 col-md-10 col-lg-6=7" v-model="foodObj.name" :placeholder=" langObj[this.newLangStatus].words[0]" />
                 </div>
 
             
@@ -18,17 +18,17 @@
                     <div class="menu-tabs">
                         
                         <input type="button" id="breakfastFilterFoodBtn" name="breakfastFilterFoodBtn" class="menu-tab-item"
-                            value="breakfast" @click="filterFoodBtn($event)" />
+                            :value="langObj[this.newLangStatus].words[1]" @click="filterFoodBtn($event)" />
                         <input type="button" id="lunchFilterFoodBtn" name="lunchFilterFoodBtn" class="menu-tab-item"
-                            value="lunch" @click="filterFoodBtn($event)" />
+                            :value="langObj[this.newLangStatus].words[2]" @click="filterFoodBtn($event)" />
                         <input type="button" id="dinnerFilterFoodBtn" name="dinnerFilterFoodBtn" class="menu-tab-item"
-                            value="dinner" @click="filterFoodBtn($event)" />
+                            :value="langObj[this.newLangStatus].words[3]" @click="filterFoodBtn($event)" />
                         <input type="button" id="hot-drinkFilterFoodBtn" name="hot-drinkFilterFoodBtn" class="menu-tab-item"
-                            value="hot-drink" @click="filterFoodBtn($event)" />
+                            :value="langObj[this.newLangStatus].words[4]" @click="filterFoodBtn($event)" />
                         <input type="button" id="dessertFilterFoodBtn" name="dessertFilterFoodBtn" class="menu-tab-item"
-                            value="dessert" @click="filterFoodBtn($event)" />
+                            :value="langObj[this.newLangStatus].words[5]" @click="filterFoodBtn($event)" />
                         <input type="button" id="soft-drinkFilterFoodBtn" name="soft-drinkFilterFoodBtn" class="menu-tab-item"
-                            value="soft-drink" @click="filterFoodBtn($event)" />
+                            :value="langObj[this.newLangStatus].words[6]" @click="filterFoodBtn($event)" />
                     </div>
                 </div>
 
@@ -49,14 +49,14 @@
                                     <span v-if="parseFloat(f.food_discount) != 0.00">{{ parseFloat(f.food_price)
                                     }}birr</span>
                                 </div>
-                                <button class="btn" @click="addItem(index)">Add to cart</button>
+                                <button class="btn" @click="addItem(index)">{{langObj[this.newLangStatus].words[8]}}</button>
                             </div>
                         </div>
                     </div>
                     <div v-if="!filterFoods.length">
                         <div class="box">
                             <div class="content">
-                                <h1 style="color: #2f5899;">No match found!</h1>
+                                <h1 style="color: #2f5899;">{{langObj[this.newLangStatus].words[9]}}</h1>
                             </div>
                            
                         </div>
@@ -84,6 +84,7 @@
 <script>
 import QuickView from "@/components/QuickView.vue";
 import { mapState } from "vuex";
+import axios from "axios";
 export default {
     name: "Menu",
 
@@ -101,6 +102,15 @@ export default {
             previousPriceClicked: "",
             previousTypeClicked: "",
             
+
+            languageStatus : 0,
+            langObj: [
+                    { words: ["Search Food...","breakfast","lunch","dinner","hot-drink","dessert","soft-drink", "our special dishes","Add to cart","No match found!"] },
+                    
+                    { words: ["Nyaata Barbaadi...","ciree","laaqana","irbaata","dhugaatii ho’aa", "nyaatatti aantuu","dhugaatii lallaafaa", "nyaata addaa keenya","Gara gaariitti dabali","Walsimsiisaa hin argamne!"] },
+            ],
+            newLangStatus : 0,
+            interval: "",
         };
     },
 
@@ -125,6 +135,19 @@ export default {
                 return this.filterFoods.length / this.perPage;
             }
         }
+    },
+
+    created() {
+        this.getStatus()
+    },
+    mounted: function () {
+        this.autoUpdate(); 
+        window.addEventListener('scroll', this.handleScroll);
+    },
+
+    beforeUnmount() {
+        clearInterval(this.interval);
+        window.removeEventListener('scroll', this.handleScroll);
     },
     methods: {
         set(val) {
@@ -326,6 +349,20 @@ export default {
                 }
             }
             this.showDropDown = !this.showDropDown;
+        },
+
+        async getStatus(){
+          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          this.newLangStatus = langStatus.data[0].langstatus;
+        //   console.log(this.newLangStatus);
+        //   console.log(this.langObj[this.newLangStatus].words[0] )
+        
+        },
+
+        autoUpdate: function () {
+            this.interval = setInterval(function () {
+                this.getStatus();
+            }.bind(this), 0);
         }
 
     },
@@ -432,7 +469,7 @@ hr {
     display: inline-block;
     cursor: pointer;
     padding: 5px 30px;
-    border-radius: 30%;
+    
     font-size: 20px;
     color: whitesmoke;
     font-weight: 500;
