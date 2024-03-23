@@ -7,7 +7,7 @@
 
             <form id="loginForm" @submit="handleSubmit" novalidate autocomplete="off">
 
-                <h3>LOGIN</h3>
+                <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
 
                 <div v-if="errors.length" class="error-box">
                     <ul>
@@ -16,18 +16,18 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="email" id="uEmail" name="uEmail" class="form-control" placeholder="enter your email"
+                    <input type="email" id="uEmail" name="uEmail" class="form-control" :placeholder="langObj[this.newLangStatus].words[1]"
                         v-model="loginObj.email" />
                 </div>
 
                 <div class="form-group">
                     <input type="password" id="uPass" name="uPass" class="form-control"
-                        placeholder="enter your password" v-model="loginObj.pass" />
+                        :placeholder="langObj[this.newLangStatus].words[2]" v-model="loginObj.pass" />
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="login now" class="btn">
-                    <p>don't have an account? <router-link @click="scrollToTop()" to="/register">create one
+                    <input type="submit" :value="langObj[this.newLangStatus].words[3]" class="btn">
+                    <p>{{ langObj[this.newLangStatus].words[4] }}<router-link @click="scrollToTop()" to="/register">{{ langObj[this.newLangStatus].words[4] }}
                         </router-link>
                     </p>
                 </div>
@@ -49,7 +49,29 @@ export default {
             loginObj: { email: "", pass: "" },
             matchUser: undefined,
             errors: [],
-        }
+
+            languageStatus : 0,
+            langObj: [
+                { words: ["LOGIN","enter your email","enter your password","login now","don't have an account? ","create one"
+            ] },
+                    
+                    { words: ["SEENAA", "email keessan galchaa", "jecha icciitii keessan galchaa", "amma seeni", "account hin qabdan? ", "tokko uumuu"] },
+            ],
+            newLangStatus : 0,
+            interval: "",
+                }
+    },
+    created() {
+        this.getStatus()
+    },
+    mounted: function () {
+        this.autoUpdate(); 
+        window.addEventListener('scroll', this.handleScroll);
+    },
+
+    beforeUnmount() {
+        clearInterval(this.interval);
+        window.removeEventListener('scroll', this.handleScroll);
     },
 
     methods: {
@@ -109,6 +131,20 @@ export default {
                     }
                 }
             }
+        },
+
+        async getStatus(){
+          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          this.newLangStatus = langStatus.data[0].langstatus;
+        //   console.log(this.newLangStatus);
+        //   console.log(this.langObj[this.newLangStatus].words[0] )
+        
+        },
+
+        autoUpdate: function () {
+            this.interval = setInterval(function () {
+                this.getStatus();
+            }.bind(this), 50);
         }
     }
     ,

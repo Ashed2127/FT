@@ -66,7 +66,7 @@
         autoUpdate: function () {
             this.interval = setInterval(function () {
                 this.getStatus();
-            }.bind(this), 0);
+            }.bind(this), 50);
         }
 
         

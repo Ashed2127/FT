@@ -2,50 +2,50 @@
     <div class="register-container">
         <div class="register-form-container">
             <form id="registerForm" @submit="handleSubmit" novalidate autocomplete="off">
-                <h3>Create your account</h3>
+                <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
                 <div class="form-group">
-                    <label for="uName">Enter your name:
+                    <label for="uName">{{ langObj[this.newLangStatus].words[1] }}
                     </label>
-                    <input type="text" name="uName" placeholder="your full name" id="uName" class="form-control"
+                    <input type="text" name="uName" :placeholder="langObj[this.newLangStatus].words[2] " id="uName" class="form-control"
                         v-model="registerObj.name" />
                     <p class="error-mess" v-if="errorObj.nameErr.length > 0">{{ errorObj.nameErr[0] }}</p>
                 </div>
 
                 <div class="form-group">
-                    <label for="uEmail">Enter your email:
+                    <label for="uEmail">{{ langObj[this.newLangStatus].words[3] }}
                     </label>
-                    <input type="email" name="uEmail" placeholder="example@gmail.com" id="uEmail" class="form-control"
+                    <input type="email" name="uEmail" :placeholder="langObj[this.newLangStatus].words[4]" id="uEmail" class="form-control"
                         v-model="registerObj.email" />
                     <p class="error-mess" v-if="errorObj.emailErr.length > 0">{{ errorObj.emailErr[0] }}</p>
                 </div>
 
                 <div class="form-group">
-                    <label for="uPass">Enter your password:
+                    <label for="uPass">{{ langObj[this.newLangStatus].words[5] }}
                     </label>
-                    <input type="password" name="uPass" placeholder="enter your password" id="uPass"
+                    <input type="password" name="uPass" :placeholder="langObj[this.newLangStatus].words[6]" id="uPass"
                         class="form-control" v-model="registerObj.pass" />
                     <p class="error-mess" v-if="errorObj.passErr.length > 0">{{ errorObj.passErr[0] }}</p>
                 </div>
 
                 <div class="form-group">
-                    <label for="uPassConfirm">Check your password again:
+                    <label for="uPassConfirm">{{ langObj[this.newLangStatus].words[7] }}
                     </label>
-                    <input type="password" name="uPassConfirm" placeholder="enter your password again" id="uPassConfirm"
+                    <input type="password" name="uPassConfirm" :placeholder="langObj[this.newLangStatus].words[8]" id="uPassConfirm"
                         class="form-control" v-model="registerObj.confirm" />
                     <p class="error-mess" v-if="errorObj.confirmErr.length > 0">{{ errorObj.confirmErr[0] }}</p>
                 </div>
 
                 <div class="form-group">
-                    <label for="uPhone">Enter your phone number:
+                    <label for="uPhone">{{ langObj[this.newLangStatus].words[9] }}
                     </label>
-                    <input type="tel" name="uPhone" placeholder="enter your phone number" id="uPhone"
+                    <input type="tel" name="uPhone" :placeholder="langObj[this.newLangStatus].words[10]" id="uPhone"
                         class="form-control" v-model="registerObj.phone" />
                     <p class="error-mess" v-if="errorObj.phoneErr.length > 0">{{ errorObj.phoneErr[0] }}</p>
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="create account" class="btn" />
-                    <p>have an account? <router-link @click="scrollToTop()" to="/login">login</router-link>
+                    <input type="submit" :value="langObj[this.newLangStatus].words[11]" class="btn" />
+                    <p>{{ langObj[this.newLangStatus].words[12] }} <router-link @click="scrollToTop()" to="/login">{{ langObj[this.newLangStatus].words[13] }}</router-link>
                     </p>
                 </div>
             </form>
@@ -64,7 +64,28 @@ export default {
             errorObj: { nameErr: [], emailErr: [], passErr: [], confirmErr: [], phoneErr: [] },
             matchUser: undefined,
 
+            languageStatus : 0,
+            langObj: [
+                { words: ["Create your account","Enter your name:","your full name","Enter your email:","example@gmail.com","Enter your password:","enter your password","Check your password again:","enter your password again","Enter your phone number:","enter your phone number","create account","have an account?","login"
+] },
+                    
+                    { words: ["Akkaawuntii keessan uumi", "Maqaa kee galchi:","maqaa kee guutuu", "Email keessan galchaa:","fakkeenyaaf@gmail.com", "Jecha icciitii keessan galchaa:","jecha icciitii keessan galchaa", "Jecha icciitii keessan irra deebi'aa ilaalaa:","irra deebi'ii jecha icciitii kee galchi", "Lakkoofsa bilbila keessanii galchaa:","lakkoofsa bilbila keessanii galchaa", "account uumuu", "akkaawuntii qabduu?","seenuu"] },
+            ],
+            newLangStatus : 0,
+            interval: "",
         }
+    },
+    created() {
+        this.getStatus()
+    },
+    mounted: function () {
+        this.autoUpdate(); 
+        window.addEventListener('scroll', this.handleScroll);
+    },
+
+    beforeUnmount() {
+        clearInterval(this.interval);
+        window.removeEventListener('scroll', this.handleScroll);
     },
 
     methods: {
@@ -186,7 +207,21 @@ export default {
                     this.$router.push("/login");
                 }
             }
+        },
+        async getStatus(){
+          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          this.newLangStatus = langStatus.data[0].langstatus;
+        //   console.log(this.newLangStatus);
+        //   console.log(this.langObj[this.newLangStatus].words[0] )
+        
+        },
+
+        autoUpdate: function () {
+            this.interval = setInterval(function () {
+                this.getStatus();
+            }.bind(this), 50);
         }
+
     },
 
 };

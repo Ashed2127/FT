@@ -17,22 +17,22 @@
                                     parseFloat(f.food_price)
                             }}birr</span></p>
                     <div class="qty">
-                        <label for="qty">Quantity:</label>
+                        <label for="qty">{{ langObj[this.newLangStatus].words[0] }}</label>
                         <input type="number" name="qty" id="qty" value="1" min="1" max="1000"
                             @change="onQtyChange($event)" />
                     </div>
-                    <button class="btn" @click="addToCart">Add to cart</button>
+                    <button class="btn" @click="addToCart">{{ langObj[this.newLangStatus].words[1] }}</button>
                 </div>
             </div>
         </div>
     </div>
     <div v-else class="quick-view">
         <div class="quick-view-inner">
-            <h2 class="d-flex justify-content-between">Please login to use this method
+            <h2 class="d-flex justify-content-between">{{ langObj[this.newLangStatus].words[2] }}
                 <slot></slot>
             </h2>
             <div class="link-to-login" style="text-align: center; margin-top: 120px;">
-                <router-link class="btn" to="/login" style="padding: 28px; font-size: 24px">login now
+                <router-link class="btn" to="/login" style="padding: 28px; font-size: 24px">{{ langObj[this.newLangStatus].words[3] }}
                 </router-link>
             </div>
         </div>
@@ -50,6 +50,16 @@ export default {
     data() {
         return {
             qty: 1,
+
+            languageStatus : 0,
+            langObj: [
+                { words: ["Quantity:","Add to cart","Please login to use this method","login now"
+            ] },
+                    
+                    { words: ["Baay'ina:","Gara gaariitti dabali", "Mee mala kana fayyadamuuf seeni", "amma seeni"] },
+            ],
+            newLangStatus : 0,
+            interval: "",
         }
     },
 
@@ -60,7 +70,18 @@ export default {
             return this.allFoods.filter((f) => parseInt(f.food_id) == parseInt(this.food));
         }
     },
+    created() {
+        this.getStatus()
+    },
+    mounted: function () {
+        this.autoUpdate(); 
+        window.addEventListener('scroll', this.handleScroll);
+    },
 
+    beforeUnmount() {
+        clearInterval(this.interval);
+        window.removeEventListener('scroll', this.handleScroll);
+    },
     methods: {
         onQtyChange: function (e) {
             if (e.target.value < 1) {
@@ -94,6 +115,19 @@ export default {
                 await axios.post("/cartItem/", data)
                 this.$refs.alert.showAlert('Added  Successfully')
             }
+        },
+        async getStatus(){
+          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          this.newLangStatus = langStatus.data[0].langstatus;
+        //   console.log(this.newLangStatus);
+        //   console.log(this.langObj[this.newLangStatus].words[0] )
+        
+        },
+
+        autoUpdate: function () {
+            this.interval = setInterval(function () {
+                this.getStatus();
+            }.bind(this), 50);
         }
     },
 

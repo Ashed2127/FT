@@ -2,7 +2,7 @@
     <div class="shopping-cart-section">
 
         <div class="heading">
-            <h3>your cart</h3>
+            <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
         </div>
 
         <div class="container">
@@ -13,16 +13,16 @@
                             <div class="box-title item-total row">
                                 <h3>
                                     <p style="font-size: 15px;">{{ filterFoods.length.toString() }}
-                                        <span v-if="filterFoods.length < 2">item</span>
-                                        <span v-else>items</span>
-                                    </p>in your cart
+                                        <span v-if="filterFoods.length < 2">{{ langObj[this.newLangStatus].words[ 1] }}</span>
+                                        <span v-else>{{ langObj[this.newLangStatus].words[2] }}</span>
+                                    </p>{{ langObj[this.newLangStatus].words[3] }}
                                 </h3>
                             </div>
 
                             <div v-if="!filterFoods.length">
                                 <div class="box-content row no-food">
                                     <div class="content">
-                                        <h2 style="color: #057835fa;">Empty Cart, Add Now</h2>
+                                        <h2 style="color: #057835fa;">{{ langObj[this.newLangStatus].words[ 4] }}</h2>
                                     </div>
                                   
                                 </div>
@@ -38,12 +38,11 @@
                                         <div class="desc col-sm-4">
                                             <h2 class="item-name">{{ f.food_name }}</h2>
                                             <div class="item-desc">
-                                                <b>Description</b>
+                                                <b>{{ langObj[this.newLangStatus].words[5] }}</b>
                                                 <p>{{ f.food_desc }}</p>
                                             </div>
                                             <button class="btn remove-btn" @click="removeBtn(index)"><i
-                                                    class="fa fa-trash"></i>Remove
-                                                item</button>
+                                                    class="fa fa-trash"></i>{{ langObj[this.newLangStatus].words[6] }}</button>
                                         </div>
 
                                         <div class="item-price col-sm-1">
@@ -61,7 +60,7 @@
 
                                         <div class="item-qty col-sm-2 d-inline">
                                             <label for="iQuantity"
-                                                style="font-size: 12px; padding-right: 2px;">Quantity:</label>
+                                                style="font-size: 12px; padding-right: 2px;">{{ langObj[this.newLangStatus].words[14] }}</label>
                                             <input type="number" id="iQuantity" class="form-control item-quantity"
                                                 :value="itemQuantity[index]" min="1" max="1000"
                                                 @change="onQtyChange($event, index)">
@@ -81,9 +80,9 @@
                         </div>
 
                         <div class="box-content row">
-                            <router-link to="/menu" class="btn shop-btn"><i class="fa fa-arrow-left"></i>Back to menu</router-link>
+                            <router-link to="/menu" class="btn shop-btn"><i class="fa fa-arrow-left"></i>{{ langObj[this.newLangStatus].words[7] }}</router-link>
                             <button class="btn check-out-btn" style="margin-left: 10px;"
-                                :disabled="filterFoods.length ? false : true" @click="checkOutBtn()">Checkout</button>
+                                :disabled="filterFoods.length ? false : true" @click="checkOutBtn()">{{ langObj[this.newLangStatus].words[8] }}</button>
                         </div>
                     </div>
 
@@ -91,22 +90,22 @@
                     <div class="col-md-3">
                         <div class="box">
                             <div class="box-title">
-                                <h3>Cart Summary</h3>
+                                <h3>{{ langObj[this.newLangStatus].words[9] }}</h3>
                             </div>
 
                             <div class="box-content">
-                                <span>Summary</span>
+                                <span>{{ langObj[this.newLangStatus].words[10] }}</span>
                                 <h3 class="font-bold total-first-price">{{ calculateSummaryPrice()[0] }}birr</h3>
 
-                                <span>Discount</span>
+                                <span>{{ langObj[this.newLangStatus].words[11] }}</span>
                                 <h3 class="font-bold total-discount">{{ calculateSummaryPrice()[1] }}birr</h3>
 
-                                <span>Delivery fee</span>
+                                <span>{{ langObj[this.newLangStatus].words[12] }}</span>
                                 <h3 class="font-bold total-delivery">{{ calculateSummaryPrice()[2] }}birr</h3>
 
                                 <hr />
 
-                                <span>Total</span>
+                                <span>{{ langObj[this.newLangStatus].words[13] }}</span>
                                 <h2 class="font-bold total-sale">{{ calculateSummaryPrice()[3] }}birr</h2>
 <!-- 
                                 <div class="btn-group">
@@ -137,13 +136,34 @@ export default {
         return {
             cartItem: [],
             itemQuantity: [],
+
+            languageStatus : 0,
+            langObj: [
+                { words: ["your cart","item","items","in your cart","Empty Cart, Add Now","Description","Remove item","Back to menu","Checkout","Cart Summary","Summary","Discount","Delivery fee","Total","Quantity:"
+
+
+            ] },
+                    
+                    { words: ["gaarii kee", "wanta","wantoota","gaarii keessan keessa", "Gaarii Duwwaa, Amma Dabaluu", "Ibsa","Meeshaa balleessi", "Gara menutti deebi'a", "Kaffaltii", "Cuunfaa Gaarii", "Cuunfaa","Gatii gadi bu'aa","Kaffaltii geejjibaa", "Ida'ama","Baay'ina:"] },
+            ],
+            newLangStatus : 0,
+            interval: "",
         };
     },
 
     created() {
         this.getAllCartItem();
+        this.getStatus();
+    },
+    mounted: function () {
+        this.autoUpdate(); 
+        window.addEventListener('scroll', this.handleScroll);
     },
 
+    beforeUnmount() {
+        clearInterval(this.interval);
+        window.removeEventListener('scroll', this.handleScroll);
+    },
     computed: {
         ...mapState(["allFoods", "user"]),
 
@@ -228,6 +248,19 @@ export default {
                     this.itemQuantity.push(element.item_qty);
                 });
             }
+        },
+        async getStatus(){
+          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          this.newLangStatus = langStatus.data[0].langstatus;
+        //   console.log(this.newLangStatus);
+        //   console.log(this.langObj[this.newLangStatus].words[0] )
+        
+        },
+
+        autoUpdate: function () {
+            this.interval = setInterval(function () {
+                this.getStatus();
+            }.bind(this), 50);
         }
 
 
