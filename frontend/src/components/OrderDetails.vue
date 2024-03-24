@@ -1,7 +1,7 @@
 <template>
     <div class="order-details">
         <div class="order-details-inner">
-            <h2 class="d-flex justify-content-between">Bill Detail
+            <h2 class="d-flex justify-content-between">{{ langObj[this.newLangStatus].words[0] }}
                 <slot></slot>
             </h2>
             <div class="d-flex flex-wrap h-30 flex-row" style="overflow-y: auto;">
@@ -19,10 +19,10 @@
             </div>
 
             <div class="price px-5">
-                <h1>Paid: {{ billMatch.bill_paid }}</h1>
-                <h1>Discount: {{ billMatch.bill_discount }}birr</h1>
-                <h1>Delivery Fee: {{ billMatch.bill_delivery }}birr</h1>
-                <h1>Total: {{ billMatch.bill_total }}birr</h1>
+                <h1>{{ langObj[this.newLangStatus].words[1] }} {{ billMatch.bill_paid }}</h1>
+                <h1>{{ langObj[this.newLangStatus].words[2] }}{{ billMatch.bill_discount }}birr</h1>
+                <h1>{{ langObj[this.newLangStatus].words[3] }} {{ billMatch.bill_delivery }}birr</h1>
+                <h1>{{ langObj[this.newLangStatus].words[4] }}{{ billMatch.bill_total }}birr</h1>
             </div>
         </div>
     </div>
@@ -41,12 +41,32 @@ export default {
             item_qty: [],
 
             billMatch: undefined,
+
+            languageStatus : 0,
+            langObj: [
+            { words: ["bill detail ","Paid:","Discount:","Delivery Fee:","Total:"] },
+                
+                { words: ["bal'ina biilii" , "Kaffalame:","Gatii gadi bu'aa:","Kaffaltii Geejjibaa:","Ida'ama:"] },
+              ],
+            newLangStatus : 0,
+            interval: "",
         }
     },
 
     created() {
         this.getAllFoods();
         this.getBillStatus()
+        this.getStatus();
+
+    },
+    mounted: function () {
+        this.autoUpdate();
+        window.addEventListener('scroll', this.handleScroll);
+    },
+
+    beforeUnmount() {
+        clearInterval(this.interval)
+        window.removeEventListener('scroll', this.handleScroll);
     },
 
     computed: {
@@ -85,6 +105,20 @@ export default {
                 this.billMatch = (await axios.get('/billstatus/bill/' + this.bill)).data[0];
             }
         },
+
+        async getStatus(){
+          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          this.newLangStatus = langStatus.data[0].langstatus;
+        //   console.log(this.newLangStatus);
+        //   console.log(this.langObj[this.newLangStatus].words[0] )
+        
+        },
+        autoUpdate: function () {
+            this.interval = setInterval(function () {
+                this.getAllBills();
+                this.getStatus();
+            }.bind(this), 50);
+        }
     }
 }
 </script>
@@ -106,7 +140,7 @@ export default {
 
 .order-details .order-details-inner {
     width: 60vw;
-    height: 40vh;
+    height: 70vh;
     background-color: #fff;
     padding: 32px;
 }
@@ -152,7 +186,7 @@ export default {
 
     .order-details .order-details-inner {
         width: 60vw;
-        height: 40vh;
+        height: 70vh;
 
     }
 
@@ -175,7 +209,7 @@ export default {
 @media (max-width: 576px) {
     .order-details .order-details-inner {
         width: 70vw;
-        height: 40vh;
+        height: 70vh;
     }
 
     .order-details .order-details-inner div:first-of-type {

@@ -5,15 +5,15 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-4 col-12 filter-box ">
+            <div class="col-sm-12 col-xl-12 col-lg-12 col-md-12 filter-box ">
                 <div class="row search-box ">
-                    <input type="text" class="search-input col-sm-10 col-md-10 col-lg-6=7" v-model="foodObj.name" :placeholder=" langObj[this.newLangStatus].words[0]" />
+                    <input type="text" class="search-input col-sm-12 col-md-12 col-lg-12" v-model="foodObj.name" :placeholder=" langObj[this.newLangStatus].words[0]" />
                 </div>
 
             
             </div>
 
-            <div class="col-sm-8 col-md-8 col-lg-8">
+            <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="row">
                     <div class="menu-tabs">
                         
@@ -105,7 +105,7 @@ export default {
 
             languageStatus : 0,
             langObj: [
-                    { words: ["Search Food...","breakfast","lunch","dinner","hot-drink","dessert","soft-drink", "our special dishes","Add to cart","No match found!"] },
+                    { words: ["Search Food Here...","breakfast","lunch","dinner","hot-drink","dessert","soft-drink", "our special dishes","Add to cart","No match found!"] },
                     
                     { words: ["Nyaata Barbaadi...","ciree","laaqana","irbaata","dhugaatii ho’aa", "nyaatatti aantuu","dhugaatii lallaafaa", "nyaata addaa keenya","Gara gaariitti dabali","Walsimsiisaa hin argamne!"] },
             ],
@@ -446,7 +446,7 @@ hr {
     height: 40px;
     font-size: 20px;
     color: white;
-    background: #2f5899;
+    background: #919292;
 }
 
 ::placeholder {

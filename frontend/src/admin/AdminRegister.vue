@@ -1,7 +1,19 @@
 <template>
-    <div class="register-container">
-        <div v-if="!adminExists" class="register-form-container">
+    <!-- :class="emailData.length  < 1 ? '' : 'fit-screen'" -->
+    <div class="register-container" :class="emailData.length  < 1 ? '' : 'fit-screen'">
+        <!-- v-if="emailData.length  < 1"  -->
+
+        <div v-if="emailData.length  < 1" class="register-form-container">
             <form id="registerForm" @submit="handleSubmit" novalidate autocomplete="off">
+
+                <div class="form-group">
+                    <p>Account Already Created, <router-link @click="scrollToTop()" to="/adminlogin">Login Here</router-link>
+                    </p>
+                </div>
+            </form>
+        </div>
+        <div   v-else  class="register-form-container">
+            <form  id="registerForm" @submit="handleSubmit" novalidate autocomplete="off">
                 <h3>Create Admin Account</h3>
 
                 <div class="form-group">
@@ -28,7 +40,6 @@
                     <p class="error-mess" v-if="errorObj.confirmErr.length > 0">{{ errorObj.confirmErr[0] }}</p>
                 </div>
 
-
                 <div class="form-group">
                     <input type="submit" value="create account" class="btn" />
                     <p>have an account? <router-link @click="scrollToTop()" to="/adminlogin">login</router-link>
@@ -36,10 +47,10 @@
                 </div>
             </form>
         </div>
+        <!-- v-else-if="emailData.length  > 0" -->
+        <!-- v-else  -->
+       
 
-        <div v-else>
-              Admin account already created.
-        </div>
     </div>
 </template>
 
@@ -54,14 +65,37 @@ export default {
             errorObj: {emailErr: [], passErr: [], confirmErr: []},
             matchUser: undefined,
             // adminExists: false,
+            adminData : '',
+             interval: "",
+
         }
     },
 
+    created(){
+        this.checkAdminData();
+    },
+
+    mounted(){
+        this.autoUpdate(); 
+        window.addEventListener('scroll', this.handleScroll);
+    },
+
+    computed: {
+        
+    },
     methods: {
         async getMatchUser(email) {
             let data = await axios.get('/admin/' + email);
             this.matchUser = data.data;
         },
+
+        ///////display admin data//////////
+        async  checkAdminData(){
+            let dataAdmin = await axios.get("/admindata/", this.adminData);
+            let emailData = dataAdmin.data.admin_email;
+            console.log(emailData.length);
+            return emailData;
+        } ,
 
         scrollToTop() {
             window.scrollTo(0, 0);
@@ -84,8 +118,6 @@ export default {
 
         checkForm: function () {
             this.resetCheckErr();
-
-         
 
             // Email validate
             if (!this.registerObj.email) {
@@ -144,23 +176,19 @@ export default {
                     await axios.post("/admin/", data);
                     // localStorage.setItem('adminExists', 'true')
                     this.$router.push("/adminlogin");
+                    // let dataAdmin = await axios.get("/admindata/", this.adminData);
+                    // let emailData = dataAdmin.data.admin_email;
+                    // console.log(emailData);
+                   
                 }
             }
-        }
-    },
+        },
 
-    mounted: function () {
-        this.autoUpdate();
-        // this.adminExists = localStorage.getItem('adminExists') === 'true';
-    //     axios.get('/admindata/')
-    // .then(response => {
-    //   if (response.data > 0) {
-    //     this.$router.push('/adminlogin'); // Or a more suitable page
-    //   }
-    // })
-    // .catch(error => {
-    //   console.log(error);
-    // });
+        autoUpdate: function () {
+            this.interval = setInterval(function () {
+                this.checkAdminData();
+            }.bind(this), 50);
+        }
     },
     
 };
@@ -255,4 +283,9 @@ export default {
     margin: 0;
     padding: 0;
 }
+
+.register-container.fit-screen {
+    height: 90vh;
+}
+
 </style>

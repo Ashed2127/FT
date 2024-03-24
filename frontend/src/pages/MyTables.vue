@@ -4,7 +4,7 @@
             <div v-for="book in filterBooks.slice().reverse()" class="card" :key="book.book_id">
                 <div class="card-head d-flex flex-wrap flex-sm-nowrap justify-content-between">
                     <!-- -->
-                    <div><h1>Table Track Dashboard</h1> 
+                    <div><h1>{{ langObj[this.newLangStatus].words[0] }}</h1> 
                         <!-- <span>Table No - </span>
                         <span>{{ book.book_id }}</span> -->
                     </div>
@@ -14,17 +14,17 @@
                 <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between card-summary">
                     <!-- <div class="w-100 text-center py-1 px-2"><span>Paid:</span>{{ " " + b.bill_paid }}
                     </div> -->
-                    <div class="w-100 text-center py-1 px-2"><span>Status:</span>{{avaiableStatus[book.book_status]
+                    <div class="w-100 text-center py-1 px-2"><span>{{ langObj[this.newLangStatus].words[1] }}</span>{{avaiableStatus[book.book_status]
                     }}
                     </div>
-                    <div class="w-100 text-center py-1 px-2"><span>When:</span> {{ book.book_when }}</div>
+                    <div class="w-100 text-center py-1 px-2"><span>{{ langObj[this.newLangStatus].words[2] }}</span> {{ book.book_when }}</div>
                 </div>
                 <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between card-summary">
 
                     <!-- <div class="w-100 text-center py-1 px-2"><span>Total:</span> {{ b.bill_total }}birr</div> -->
                     <!-- <div class="w-100 text-ce¦nter py-1 px-2"><span>Address:</span>{{ " " + b.bill_address }}
                     </div> -->
-                    <div class="w-100 text-center py-1 px-2"><span>Phone:</span>{{ " " + book.book_phone }}
+                    <div class="w-100 text-center py-1 px-2"><span>{{ langObj[this.newLangStatus].words[3] }}</span>{{ " " + book.book_phone }}
                     </div>
                 </div>
 
@@ -34,26 +34,26 @@
                             <div class="step-icon-wrap">
                                 <div class="step-icon"><i class="fa-regular fa-circle-check"></i></div>
                             </div>
-                            <h4 class="step-title">Confirmed</h4>
+                            <h4 class="step-title">{{ langObj[this.newLangStatus].words[4] }}</h4>
                         </div>
                         <div class="step" :class="book.book_status >= 2 ? 'completed' : ''">
                             <div class="step-icon-wrap">
                                 <div class="step-icon">
                                     <i class="fa fa-check"></i></div>
                             </div>
-                            <h4 class="step-title">Checking</h4>
+                            <h4 class="step-title">{{ langObj[this.newLangStatus].words[5] }}</h4>
                         </div>
                         <div class="step" :class="book.book_status === 3 ? 'completed' : ''">
                             <div class="step-icon-wrap">
                                 <div class="step-icon"><i class="fa-solid fa-chair"></i></div>
                             </div>
-                            <h4 class="step-title">Reserved</h4>
+                            <h4 class="step-title">{{ langObj[this.newLangStatus].words[6] }}</h4>
                         </div>
                         <div class="step" :class="book.book_status >= 4 && book.book_status >3 ? 'completed-no-table' : ''">
                             <div class="step-icon-wrap">
                                 <div class="step-icon"><img style="width: 40px;" src="../assets/icons/dining-room.png" alt=""></div>
                             </div>
-                            <h4 class="step-title">No Table</h4>
+                            <h4 class="step-title">{{ langObj[this.newLangStatus].words[7] }}</h4>
                         </div>
                         <!-- <div class="step" :class="book.book_status >= 5 ? 'completed' : ''">
                             <div class="step-icon-wrap">
@@ -69,12 +69,12 @@
 
         <div v-else class="box-content row no-food">
             <div class="content">
-                <h2>You do not have any Reservation yet</h2>
+                <h2>{{ langObj[this.newLangStatus].words[8] }}</h2>
             </div>
             <!-- <div>
                 <img src="../assets/images/no-orders.png" alt="" />
             </div> -->
-            <router-link class="btn" to="/table">book now!</router-link>
+            <router-link class="btn" to="/table">{{ langObj[this.newLangStatus].words[9] }}</router-link>
         </div>
 
     </div>
@@ -92,16 +92,29 @@ export default {
         return {
             avaiableStatus: ["cancel",  "confirmed", "checking", "reserved", "no table"],
             allBooks: [],
+            languageStatus : 0,
+            langObj: [
+                { words: ["Table Track Dashboard","Status:","When:","Phone:","Confirmed","Checking","Reserved","No Table","You do not have any Reservation yet","book now!"] },
+                    
+                { words: ["Daashboordii Hordoffii Gabatee", "Sadarkaa:","Yoom:","Bilbila:","Mirkanaa'eera", "Sakatta'uu", "Kan qabame", "Gabatee Hin Qabu", "Ammatti Reservation tokkollee hin qabdan","amma buufadhu!"
+            ] },
+            ],
+            newLangStatus : 0,
             interval: "",
+
         }
     },
 
     created() {
         this.getAllBooks();
+        this.getStatus();
+
     },
 
     mounted: function () {
         this.autoUpdate();
+        window.addEventListener('scroll', this.handleScroll);
+
     },
 
     beforeUnmount() {
@@ -127,11 +140,19 @@ export default {
             }
         },
 
-
+        async getStatus(){
+          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          this.newLangStatus = langStatus.data[0].langstatus;
+        //   console.log(this.newLangStatus);
+        //   console.log(this.langObj[this.newLangStatus].words[0] )
+        
+        },
         autoUpdate: function () {
             this.interval = setInterval(function () {
                 this.getAllBooks();
-            }.bind(this), 1000);
+                this.getStatus();
+
+            }.bind(this), 50);
         }
     },
 }

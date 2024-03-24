@@ -27,7 +27,7 @@
 
                 <div class="form-group">
                     <input type="submit" :value="langObj[this.newLangStatus].words[3]" class="btn">
-                    <p>{{ langObj[this.newLangStatus].words[4] }}<router-link @click="scrollToTop()" to="/register">{{ langObj[this.newLangStatus].words[4] }}
+                    <p>{{ langObj[this.newLangStatus].words[4] }}<router-link @click="scrollToTop()" to="/register">{{ langObj[this.newLangStatus].words[5] }}
                         </router-link>
                     </p>
                 </div>

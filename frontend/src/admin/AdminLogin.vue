@@ -1,7 +1,7 @@
 <template>
     <div id="AdminLogin" class="login-container">
-        <div class="login-form-container">
-            <form id="loginForm" @submit="handleSubmit" novalidate autocomplete="off">
+        <div  class="login-form-container">
+            <form  id="loginForm" @submit="handleSubmit" novalidate autocomplete="off">
                 <h3>ADMIN LOGIN</h3>
 
                 <div v-if="errors.length" class="error-box">
@@ -27,7 +27,9 @@
                     </p>
                 </div>
             </form>
+
         </div>
+       
     </div>
 </template>
 
@@ -89,6 +91,8 @@ export default {
                         this.matchAdmin.admin_password = "";
                         this.setAdmin(this.matchAdmin);
                         this.$router.push("/admin/Dashboard");
+                         
+
                         
                     }
                  
