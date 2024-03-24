@@ -18,6 +18,7 @@ import {
     showAAdmin,
     createAdminAccount,
     allAdmin
+    // getAdminData
 } from "../controllers/admin.js";
 
 import {
@@ -103,7 +104,8 @@ router.get("/api/admin/:email", showAAdmin);
 
 //create admin account
 router.post("/api/admin/", createAdminAccount);
-router.post("/api/admindata/", allAdmin);
+router.get("/api/admindata/", allAdmin);
+// router.get("/api/admindata/", getAdminData);
 
 
 

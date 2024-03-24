@@ -3,7 +3,8 @@
 import {
     getAllAdmin,
     getAdminByEmail,
-    insertAdmin
+    insertAdmin,
+    // getAdmin
 } from "../models/AdminModel.js";
 
 // get all Admin
@@ -41,6 +42,16 @@ export const createAdminAccount=(req,res)=>{
     });
 };
 
+// // getAdminData
+// export const getAdminData=(req,res)=>{
+//     getAdmin((err,results)=> {
+//         if (err) {
+//             res.send(err);
+//         }else {
+//             res.json(results);
+//         }
+//     });
+// };
 
 
 
