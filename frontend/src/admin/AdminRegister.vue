@@ -1,18 +1,10 @@
 <template>
     <!-- :class="emailData.length  < 1 ? '' : 'fit-screen'" -->
-    <div class="register-container" :class="emailData.length  < 1 ? '' : 'fit-screen'">
-        <!-- v-if="emailData.length  < 1"  -->
+    <div class="register-container">
+        <!-- v-if="emailData.length  > 0"  -->
 
-        <div v-if="emailData.length  < 1" class="register-form-container">
-            <form id="registerForm" @submit="handleSubmit" novalidate autocomplete="off">
-
-                <div class="form-group">
-                    <p>Account Already Created, <router-link @click="scrollToTop()" to="/adminlogin">Login Here</router-link>
-                    </p>
-                </div>
-            </form>
-        </div>
-        <div   v-else  class="register-form-container">
+        
+        <div  class="register-form-container" >
             <form  id="registerForm" @submit="handleSubmit" novalidate autocomplete="off">
                 <h3>Create Admin Account</h3>
 
@@ -40,17 +32,13 @@
                     <p class="error-mess" v-if="errorObj.confirmErr.length > 0">{{ errorObj.confirmErr[0] }}</p>
                 </div>
 
-                <div class="form-group">
+                <div  class="form-group">
                     <input type="submit" value="create account" class="btn" />
                     <p>have an account? <router-link @click="scrollToTop()" to="/adminlogin">login</router-link>
                     </p>
                 </div>
             </form>
         </div>
-        <!-- v-else-if="emailData.length  > 0" -->
-        <!-- v-else  -->
-       
-
     </div>
 </template>
 
@@ -81,19 +69,19 @@ export default {
     },
 
     computed: {
-        
+        passData: function (checkAdminData) {
+            return checkAdminData;
+        }
+
     },
     methods: {
-        async getMatchUser(email) {
-            let data = await axios.get('/admin/' + email);
-            this.matchUser = data.data;
-        },
 
         ///////display admin data//////////
         async  checkAdminData(){
             let dataAdmin = await axios.get("/admindata/", this.adminData);
-            let emailData = dataAdmin.data.admin_email;
-            console.log(emailData.length);
+            let emailData = dataAdmin.data.admin_password;
+            // console.log(emailData);
+            // console.log(emailData.length);
             return emailData;
         } ,
 
@@ -174,11 +162,8 @@ export default {
                         admin_password: this.registerObj.pass,
                     }
                     await axios.post("/admin/", data);
-                    // localStorage.setItem('adminExists', 'true')
                     this.$router.push("/adminlogin");
-                    // let dataAdmin = await axios.get("/admindata/", this.adminData);
-                    // let emailData = dataAdmin.data.admin_email;
-                    // console.log(emailData);
+                
                    
                 }
             }

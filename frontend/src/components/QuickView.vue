@@ -50,13 +50,13 @@ export default {
     data() {
         return {
             qty: 1,
-
             languageStatus : 0,
+
             langObj: [
-                { words: ["Quantity:","Add to cart","Please login to use this method","login now"
+                { words: ["Quantity:","Add to cart","Please login to use this method","login now", "Added  Successfully"
             ] },
                     
-                    { words: ["Baay'ina:","Gara gaariitti dabali", "Mee mala kana fayyadamuuf seeni", "amma seeni"] },
+                    { words: ["Baay'ina:","Gara gaariitti dabali", "Mee mala kana fayyadamuuf seeni", "amma seeni", "Milkaa'inaan Dabalame"] },
             ],
             newLangStatus : 0,
             interval: "",
@@ -102,7 +102,8 @@ export default {
                     item_qty: parseInt(this.qty) + parseInt(existItem.data[0].item_qty)
                 };
                 await axios.put("/cartItem/", data)
-                this.$refs.alert.showAlert('Added  Successfully');
+                // let message = langObj[this.newLangStatus].words[4] ;
+                this.$refs.alert.showAlert(this.langObj[this.newLangStatus].words[4]);
 
 
             } else {
@@ -113,7 +114,7 @@ export default {
                 };
 
                 await axios.post("/cartItem/", data)
-                this.$refs.alert.showAlert('Added  Successfully')
+                this.$refs.alert.showAlert(this.langObj[this.newLangStatus].words[4])
             }
         },
         async getStatus(){

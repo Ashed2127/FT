@@ -20,16 +20,14 @@
                             class="form-control" v-model="checkoutObj.address" />
                         <p class="error-mess" v-if="errorObj.addressErr.length > 0">{{ errorObj.addressErr[0] }}</p>
                     </div></div>
-
-                    <div class="form-group">
+<!-- 
+                     <div class="form-group">
                         <button @click="startRecording()">Start Recording</button>
-                        <!-- <button @click="stopRecording" disabled :disabled="!recording">Stop Recording</button> -->
-     <!-- <button @click="sendRecording" v-if="recordedBlob" disabled :disabled="!recordedBlob">Send Recording</button> -->
-    <!-- <p v-if="recording">Recording...</p>
-    <p v-else-if="recordedBlob">Recording saved!</p> -->
-
-
-                </div>
+                         <button @click="stopRecording" disabled :disabled="!recording">Stop Recording</button> 
+      <button @click="sendRecording" v-if="recordedBlob" disabled :disabled="!recordedBlob">Send Recording</button> 
+    <p v-if="recording">Recording...</p>
+    <p v-else-if="recordedBlob">Recording saved!</p> 
+                </div> -->
 
                 <div class="form-group details-group">
                     <h4>Select Payment</h4>
@@ -37,18 +35,29 @@
                         <div class="form-group">
                             <input type="radio" name="payment" value="cash" id="paymentCash"
                                 v-model="checkoutObj.paymentMethod" /><span>Cash</span>
-                            <!-- <input type="radio" name="payment" value="card" id="paymentCard"
+                            <input type="radio" name="payment" value="card" id="paymentCard"
                                 v-model="checkoutObj.paymentMethod" /><span>Chapa</span>
-                          -->
+                         
 
                         </div>
                         <p class="error-mess" v-if="errorObj.payErr.length > 0">{{ errorObj.payErr[0] }}</p>
                     </div>
 
                     <!-- //card form -->
-                    <!-- <div v-if="checkoutObj.paymentMethod == 'card'">
-                        <h1>chapa payment in vuejs</h1>
-                    </div>  -->
+                    <div v-if="checkoutObj.paymentMethod == 'card'">
+                        <h1>pay with chapa </h1>
+                        <input type="text" placeholder="Amount" :value="calculateSummaryPrice()[3]"
+                        :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
+                        <input type="text" placeholder="Currency" value="ETB"
+                        :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
+                        <input type="text" placeholder="Email"
+                        :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
+                        <input type="text" placeholder="First Name" :value="user.user_name"
+                        :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
+                        <input type="text" placeholder="Last Name"
+                        :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
+                      
+                    </div> 
 
 
                     <!-- //chapa form -->
@@ -141,6 +150,14 @@ export default {
                 });
             }
         },
+
+        async getUserEmail(){
+            if (this.user) {
+                let userEmail = await axios.get('/useremail/' + this.user.user_id);
+                console.log(userEmail.data.user_email);
+                }
+            },
+       
 
         resetCheckErr: function () {
             this.errorObj.phoneErr = [];
@@ -336,17 +353,17 @@ export default {
 
 <style scoped>
 .checkout-container {
-    padding: 2rem 9%;
+    padding: 3rem 15%;
 }
 
 .checkout-container .checkout-form-container {
     background: #fff;
-    height: 90vh;
+    height: 120vh;
 }
 
 .checkout-container .checkout-form-container form {
     position: absolute;
-    top: 50%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -42%);
     max-width: 70rem;

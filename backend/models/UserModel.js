@@ -51,3 +51,15 @@ export const getUserphone = (data,result) => {
         }
     });
 };
+
+// getEmail
+export const getEmail = (data,result) => {
+    db.query("SELECT user_email FROM user WHERE user_id = ?",[data], (err,results)=> {
+        if (err){
+            console.log(err);
+            result(err,null);
+        }else{
+            result(null,results[0]);
+        }
+    });
+};

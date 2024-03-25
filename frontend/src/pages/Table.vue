@@ -89,9 +89,9 @@ export default {
             languageStatus : 0,
             langObj: [
                 
-                    { words: ["Table Form","Opening Hours","2:00am To 6:00pm","Your Name","write your account name","your phone number","write your account number","how many people","how many tables","when","note","your message", "do you want to decorate your table?","Book Now"
+                    { words: ["Table Form","Opening Hours","2:00am To 6:00pm","Your Name","write your account name","your phone number","write your account number","how many people","how many tables","when","note","your message, do you want to decorate your table?","Book Now", "Booking Successfully !"
                      ] },
-                    { words: ["Unka Gabatee","Sa'aatii Baniinsaa", "2:00am Hanga 6:00pm","Maqaa Kee", "maqaa herrega keessanii barreessaa", "lakkoofsa bilbila keessanii", "lakkoofsa herrega keessanii barreessaa", "namoota meeqa", "gabatee meeqa", "yoom","yaadannoo","ergaa kee", "minjaala kee faayuu barbaaddaa?","Amma Kitaaba"] },
+                    { words: ["Unka Gabatee","Sa'aatii Baniinsaa", "2:00am Hanga 6:00pm","Maqaa Kee", "maqaa herrega keessanii barreessaa", "lakkoofsa bilbila keessanii", "lakkoofsa herrega keessanii barreessaa", "namoota meeqa", "gabatee meeqa", "yoom","yaadannoo","ergaa kee, minjaala kee faayuu barbaaddaa?","Amma Kitaaba", "Booking Milkaa'inaan !"] },
                      ],
          newLangStatus : 0,
          interval: "",
@@ -267,11 +267,13 @@ export default {
                     book_note: this.orderObj.note,
                     book_status: 1
                 }
-                console.log(data);
+                // console.log(data);
                
 
                 await axios.post("/booktable", data);
-                this.$refs.alert.showAlert('Booking Successfully !')
+                let message = this.langObj[this.newLangStatus].words[13];
+                // console.log(message);
+                this.$refs.alert.showAlert(message);
                 document.getElementById("bookTableForm").reset();
             }
         },
@@ -283,7 +285,7 @@ export default {
           this.newLangStatus = langStatus.data[0].langstatus;
         //   console.log(this.newLangStatus);
         //   console.log(this.langObj[this.newLangStatus].words[0] )
-        
+        return this.newLangStatus;
         },
 
         autoUpdate: function () {

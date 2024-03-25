@@ -54,3 +54,14 @@ export const getUserId = (req,res)=>{
         }
     });
 };
+
+// getUserEmail
+export const getUserEmail = (req,res)=>{
+    getEmail(req.params.id,(err,results)=> {
+        if (err) {
+            res.send(err);
+        }else {
+            res.json(results);
+        }
+    });
+};

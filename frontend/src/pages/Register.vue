@@ -61,7 +61,7 @@ export default {
     data() {
         return {
             registerObj: { name: "", email: "", pass: "", confirm: "", phone: ""},
-            errorObj: { nameErr: [], emailErr: [], passErr: [], confirmErr: [], phoneErr: [] },
+            errorObj: { fName:[], lName:[], nameErr: [], emailErr: [], passErr: [], confirmErr: [], phoneErr: [] },
             matchUser: undefined,
 
             languageStatus : 0,
@@ -99,6 +99,8 @@ export default {
         },
 
         resetCheckErr: function () {
+            // this.errorObj.fName = [];
+            // this.errorObj.lName = [];
             this.errorObj.nameErr = [];
             this.errorObj.emailErr = [];
             this.errorObj.passErr = [];
