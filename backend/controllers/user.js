@@ -4,7 +4,9 @@ import {
     getAllUser,
     getUserByEmail,
     insertUser,
-    getUserphone
+    getUserphone,
+    getEmail,
+    getPhone
 } from "../models/UserModel.js";
 
 // get all Users
@@ -58,6 +60,17 @@ export const getUserId = (req,res)=>{
 // getUserEmail
 export const getUserEmail = (req,res)=>{
     getEmail(req.params.id,(err,results)=> {
+        if (err) {
+            res.send(err);
+        }else {
+            res.json(results);
+        }
+    });
+};
+
+
+export const getUserPhone = (req,res)=>{
+    getPhone(req.params.id,(err,results)=> {
         if (err) {
             res.send(err);
         }else {

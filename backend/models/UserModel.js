@@ -63,3 +63,15 @@ export const getEmail = (data,result) => {
         }
     });
 };
+
+// getPhone
+export const getPhone = (data,result) => {
+    db.query("SELECT user_phone FROM user WHERE user_id = ?",[data], (err,results)=> {
+        if (err){
+            console.log(err);
+            result(err,null);
+        }else{
+            result(null,results[0]);
+        }
+    });
+};

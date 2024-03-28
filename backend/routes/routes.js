@@ -12,7 +12,8 @@ import {
     showAUser,
     createAccount,
     getUserId,
-    getUserEmail
+    getUserEmail,
+    getUserPhone
 } from "../controllers/user.js";
 
 import {
@@ -92,11 +93,11 @@ router.put("/api/foods/:id", updateFood);
 router.delete("/api/foods/:id", deleteFood);
 
 
-
 ////////////////////////// USER ///////////////////////
 // get all user
 router.get("/api/users/:email", showAUser);
 router.get("/api/useremail/:id", getUserEmail);
+router.get("/api/userphone/:id", getUserPhone);
 
 // create account
 router.post("/api/users/", createAccount);
@@ -108,7 +109,6 @@ router.get("/api/admin/:email", showAAdmin);
 router.post("/api/admin/", createAdminAccount);
 router.get("/api/admindata/", allAdmin);
 // router.get("/api/admindata/", getAdminData);
-
 
 
 ////////////////////////////DP//////////////////////
