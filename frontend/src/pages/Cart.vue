@@ -79,15 +79,15 @@
 
                         </div>
 
-                        <div class="box-content row">
-                            <router-link to="/menu" class="btn shop-btn"><i class="fa fa-arrow-left"></i>{{ langObj[this.newLangStatus].words[7] }}</router-link>
-                            <button class="btn check-out-btn" style="margin-left: 10px;"
+                        <div class="box-content row col-sm-3 col-md-3 col-lg-5  col-9 ">
+                            <router-link to="/menu" class="btn shop-btn  backbtn"><i class="fa fa-arrow-left"></i>{{ langObj[this.newLangStatus].words[7] }}</router-link>
+                            <button class="btn check-out-btn col-sm-6 col-lg-7 checkbtn" 
                                 :disabled="filterFoods.length ? false : true" @click="checkOutBtn()">{{ langObj[this.newLangStatus].words[8] }}</button>
                         </div>
                     </div>
 
 
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-2">
                         <div class="box">
                             <div class="box-title">
                                 <h3>{{ langObj[this.newLangStatus].words[9] }}</h3>
@@ -372,7 +372,14 @@ export default {
     height: 200px;
 }
 
-
+.checkbtn{
+    margin-left: 210px;
+    position: relative;
+    bottom: 42px;
+}
+.backbtn{
+    margin-right: 90px;
+}
 @media (max-width: 768px) {
     .box-content .item-name {
         font-size: 14px;
@@ -400,6 +407,12 @@ export default {
         margin-top: 10px;
         margin-bottom: 10px;
     }
+    
+.checkbtn{
+    margin-left: 160px;
+    position: relative;
+    bottom: 33.5px;
+}
 }
 
 @media (max-width: 576px) {
@@ -487,8 +500,14 @@ export default {
     }
 
     .in-cart .box-content .check-out-btn {
-        display: none;
+        display: block;
     }
+    
+.checkbtn{
+    margin-left: 160px;
+    position: relative;
+    bottom: 33.5px;
+}
 
 }
 </style>

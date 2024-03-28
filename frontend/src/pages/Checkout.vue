@@ -50,7 +50,7 @@
                         :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
                         <input type="text" placeholder="Currency" value="ETB"
                         :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
-                        <input type="text" placeholder="Email"
+                        <input type="text" placeholder="Email" :value="getUserEmail()"
                         :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
                         <input type="text" placeholder="First Name" :value="user.user_name"
                         :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
@@ -154,9 +154,14 @@ export default {
         async getUserEmail(){
             if (this.user) {
                 let userEmail = await axios.get('/useremail/' + this.user.user_id);
-                console.log(userEmail.data.user_email);
+                console.log(userEmail.data);
+                return userEmail;
                 }
             },
+        // getid(){
+        //     console.log(this.user.user_id)
+        //     return this.user.user_id
+        // },
        
 
         resetCheckErr: function () {
