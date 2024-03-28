@@ -53,10 +53,10 @@ export default {
             languageStatus : 0,
 
             langObj: [
-                { words: ["Quantity:","Add to cart","Please login to use this method","login now", "Added  Successfully"
+                { words: ["Quantity:","Add to cart","Please login to add","login now", "Added  Successfully"
             ] },
                     
-                    { words: ["Baay'ina:","Gara gaariitti dabali", "Mee mala kana fayyadamuuf seeni", "amma seeni", "Milkaa'inaan Dabalame"] },
+                    { words: ["Baay'ina:","Gara gaariitti dabali", "Mee Dabaluuf Galmaa'aa", "amma seeni", "Milkaa'inaan Dabalame"] },
             ],
             newLangStatus : 0,
             interval: "",
@@ -155,7 +155,7 @@ export default {
 
 .quick-view .quick-view-inner {
     width: 45vw;
-    height: 45vh;
+    height: 65vh;
     background-color: #fff;
     padding: 32px;
 }

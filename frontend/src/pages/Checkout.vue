@@ -11,7 +11,7 @@
                     <h4>Shipping Details</h4>
                     <div class="form-group">
                         <input type="text" name="coPhone" id="coPhone" placeholder="Phone number" class="form-control"
-                            v-model="checkoutObj.phone" />
+                             :value="getUserPhone()"/>
                         <p class="error-mess" v-if="errorObj.phoneErr.length > 0">{{ errorObj.phoneErr[0] }}</p>
                     </div>
 
@@ -50,7 +50,7 @@
                         :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
                         <input type="text" placeholder="Currency" value="ETB"
                         :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
-                        <input type="text" placeholder="Email" :value="getUserEmail()"
+                        <input type="text" placeholder="Email"  :value="getUserEmail()"
                         :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
                         <input type="text" placeholder="First Name" :value="user.user_name"
                         :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
@@ -58,8 +58,6 @@
                         :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
                       
                     </div> 
-
-
                     <!-- //chapa form -->
                 </div>
 
@@ -80,11 +78,13 @@ export default {
 
     data() {
         return {
-            checkoutObj: { phone: "", address: "", paymentMethod: "", voiceMessage: "" },
+            checkoutObj: { phone: "", address: "", paymentMethod: "", voiceMessage: "", email: "" },
             cardObj: { number: "", name: "", expiryDate: "", cvv: "" },
             errorObj: { phoneErr: [], addressErr: [], payErr: [], numErr: [], nameErr: [], exDateErr: [], cvvErr: [] },
             cartItem: [],
             itemQuantity: [],
+            email: '',
+            phone: ''
         }
     },
 
@@ -153,16 +153,21 @@ export default {
 
         async getUserEmail(){
             if (this.user) {
-                let userEmail = await axios.get('/useremail/' + this.user.user_id);
-                console.log(userEmail.data);
-                return userEmail;
+                let email = await axios.get('/useremail/' + this.user.user_id);
+                console.log(email.data.user_email);
+                // this.email = email.data.user_email
+                return email.data.user_email;
                 }
             },
-        // getid(){
-        //     console.log(this.user.user_id)
-        //     return this.user.user_id
-        // },
-       
+
+        async getUserPhone(){
+            if (this.user) {
+                let phone = await axios.get('/userphone/' + this.user.user_id);
+                console.log(phone.data.user_phone);
+                // this.phone = phone.data.user_phone;
+                return phone.data.user_phone;
+                }
+            },
 
         resetCheckErr: function () {
             this.errorObj.phoneErr = [];
