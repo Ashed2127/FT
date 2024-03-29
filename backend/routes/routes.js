@@ -13,7 +13,9 @@ import {
     createAccount,
     getUserId,
     getUserEmail,
-    getUserPhone
+    getUserPhone,
+    getUserFirstName,
+    getUserLastName
 } from "../controllers/user.js";
 
 import {
@@ -98,6 +100,8 @@ router.delete("/api/foods/:id", deleteFood);
 router.get("/api/users/:email", showAUser);
 router.get("/api/useremail/:id", getUserEmail);
 router.get("/api/userphone/:id", getUserPhone);
+router.get("/api/userfname/:id", getUserFirstName);
+router.get("/api/userlname/:id", getUserLastName);
 
 // create account
 router.post("/api/users/", createAccount);

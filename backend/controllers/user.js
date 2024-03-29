@@ -6,7 +6,9 @@ import {
     insertUser,
     getUserphone,
     getEmail,
-    getPhone
+    getPhone,
+    getFirstName,
+    getLastName,
 } from "../models/UserModel.js";
 
 // get all Users
@@ -71,6 +73,29 @@ export const getUserEmail = (req,res)=>{
 
 export const getUserPhone = (req,res)=>{
     getPhone(req.params.id,(err,results)=> {
+        if (err) {
+            res.send(err);
+        }else {
+            res.json(results);
+        }
+    });
+};
+
+// getUserFirstName
+export const getUserFirstName = (req,res)=>{
+    getFirstName(req.params.id,(err,results)=> {
+        if (err) {
+            res.send(err);
+        }else {
+            res.json(results);
+        }
+    });
+};
+
+// getUserLastName
+
+export const getUserLastName = (req,res)=>{
+    getLastName(req.params.id,(err,results)=> {
         if (err) {
             res.send(err);
         }else {
