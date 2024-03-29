@@ -4,7 +4,7 @@
             <form id="checkoutForm" @submit="handleSubmit" novalidate autocomplete="off">
                 <div class="checkout-heading">
                     <h3>your order form<span>Total</span></h3>
-                    <h3 v-if="user">{{ user.user_name }} Order<span>{{ calculateSummaryPrice()[3] }}birr</span></h3>
+                    <h3 v-if="user">{{ this.fName }} {{ this.lName }} Order<span>{{ calculateSummaryPrice()[3] }}birr</span></h3>
                 </div>
 
                 <div class="form-group details-group">
@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <input type="radio" name="payment" value="cash" id="paymentCash"
                                 v-model="checkoutObj.paymentMethod" /><span>Cash</span>
-                            <input type="radio" name="payment" value="card" id="paymentCard"
+                            <input type="radio" name="payment" value="chapa" id="paymentCard"
                                 v-model="checkoutObj.paymentMethod" /><span>Chapa</span>
                          
 
@@ -44,8 +44,8 @@
                     </div>
 
                     <!-- //card form -->
-                    <div v-if="checkoutObj.paymentMethod == 'card'">
-                        <h1>pay with chapa </h1>
+                    <div v-if="checkoutObj.paymentMethod == 'chapa'" class="chapa">
+                        <img src="../assets/images/chapa.png" alt="" >
                         <input type="text" placeholder="Amount" :value="calculateSummaryPrice()[3]"
                         :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
                         <input type="text" placeholder="Currency" :value="this.currency"
@@ -402,7 +402,7 @@ export default {
     top: 70%;
     left: 50%;
     transform: translate(-50%, -42%);
-    max-width: 70rem;
+    max-width: 45rem;
     width: 100%;
     box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.05);
     border: 0.1rem solid rgba(0, 0, 0, 0.2);
@@ -495,4 +495,21 @@ export default {
     padding-right: 0px;
     color: #130f40;
 }
+.chapa{
+    width: 100%;
+}
+.chapa img{
+    width: 150px; 
+    margin-left:65%;
+}
+
+.form-group{
+    width: 100%;
+}
+
 </style>
+
+
+
+
+
