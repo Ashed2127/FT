@@ -1,7 +1,7 @@
 <template>
-    <div  id="AdminLogin" class="login-container">
-        <div  class="login-form-container">
-            <form  id="loginForm" @submit="handleSubmit" novalidate autocomplete="off">
+    <div class="login-container">
+        <div class="login-form-container">
+            <form id="loginForm" @submit="handleSubmit" novalidate autocomplete="off">
                 <h3>ADMIN LOGIN</h3>
 
                 <div v-if="errors.length" class="error-box">
@@ -20,16 +20,14 @@
                         placeholder="enter your password" v-model="loginObj.pass" />
                 </div>
 
-                <div  class="form-group">
+                <div class="form-group">
                     <input type="submit" value="login now" class="btn">
-                    <p >don't have an account? <router-link @click="scrollToTop()" to="/adminregister">create one
+                    <p>don't have an account? <router-link @click="scrollToTop()" to="adminregister">create one
                         </router-link>
                     </p>
                 </div>
             </form>
-
         </div>
-       
     </div>
 </template>
 
@@ -45,15 +43,9 @@ export default {
             loginObj: { email: "", pass: "" },
             matchAdmin: undefined,
             errors: [],
-            adminData : '',
         }
     },
-    computed: {
-        passData: function (checkAdminData) {
-            return checkAdminData;
-        }
 
-    },
     methods: {
         ...mapMutations(["setAdmin"]),
 
@@ -65,13 +57,7 @@ export default {
             let data = await axios.get('/admin/' + email);
             this.matchAdmin = data.data;
         },
-        async  checkAdminData(){
-            let dataAdmin = await axios.get("/admindata/", this.adminData);
-            let emailData = dataAdmin.data.admin_password;
-            // console.log(emailData);
-            // console.log(emailData.length);
-            return emailData;
-        } ,
+
         async handleSubmit(e) {
             this.errors = [];
 
@@ -103,8 +89,6 @@ export default {
                         this.matchAdmin.admin_password = "";
                         this.setAdmin(this.matchAdmin);
                         this.$router.push("/admin/Dashboard");
-                         
-
                         
                     }
                  

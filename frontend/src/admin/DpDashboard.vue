@@ -37,10 +37,12 @@
                                 {{ avaiableStatus[b.bill_status + 1] }}
                             </button>
 
-                            <button v-if="b.bill_status == 1" class="cancel-btn" @click="cancelBtn(b.bill_id)">
+                            <!-- <button v-if="b.bill_status == 1" class="cancel-btn" @click="cancelBtn(b.bill_id)">
                                 Cancel
-                            </button>
-
+                            </button> -->
+                            <button v-if="b.bill_status >= 2" class="undo-btn" @click="undoBillStatusBtn(b.bill_id)">
+                            Undo
+                        </button>
                             <button v-else-if="b.bill_status == 5 && b.bill_paid == 'false'" class="paid-btn"
                                 @click="paidBtn(b.bill_id)">
                                 Paid
@@ -129,15 +131,19 @@ export default {
             this.getAllBills();
         },
 
-        async cancelBtn(id) {
-            await axios.put('/billstatus/cancel/' + id);
+        async undoBillStatusBtn(id) {
+            await axios.put('/billstatus/undo/' + id);
             this.getAllBills();
         },
+        // async cancelBtn(id) {
+        //     await axios.put('/billstatus/cancel/' + id);
+        //     this.getAllBills();
+        // },
 
         autoUpdate: function () {
             this.interval = setInterval(function () {
                 this.getAllBills();
-            }.bind(this), 1000);
+            }.bind(this), 50);
         }
 
     }

@@ -215,7 +215,7 @@ export default {
             this.interval = setInterval(function () {
                 this.getAllBills();
                 this.getAllBooks();
-            }.bind(this), 1000);
+            }.bind(this), 50);
         }
 
     }

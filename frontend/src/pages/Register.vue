@@ -7,8 +7,16 @@
                     <label for="uName">{{ langObj[this.newLangStatus].words[1] }}
                     </label>
                     <input type="text" name="uName" :placeholder="langObj[this.newLangStatus].words[2] " id="uName" class="form-control"
-                        v-model="registerObj.name" />
+                        v-model="registerObj.fname" />
                     <p class="error-mess" v-if="errorObj.nameErr.length > 0">{{ errorObj.nameErr[0] }}</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="uName">{{ langObj[this.newLangStatus].words[14] }}
+                    </label>
+                    <input type="text" name="uName" :placeholder="langObj[this.newLangStatus].words[15] " id="uName" class="form-control"
+                        v-model="registerObj.lname" />
+                    <p class="error-mess" v-if="errorObj.nameErr.length > 0">{{ errorObj.nameErr[10] }}</p>
                 </div>
 
                 <div class="form-group">
@@ -60,13 +68,13 @@ export default {
 
     data() {
         return {
-            registerObj: { name: "", email: "", pass: "", confirm: "", phone: ""},
+            registerObj: { fname: "",lname: "", email: "", pass: "", confirm: "", phone: ""},
             errorObj: { fName:[], lName:[], nameErr: [], emailErr: [], passErr: [], confirmErr: [], phoneErr: [] },
             matchUser: undefined,
 
             languageStatus : 0,
             langObj: [
-                { words: ["Create your account","Enter your name:","your full name","Enter your email:","example@gmail.com","Enter your password:","enter your password","Check your password again:","enter your password again","Enter your phone number:","enter your phone number","create account","have an account?","login"
+                { words: ["Create your account","Enter your name:","your first name","Enter your email:","example@gmail.com","Enter your password:","enter your password","Check your password again:","enter your password again","Enter your phone number:","enter your phone number","create account","have an account?","login", "Enter your name:","your last name"
 ] },
                     
                     { words: ["Akkaawuntii keessan uumi", "Maqaa kee galchi:","maqaa kee guutuu", "Email keessan galchaa:","fakkeenyaaf@gmail.com", "Jecha icciitii keessan galchaa:","jecha icciitii keessan galchaa", "Jecha icciitii keessan irra deebi'aa ilaalaa:","irra deebi'ii jecha icciitii kee galchi", "Lakkoofsa bilbila keessanii galchaa:","lakkoofsa bilbila keessanii galchaa", "account uumuu", "akkaawuntii qabduu?","seenuu"] },
@@ -99,9 +107,9 @@ export default {
         },
 
         resetCheckErr: function () {
-            // this.errorObj.fName = [];
-            // this.errorObj.lName = [];
-            this.errorObj.nameErr = [];
+            this.errorObj.fName = [];
+            this.errorObj.lName = [];
+            // this.errorObj.nameErr = [];
             this.errorObj.emailErr = [];
             this.errorObj.passErr = [];
             this.errorObj.confirmErr = [];
@@ -121,11 +129,17 @@ export default {
             this.resetCheckErr();
 
             // Name validate
-            if (!this.registerObj.name) {
-                this.errorObj.nameErr.push("Entering a name is required");
+            if (!this.registerObj.fname) {
+                this.errorObj.nameErr.push("Entering a first name is required");
+            }
+            else if (!this.registerObj.lname) {
+                this.errorObj.nameErr.push("Entering a last name is required");
             }
             else {
-                if (!/^[A-Za-z]+$/.test(this.registerObj.name.replace(/\s/g, ""))) {
+                if (!/^[A-Za-z]+$/.test(this.registerObj.fname.replace(/\s/g, ""))) {
+                    this.errorObj.nameErr.push('A name can only contain letters');
+                }
+                else if (!/^[A-Za-z]+$/.test(this.registerObj.lname.replace(/\s/g, ""))) {
                     this.errorObj.nameErr.push('A name can only contain letters');
                 }
             }
@@ -199,7 +213,8 @@ export default {
 
                 else {
                     let data = {
-                        user_name: this.registerObj.name,
+                        user_fname: this.registerObj.fname,
+                        user_lname: this.registerObj.lname,
                         user_email: this.registerObj.email,
                         user_phone: this.registerObj.phone,
                         user_password: this.registerObj.pass,

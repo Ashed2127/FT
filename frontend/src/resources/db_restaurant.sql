@@ -70,7 +70,8 @@ VALUES("dulet", "160.00", "0.00", "03 pieces per serving", "best seller", "meat"
 
 CREATE TABLE user( 
     user_id INT(11) PRIMARY KEY AUTO_INCREMENT, 
-    user_name VARCHAR(255), 
+    user_fname VARCHAR(255),
+    user_lname VARCHAR(255), 
     user_email VARCHAR(255),
     user_phone VARCHAR(255),
     user_password VARCHAR(255)
@@ -129,7 +130,13 @@ CREATE TABLE languagestatus (
 
 INSERT INTO languagestatus (lang_id, langstatus) VALUES (1, 0);
 
-////////////////SQL////////////
-// UPDATE YourTableName
-// SET YourColumnName = 1
-// WHERE YourCondition;
+-- ////////////////SQL////////////
+-- // UPDATE YourTableName
+-- // SET YourColumnName = 1
+-- // WHERE YourCondition;
+
+
+-- first user table modified by this sql
+-- ALTER TABLE `user`
+-- CHANGE COLUMN `user_name` `user_fname` VARCHAR(255),
+-- ADD COLUMN `user_lname` VARCHAR(255) AFTER `user_fname`;

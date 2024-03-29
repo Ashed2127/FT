@@ -11,7 +11,7 @@
                     <h4>Shipping Details</h4>
                     <div class="form-group">
                         <input type="text" name="coPhone" id="coPhone" placeholder="Phone number" class="form-control"
-                             :value="getUserPhone()"/>
+                             :value="phone"/>
                         <p class="error-mess" v-if="errorObj.phoneErr.length > 0">{{ errorObj.phoneErr[0] }}</p>
                     </div>
 
@@ -48,13 +48,13 @@
                         <h1>pay with chapa </h1>
                         <input type="text" placeholder="Amount" :value="calculateSummaryPrice()[3]"
                         :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
-                        <input type="text" placeholder="Currency" value="ETB"
+                        <input type="text" placeholder="Currency" :value="this.currency"
                         :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
-                        <input type="text" placeholder="Email"  :value="getUserEmail()"
+                        <input type="text" placeholder="Email"  :value="email"
                         :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
-                        <input type="text" placeholder="First Name" :value="user.user_name"
+                        <input type="text" placeholder="First Name" :value="fName"
                         :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
-                        <input type="text" placeholder="Last Name"
+                        <input type="text" placeholder="Last Name" :value="lName"
                         :disabled="filterFoods.length ? false : true" class="form-control h-80"/>
                       
                     </div> 
@@ -78,13 +78,16 @@ export default {
 
     data() {
         return {
-            checkoutObj: { phone: "", address: "", paymentMethod: "", voiceMessage: "", email: "" },
+            checkoutObj: { phone: "", address: "", paymentMethod: "", voiceMessage: "", email: "",  },
             cardObj: { number: "", name: "", expiryDate: "", cvv: "" },
             errorObj: { phoneErr: [], addressErr: [], payErr: [], numErr: [], nameErr: [], exDateErr: [], cvvErr: [] },
             cartItem: [],
             itemQuantity: [],
             email: '',
-            phone: ''
+            phone: '',
+            fName: '', 
+            lName: '',
+            currency: 'ETB',
         }
     },
 
@@ -102,6 +105,12 @@ export default {
         },
     },
 
+    mounted() {
+        this.getUserEmail();
+        this.getUserPhone();
+        this.getUserFirstName();
+        this.getUserLastName();
+    },
     methods: {
         availableTime: function () {
             var now = new Date();
@@ -155,7 +164,7 @@ export default {
             if (this.user) {
                 let email = await axios.get('/useremail/' + this.user.user_id);
                 console.log(email.data.user_email);
-                // this.email = email.data.user_email
+                this.email = email.data.user_email
                 return email.data.user_email;
                 }
             },
@@ -164,11 +173,28 @@ export default {
             if (this.user) {
                 let phone = await axios.get('/userphone/' + this.user.user_id);
                 console.log(phone.data.user_phone);
-                // this.phone = phone.data.user_phone;
+                this.phone = phone.data.user_phone;
                 return phone.data.user_phone;
                 }
             },
 
+        async getUserFirstName(){
+            if (this.user) {
+                let fName = await axios.get('/userfname/' + this.user.user_id);
+                console.log(fName.data.user_fname);
+                this.fName = fName.data.user_fname;
+                return fName.data.user_fname;
+                }
+            },
+
+        async getUserLastName(){
+            if (this.user) {
+                let lName = await axios.get('/userlname/' + this.user.user_id);
+                console.log(lName.data.user_lname);
+                this.lName = lName.data.user_lname;
+                return lName.data.user_lname;
+                }
+            },
         resetCheckErr: function () {
             this.errorObj.phoneErr = [];
             this.errorObj.addressErr = [];
@@ -196,19 +222,19 @@ export default {
             this.resetCheckErr();
 
             // Phone validate
-            if (!this.checkoutObj.phone) {
+            if (!this.phone) {
                 this.errorObj.phoneErr.push('Entering phone number is required');
             }
             else {
-                if (!this.checkoutObj.phone.startsWith('09')) {
+                if (!this.phone.startsWith('09')) {
                     this.errorObj.phoneErr.push('Phone numbers must start with 09');
                 }
                 
-                if (this.checkoutObj.phone.length != 10) {
+                if (this.phone.length != 10) {
                     this.errorObj.phoneErr.push('Phone numbers must have exactly 10 digits');
                 }
 
-                if (!/[0-9]{10}/.test(this.checkoutObj.phone)) {
+                if (!/[0-9]{10}/.test(this.phone)) {
                     this.errorObj.phoneErr.push('Phone numbers can only contain numbers');
                 }
             }
@@ -327,7 +353,7 @@ export default {
                 let billStatus = {
                     bill_id: parseInt(billId),
                     user_id: parseInt(this.user.user_id),
-                    bill_phone: this.checkoutObj.phone,
+                    bill_phone: this.phone,
                     bill_address: this.checkoutObj.address,
                     bill_when: currentTime,
                     bill_method: this.checkoutObj.paymentMethod,

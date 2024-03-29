@@ -1,11 +1,7 @@
 <template>
-    <!-- :class="emailData.length  < 1 ? '' : 'fit-screen'" -->
     <div class="register-container">
-        <!-- v-if="emailData.length  > 0"  -->
-
-        
-        <div  class="register-form-container" >
-            <form  id="registerForm" @submit="handleSubmit" novalidate autocomplete="off">
+        <div class="register-form-container">
+            <form id="registerForm" @submit="handleSubmit" novalidate autocomplete="off">
                 <h3>Create Admin Account</h3>
 
                 <div class="form-group">
@@ -32,9 +28,10 @@
                     <p class="error-mess" v-if="errorObj.confirmErr.length > 0">{{ errorObj.confirmErr[0] }}</p>
                 </div>
 
-                <div  class="form-group">
+
+                <div class="form-group">
                     <input type="submit" value="create account" class="btn" />
-                    <p>have an account? <router-link @click="scrollToTop()" to="/adminlogin">login</router-link>
+                    <p>have an account? <router-link @click="scrollToTop()" to="adminlogin">login</router-link>
                     </p>
                 </div>
             </form>
@@ -49,41 +46,18 @@ export default {
 
     data() {
         return {
-            registerObj: {email: "", pass: "", confirm: "",     },
+            registerObj: {email: "", pass: "", confirm: ""},
             errorObj: {emailErr: [], passErr: [], confirmErr: []},
             matchUser: undefined,
-            // adminExists: false,
-            adminData : '',
-             interval: "",
 
         }
     },
 
-    created(){
-        this.checkAdminData();
-    },
-
-    mounted(){
-        this.autoUpdate(); 
-        window.addEventListener('scroll', this.handleScroll);
-    },
-
-    computed: {
-        passData: function (checkAdminData) {
-            return checkAdminData;
-        }
-
-    },
     methods: {
-
-        ///////display admin data//////////
-        async  checkAdminData(){
-            let dataAdmin = await axios.get("/admindata/", this.adminData);
-            let emailData = dataAdmin.data.admin_password;
-            // console.log(emailData);
-            // console.log(emailData.length);
-            return emailData;
-        } ,
+        async getMatchUser(email) {
+            let data = await axios.get('/admin/' + email);
+            this.matchUser = data.data;
+        },
 
         scrollToTop() {
             window.scrollTo(0, 0);
@@ -106,6 +80,8 @@ export default {
 
         checkForm: function () {
             this.resetCheckErr();
+
+         
 
             // Email validate
             if (!this.registerObj.email) {
@@ -145,17 +121,15 @@ export default {
 
         async handleSubmit(e) {
             this.checkForm();
-           
+
             if (!this.checkEmptyErr()) {
                 e.preventDefault();
-            } 
-            else {
+            } else {
                 e.preventDefault();
                 await this.getMatchUser(this.registerObj.email);
                 if (this.matchUser) {
                     this.errorObj.emailErr.push("Account already exist")
                 }
-               
                 else {
                     let data = {
                         admin_email: this.registerObj.email,
@@ -163,19 +137,11 @@ export default {
                     }
                     await axios.post("/admin/", data);
                     this.$router.push("/adminlogin");
-                
-                   
                 }
             }
-        },
-
-        autoUpdate: function () {
-            this.interval = setInterval(function () {
-                this.checkAdminData();
-            }.bind(this), 50);
         }
     },
-    
+
 };
 </script>
 
@@ -268,9 +234,4 @@ export default {
     margin: 0;
     padding: 0;
 }
-
-.register-container.fit-screen {
-    height: 90vh;
-}
-
 </style>
