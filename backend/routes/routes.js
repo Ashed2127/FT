@@ -164,7 +164,7 @@ router.get("/api/billdetails/:id", getBillDetailsById);
 
 //////////////////////// Bill Status ////////////////////////
 router.get("/api/billstatus/new", showNewestStatusId);
-router.post("/api/billstatus", createBillStatus);
+router.post("/api/billstatus", createBillStatus );
 router.get("/api/billstatus/user/:id", getAllBillsByUser);
 router.get("/api/billstatus/bill/:id", getAllBillsByBill);
 router.get("/api/billstatus", getAllBills);
@@ -174,7 +174,7 @@ router.put("/api/billstatus/paid/:id", updateBillPaid);
 router.put("/api/billstatus/undo/:id", undoBillStatusBtn);
 
 ///////////////////PAYMENT////////////////////////////////
-router.post('/api/initiate-payment/', responseData);
+router.post("/api/initiate-payment/", responseData, createBillStatus);
 router.get('/api/checkout-url/', async (req, res) => {
     try {
         const checkoutUrl = await getCheckoutUrl(req, res);

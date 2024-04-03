@@ -9,17 +9,17 @@ export const responseData = async (req, res) => {
         const api_key = 'CHASECK_TEST-sAZLjV7jiqT7HF5XBFofZxT5Zz416nCn';
 
         const userData = {
-            amount: user.amount,
-            currency: user.currency,
-            email: user.email,
-            first_name: user.first_name,
-            last_name: user.last_name,
-            callback_url: 'https://checkout.chapa.co/checkout/payment/:token',
-            return_url: 'http://localhost:8082/',
-            customization: {
-                title: 'I love e-commerce',
-                description: 'It is time to pay'
-            }
+          amount: user.amount,
+          currency: user.currency,
+          email: user.email,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          callback_url: "https://checkout.chapa.co/checkout/payment/:token",
+          return_url: "http://localhost:8082/myorder",
+          customization: {
+            title: "I love e-commerce",
+            description: "It is time to pay",
+          },
         };
 
         const chapaResponse = new Chapa(api_key);
