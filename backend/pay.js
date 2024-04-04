@@ -1,5 +1,5 @@
 import Chapa from 'chapa';
-import express from 'express';
+import express, { response } from 'express';
 
 const router = express.Router();
 let checkoutUrl; // Define a variable in a shared scope
@@ -29,6 +29,7 @@ export const responseData = async (req, res) => {
             checkoutUrl = response.data.checkout_url;
             
             console.log('url: ', checkoutUrl);
+            console.log(response.status);
 
             // Send the checkoutUrl as a response
             return res.status(200).json({ checkoutUrl });
@@ -39,8 +40,12 @@ export const responseData = async (req, res) => {
         console.error('Error during payment initiation:', error);
         return res.status(500).json({ error: 'Internal server error.' });
     }
+   
 };
-
+//  export const verifier = await chapa.verify({
+//    tx_ref: response.tx_ref,
+//  });
+//  console.log(verifier);
 // Handle fetching checkout URL
 export const getCheckoutUrl = async (req, res) => {
     try {
