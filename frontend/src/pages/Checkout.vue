@@ -337,7 +337,7 @@ export default {
           bill_status: 1,
         };
         console.log(billStatus);
-        axios.post("/billstatus", billStatus, this.response);
+        axios.post("/billstatus", billStatus);
         axios.delete("/cartItem/" + this.user.user_id);
 
         this.cartItem = [];
@@ -396,6 +396,27 @@ export default {
         };
         console.log(response);
         await axios.post("/initiate-payment/", response);
+
+        ////////////bill status///////////////////
+          let billStatus = {
+          bill_id: parseInt(billId),
+          user_id: parseInt(this.user.user_id),
+          bill_phone: this.phone,
+          bill_address: this.checkoutObj.address,
+          bill_when: currentTime,
+          //   bill_method: this.checkoutObj.paymentMethod,
+          bill_discount: parseInt(this.calculateSummaryPrice()[1]),
+          bill_delivery: parseInt(this.calculateSummaryPrice()[2]),
+          bill_total: parseInt(this.calculateSummaryPrice()[3]),
+          bill_paid: this.isPaid(),
+          bill_status: 1,
+        };
+        axios.post("/billstatus", billStatus);
+        axios.delete("/cartItem/" + this.user.user_id);
+
+
+        this.cartItem = [];
+        this.itemQuantity = [];
         console.log("Payment initiated successfully!");
         const paymentCheckoutUrl = await axios.get(
           "/checkout-url/",

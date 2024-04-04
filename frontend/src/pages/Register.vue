@@ -8,7 +8,7 @@
                     </label>
                     <input type="text" name="uName" :placeholder="langObj[this.newLangStatus].words[2] " id="uName" class="form-control"
                         v-model="registerObj.fname" />
-                    <p class="error-mess" v-if="errorObj.nameErr.length > 0">{{ errorObj.nameErr[0] }}</p>
+                    <p class="error-mess" v-if="errorObj.fName.length > 0">{{ errorObj.fName[0] }}</p>
                 </div>
 
                 <div class="form-group">
@@ -16,7 +16,7 @@
                     </label>
                     <input type="text" name="uName" :placeholder="langObj[this.newLangStatus].words[15] " id="uName" class="form-control"
                         v-model="registerObj.lname" />
-                    <p class="error-mess" v-if="errorObj.nameErr.length > 0">{{ errorObj.nameErr[10] }}</p>
+                    <p class="error-mess" v-if="errorObj.lName.length > 0">{{ errorObj.lName[10] }}</p>
                 </div>
 
                 <div class="form-group">
@@ -69,7 +69,7 @@ export default {
     data() {
         return {
             registerObj: { fname: "",lname: "", email: "", pass: "", confirm: "", phone: ""},
-            errorObj: { fName:[], lName:[], nameErr: [], emailErr: [], passErr: [], confirmErr: [], phoneErr: [] },
+            errorObj: { fName:[], lName:[], emailErr: [], passErr: [], confirmErr: [], phoneErr: [] },
             matchUser: undefined,
 
             languageStatus : 0,
@@ -130,17 +130,18 @@ export default {
 
             // Name validate
             if (!this.registerObj.fname) {
-                this.errorObj.nameErr.push("Entering a first name is required");
+                this.errorObj.fName.push("Entering a first name is required");
             }
-            else if (!this.registerObj.lname) {
-                this.errorObj.nameErr.push("Entering a last name is required");
+          
+            if (!this.registerObj.lname) {
+                this.errorObj.lName.push("Entering a last name is required");
             }
             else {
                 if (!/^[A-Za-z]+$/.test(this.registerObj.fname.replace(/\s/g, ""))) {
-                    this.errorObj.nameErr.push('A name can only contain letters');
+                    this.errorObj.fName.push('A name can only contain letters');
                 }
                 else if (!/^[A-Za-z]+$/.test(this.registerObj.lname.replace(/\s/g, ""))) {
-                    this.errorObj.nameErr.push('A name can only contain letters');
+                    this.errorObj.lName.push('A name can only contain letters');
                 }
             }
 
