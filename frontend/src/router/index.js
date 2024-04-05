@@ -19,7 +19,7 @@ import DpRegister from '../admin/DpRegister.vue';
 import DpLogin from '../admin/DpLogin.vue';
 // import  Chapa  from "../chapa.vue";
 // import newPay from "../pages/Voice.vue";
-// import Pay from "../pages/pay.vue";
+import Pay from "../pages/pay.vue";
 
 
 const routes = [
@@ -124,11 +124,11 @@ const routes = [
   //   name: "Voice",
   //   component: Voice,
   // },
-  // {
-  //   path: "/pay",
-  //   name: "Pay",
-  //   component: Pay,
-  // },
+  {
+    path: "/pay",
+    name: "Pay",
+    component: Pay,
+  },
   // {
   //   path: "/newPay",
   //   name: "newPay",

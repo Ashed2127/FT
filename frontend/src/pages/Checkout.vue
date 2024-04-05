@@ -422,7 +422,7 @@ export default {
           "/checkout-url/",
           this.checkoutUrl
         );
-        window.location.href = paymentCheckoutUrl.data;
+        // window.location.href = paymentCheckoutUrl.data;
         console.log("Checkout URL:", paymentCheckoutUrl);
         console.log("Checkout URL:", paymentCheckoutUrl.data);
       }

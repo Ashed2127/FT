@@ -56,7 +56,7 @@
                     <div v-if="!filterFoods.length">
                         <div class="box">
                             <div class="content">
-                                <h1 style="color: #2f5899;">{{langObj[this.newLangStatus].words[9]}}</h1>
+                                <h1 style="color: #6ca404;">{{langObj[this.newLangStatus].words[9]}}</h1>
                             </div>
                            
                         </div>
@@ -260,17 +260,17 @@ export default {
         filterFoodBtn: function (e) {
             this.pageNum = 0;
             if (this.foodObj.category != e.target.value && this.previousCategoryClicked != "") {
-                this.previousCategoryClicked.target.style.background = "#f38609";
+                this.previousCategoryClicked.target.style.background = "#7cc200";
             }
             this.foodObj.category = e.target.value;
             this.previousCategoryClicked = e;
-            e.target.style.background = "#2f5899";
+            e.target.style.background = "#6ca404";
         },
         filterStatusBtn: function (e) {
             this.pageNum = 0;
             if (this.foodObj.status.includes(e.target.value) == false) {
                 this.foodObj.status.push(e.target.value);
-                document.querySelector(`[for=${e.target.id}]`).style.background = "#f38609";
+                document.querySelector(`[for=${e.target.id}]`).style.background = "#7cc200";
                 document.querySelector(`[for=${e.target.id}]`).style.color = "white";
                 document.querySelector(`[for=${e.target.id}]`).querySelector(":scope > button").style.display = "block";
             }
@@ -279,7 +279,7 @@ export default {
             this.pageNum = 0;
             this.foodObj.price = "";
             this.foodObj.price += e.target.value;
-            document.querySelector(`[for=${e.target.id}]`).style.background = "#f38609";
+            document.querySelector(`[for=${e.target.id}]`).style.background = "#7cc200";
             document.querySelector(`[for=${e.target.id}]`).style.color = "white";
             document.querySelector(`[for=${e.target.id}]`).querySelector(":scope > button").style.display = "block";
             if (this.previousPriceClicked != "") {
@@ -429,7 +429,7 @@ hr {
 
 .filter-option label:hover {
     color: white;
-    background-color: #f38609 !important;
+    background-color: #7cc200 !important;
     transition: all 0.5s ease;
 }
 
@@ -479,7 +479,7 @@ hr {
 }
 
 .menu-section .menu-tabs .menu-tab-item:hover {
-    background-color: #f38609 !important;
+    background-color: #7cc200 !important;
 }
 
 .menu-section .menu-tabs .menu-tab-item p {
@@ -533,7 +533,7 @@ hr {
 }
 
 .menu-section .box-container .box .content .stars i {
-    color: gold;
+    color: #7cc200;
 }
 
 .menu-section .box-container .box .content .stars span {

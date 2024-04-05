@@ -1,4 +1,54 @@
 <template>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <router-link to="/" class="navbar-brand">Your Logo</router-link>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <router-link to="/" class="nav-link">Home</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/about" class="nav-link">About</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/services" class="nav-link">Services</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/contact" class="nav-link">Contact</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/login" class="nav-link">Login</router-link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</template>
+
+<script>
+export default {
+  // Add any necessary logic here
+};
+</script>
+
+<style scoped>
+/* Add any custom styles here */
+</style>
+
+export default { name: 'Pay',}
+
+<!-- <template>
   <div class="container">
     <div class="card p-4 shadow col-lg-7 ">
       <h5 class="card-title text-center mb-4">Payment Form</h5>
@@ -124,4 +174,4 @@ export default {
 };
 
 </script>
-
+ -->
