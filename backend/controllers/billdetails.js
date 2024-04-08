@@ -1,6 +1,7 @@
 import {
-    insertBillDetails,
-    getBillDetails
+  insertBillDetails,
+  getBillDetails,
+  getAllFood
 } from "../models/BillDetailsModel.js";
 
 // create BillDetails
@@ -24,4 +25,15 @@ export const getBillDetailsById=(req,res)=>{
             res.json(results);
         }
     });
+};
+
+// getAllFoods;
+export const getAllFoods = (req, res) => {
+  getAllFood(req.params.id, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(results);
+    }
+  });
 };

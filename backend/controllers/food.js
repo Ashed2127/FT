@@ -1,11 +1,12 @@
 // import functions from Food model
 
 import {
-    getFoods,
-    getFoodById,
-    insertFood,
-    updateFoodById,
-    deleteFoodById,
+  getFoods,
+  getFoodById,
+  insertFood,
+  updateFoodById,
+  deleteFoodById,
+  getFoodByFoodId,
 } from "../models/FoodModel.js";
 
 // get all Foods
@@ -67,4 +68,16 @@ export const deleteFood=(req,res)=>{
             res.json(results);
         }
     });
+};
+
+// getUserFoods
+export const getFoodsByFoodId = (req, res) => {
+  const id = req.params.id;
+  getFoodByFoodId(id, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(results);
+    }
+  });
 };

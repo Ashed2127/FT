@@ -61,3 +61,16 @@ export const deleteFoodById = (id,result) => {
         }
     });
 };
+
+// getFoodByFoodId;
+
+export const getFoodByFoodId = (id,result) => {
+    db.query("SELECT food_src FROM food WHERE food_id = ?",id, (err,results)=> {
+        if (err){
+            console.log(err);
+            result(err,null);
+        }else{
+            result(null,results);
+        }
+    });
+};

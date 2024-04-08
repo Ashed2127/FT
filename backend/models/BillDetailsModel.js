@@ -25,3 +25,17 @@ export const getBillDetails = (id,result) => {
         }
     });
 };
+
+// getAllFood
+export const getAllFood = (req, result) => {
+  db.query(
+    "SELECT * FROM billdetails",(err, results) => {
+      if (err) {
+        console.log(err);
+        result(err, null);
+      } else {
+        result(null, results);
+      }
+    }
+  );
+};

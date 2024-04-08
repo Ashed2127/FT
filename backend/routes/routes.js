@@ -1,11 +1,12 @@
 import express, { Router } from "express";
 // import functions from controller 
 import {
-    showFoods,
-    showFoodById,
-    createFood,
-    updateFood,
-    deleteFood,
+  showFoods,
+  showFoodById,
+  createFood,
+  updateFood,
+  deleteFood,
+  getFoodsByFoodId
 } from "../controllers/food.js";
 
 import { 
@@ -48,7 +49,9 @@ import {
 } from "../controllers/booktable.js";
 
 import {
-    createBillDetails,getBillDetailsById
+  createBillDetails,
+  getBillDetailsById,
+  getAllFoods
 } from "../controllers/billdetails.js";
 
 import {
@@ -173,7 +176,10 @@ router.put("/api/billstatus/paid/:id", updateBillPaid);
 
 router.put("/api/billstatus/undo/:id", undoBillStatusBtn);
 
-///////////////////PAYMENT////////////////////////////////
+router.get("/api/userfoods/", getAllFoods);
+router.get("/api/getuserfoods/:id", getFoodsByFoodId);
+
+///////////////////////PAYMENT////////////////////////////////
 router.post("/api/initiate-payment/", responseData, createBillStatus);
 router.get('/api/checkout-url/', async (req, res) => {
     try {
