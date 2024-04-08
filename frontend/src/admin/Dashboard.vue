@@ -32,6 +32,7 @@
             <th>Total</th>
             <th>Status</th>
             <th>Action</th>
+            <th>bill id</th>
           </tr>
         </thead>
         <tbody>
@@ -52,6 +53,7 @@
                 style="width: 50px"
               />
             </td>
+            <!-- <td>{{ getFoods() }}</td> -->
             <td>{{ b.bill_when }}</td>
             <td>{{ b.bill_paid }}</td>
             <td>{{ b.bill_total }}birr</td>
@@ -91,6 +93,7 @@
                 {{ avaiableStatus[b.bill_status + 1] }}
               </button>
             </td>
+            <!-- <td>{{ this.id }}</td> -->
           </tr>
         </tbody>
       </table>
@@ -186,13 +189,20 @@ export default {
         { src: burrito, foodName: "burrito" },
         // { src: '../assets/images/ethio-foods.jpg', alt: 'Image 3' }
       ],
-      image: "../assets/images/",
+      userFoodsData: "",
+      foods: [],
+      userFoods: "",
+      foodSrc: "",
     };
   },
 
   created() {
     this.getAllBills();
     this.getAllBooks();
+    this.getFoodsData();
+    this.getFoodsById();
+    this.display();
+
     if (!this.admin) {
       this.$router.push("/");
     }
@@ -276,11 +286,42 @@ export default {
       this.getAllBooks();
     },
 
+    async getFoodsData() {
+      this.userFoodsData = await axios.get("/userfoods/", this.foods);
+
+      for (let i = 0; i < this.userFoodsData.data.length; i++) {
+        var amount = i;
+        var food = this.userFoodsData.data[amount];
+        // var foodId = food.food_id;
+        var billId = food.bill_id;
+        // console.log(billId);
+        // console.log(foodId);
+      }
+      return billId;
+    },
+
+    async display() {
+      return this.getFoodsData();
+    },
+
+    async getFoodsById() {
+      this.userFoods = await axios.get("/getuserfoods/" + this.display());
+      console.log("food source: ",this.userFoods.data);
+    },
+
+    async foodSource() {
+      this.getFoodsById().then((data) => {
+        console.log("fetched food source: ", data);
+      });
+    },
     autoUpdate: function () {
       this.interval = setInterval(
         function () {
           this.getAllBills();
           this.getAllBooks();
+          // this.getFoodsData();
+          // this.getFoodsById();
+          // this.display();
         }.bind(this),
         50
       );
@@ -348,7 +389,7 @@ export default {
 }
 
 .colored-header {
-  background-color: #929fa6;
-  color: white;
+  background-color: #fffbfb;
+  color: rgb(0, 0, 0);
 }
 </style>
