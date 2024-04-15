@@ -418,11 +418,8 @@ export default {
         this.cartItem = [];
         this.itemQuantity = [];
         console.log("Payment initiated successfully!");
-        const paymentCheckoutUrl = await axios.get(
-          "/checkout-url/",
-          this.checkoutUrl
-        );
-        window.location.href = paymentCheckoutUrl.data;
+        const paymentCheckoutUrl = await axios.get("/checkout-url/",this.checkoutUrl);
+        window.location.href = paymentCheckoutUrl.data.checkout_url;
         console.log("Checkout URL:", paymentCheckoutUrl);
         console.log("Checkout URL:", paymentCheckoutUrl.data);
       }

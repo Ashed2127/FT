@@ -41,8 +41,8 @@
             <td>{{ b.user_id }}</td>
             <td>{{ b.bill_phone }}</td>
             <td>{{ b.bill_address }}</td>
-            <td>
-              <h3 v-for="(image, index) in images" :key="index">
+             <!-- <td  v-if="images[0].src===require('@/assets/images/breakfast/dulet1.jpg')" >
+               <h3 v-for="(image, index) in images" :key="index">
                 {{ image.foodName }}
               </h3>
               <img
@@ -51,9 +51,13 @@
                 :src="image.src"
                 :alt="image.alt"
                 style="width: 50px"
-              />
+              /> 
+            <img  :src="this.images[0].src" alt="" style="width: 50px;">
+             
             </td>
-            <!-- <td>{{ getFoods() }}</td> -->
+
+            <td v-else-if="images[1].src===require('@/assets/images/breakfast/enkulal-ferfer.png')"> <img  :src="this.images[1].src" alt="" style="width: 50px;"></td> -->
+            <td>{{ userFoods.data[0].food_name }}</td>
             <td>{{ b.bill_when }}</td>
             <td>{{ b.bill_paid }}</td>
             <td>{{ b.bill_total }}birr</td>
@@ -156,8 +160,9 @@
 <script>
 import axios from "axios";
 import { mapState, mapMutations } from "vuex";
-import burger from "../assets/images/burger.png";
-import burrito from "../assets/images/burrito-img.png";
+import burger from "../assets/images/breakfast/dulet1.png";
+import burger1 from "../assets/images/breakfast/enkulal-ferfer.png";
+
 export default {
   name: "Dashboard",
 
@@ -186,13 +191,17 @@ export default {
       ],
       images: [
         { src: burger, foodName: "burger" },
-        { src: burrito, foodName: "burrito" },
+        { src: burger1, foodName: "burrito" },
         // { src: '../assets/images/ethio-foods.jpg', alt: 'Image 3' }
       ],
       userFoodsData: "",
       foods: [],
       userFoods: "",
       foodSrc: "",
+      myID:2,
+      fImge: burger,
+      dImge: 'breakfast/dulet1.png',
+      cImg:`../assets/images/${this.dImge}`
     };
   },
 
@@ -229,6 +238,11 @@ export default {
         (allbook) => allbook.book_status < 6 && allbook.book_status > 0
       );
     },
+
+    // async orderFoodName(){
+    //   const foodData = await this.getFoodsById();
+    //  return foodData.food_name;
+    // }
   },
 
   methods: {
@@ -305,15 +319,15 @@ export default {
     },
 
     async getFoodsById() {
-      this.userFoods = await axios.get("/getuserfoods/" + this.display());
-      console.log("food source: ",this.userFoods.data);
+      this.userFoods = await axios.get("/getuserfoods/" + this.myID);
+      return this.userFoods.data[0].food_name;
     },
 
-    async foodSource() {
-      this.getFoodsById().then((data) => {
-        console.log("fetched food source: ", data);
-      });
-    },
+    // async foodSource() {
+    //   this.getFoodsById().then((data) => {
+    //     console.log("fetched food source: ", data);
+    //   });
+    // },
     autoUpdate: function () {
       this.interval = setInterval(
         function () {
