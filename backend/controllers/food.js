@@ -61,6 +61,7 @@ export const updateFood=(req,res)=>{
 // delete Food
 export const deleteFood=(req,res)=>{
     const id = req.params.id;
+    // console.log( 'food id is: ', id);
     deleteFoodById(id,(err,results)=> {
         if (err) {
             res.send(err);

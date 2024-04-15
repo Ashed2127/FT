@@ -51,6 +51,7 @@ export const undoBookStatus = (id, result) =>{
 };
 // get all Bills Status
 export const getBooksByUser = (id,result) => {
+    console.log(id)
     db.query("SELECT * FROM booktable WHERE user_id = ?",id, (err,results)=> {
         if (err){
             console.log(err);

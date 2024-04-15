@@ -1,102 +1,91 @@
 import express, { Router } from "express";
-// import functions from controller 
+// import functions from controller
 import {
   showFoods,
   showFoodById,
   createFood,
   updateFood,
   deleteFood,
-  getFoodsByFoodId
+  getFoodsByFoodId,
 } from "../controllers/food.js";
 
-import { 
-    showAUser,
-    createAccount,
-    getUserId,
-    getUserEmail,
-    getUserPhone,
-    getUserFirstName,
-    getUserLastName
+import {
+  showAUser,
+  createAccount,
+  getUserId,
+  getUserEmail,
+  getUserPhone,
+  getUserFirstName,
+  getUserLastName,
 } from "../controllers/user.js";
 
 import {
-    showAAdmin,
-    createAdminAccount,
-    allAdmin
-    // getAdminData
+  showAAdmin,
+  createAdminAccount,
+  allAdmin,
+  // getAdminData
 } from "../controllers/admin.js";
 
+import { showADp, createDpAccount } from "../controllers/dp.js";
 import {
-    showADp,
-    createDpAccount
-} from "../controllers/dp.js";
-import {
-    addItems,
-    getItem,
-    updateItem,
-    allItems,
-    deleteItem,
-    deleteItems
+  addItems,
+  getItem,
+  updateItem,
+  allItems,
+  deleteItem,
+  deleteItems,
 } from "../controllers/cart.js";
 
 import {
-    createBooking,
-    getAllBooks,
-    updateBooksStatusById,
-    getAllBooksByUser,
-    getAllBooksByBookName,
-    undoBooksStatusById
+  createBooking,
+  getAllBooks,
+  updateBooksStatusById,
+  getAllBooksByUser,
+  getAllBooksByBookName,
+  undoBooksStatusById,
 } from "../controllers/booktable.js";
 
 import {
   createBillDetails,
   getBillDetailsById,
-  getAllFoods
+  getAllFoods,
 } from "../controllers/billdetails.js";
 
 import {
-    showNewestStatusId,
-    createBillStatus, 
-    getAllBillsByUser,
-    getAllBillsByBill,
-    getAllBills,
-    updateBillStatus,
-    updateBillPaid,
-    // cancelBillStatus
-    undoBillStatusBtn
+  showNewestStatusId,
+  createBillStatus,
+  getAllBillsByUser,
+  getAllBillsByBill,
+  getAllBills,
+  updateBillStatus,
+  updateBillPaid,
+  // cancelBillStatus
+  undoBillStatusBtn,
 } from "../controllers/billstatus.js";
 import { format } from "mysql2";
 // import initializeChapaPayment from "../chapa-wrapper.js";
 // import customerInfo from "../cha.js";
 // init express router
-import {
-    responseData,
-    getCheckoutUrl
-} from "../pay.js"
+import { responseData, getCheckoutUrl } from "../pay.js";
 
-import {
-    engIndex,
-    oroIndex,
-    getLangStatus
-} from "../controllers/lang.js"
+import { engIndex, oroIndex, getLangStatus } from "../controllers/lang.js";
 const router = express.Router();
 
 ////////////////////////// FOOD ////////////////////////////////
 // get all Food
 router.get("/api/foods", showFoods);
 
-// get single Food 
+// get single Food
 router.get("/api/foods/:id", showFoodById);
 
 // create Food
 router.post("/api/foods", createFood);
 
-// update Food 
+// update Food
 router.put("/api/foods/:id", updateFood);
 
 // delete Food
 router.delete("/api/foods/:id", deleteFood);
-
 
 ////////////////////////// USER ///////////////////////
 // get all user
@@ -117,14 +106,12 @@ router.post("/api/admin/", createAdminAccount);
 router.get("/api/admindata/", allAdmin);
 // router.get("/api/admindata/", getAdminData);
 
-
 ////////////////////////////DP//////////////////////
 ///get deliver person
 router.get("/api/dp/:email", showADp);
 
 //create deliver person
 router.post("/api/dp/", createDpAccount);
-
 
 ////////////////////////// CART ////////////////////
 // add to cart
@@ -144,8 +131,6 @@ router.delete("/api/cartItem/:user_id/:food_id", deleteItem);
 
 // delete all items in cart
 router.delete("/api/cartItem/:id", deleteItems);
-
-
 
 ////////////////////////// Booking ////////////////////////
 router.post("/api/booktable", createBooking);
@@ -167,7 +152,7 @@ router.get("/api/billdetails/:id", getBillDetailsById);
 
 //////////////////////// Bill Status ////////////////////////
 router.get("/api/billstatus/new", showNewestStatusId);
-router.post("/api/billstatus", createBillStatus );
+router.post("/api/billstatus", createBillStatus);
 router.get("/api/billstatus/user/:id", getAllBillsByUser);
 router.get("/api/billstatus/bill/:id", getAllBillsByBill);
 router.get("/api/billstatus", getAllBills);
@@ -181,21 +166,19 @@ router.get("/api/getuserfoods/:id", getFoodsByFoodId);
 
 ///////////////////////PAYMENT////////////////////////////////
 router.post("/api/initiate-payment/", responseData, createBillStatus);
-router.get('/api/checkout-url/', async (req, res) => {
-    try {
-        const checkoutUrl = await getCheckoutUrl(req, res);
-        res.send(checkoutUrl); // Send the checkout URL directly
-    } catch (error) {
-        console.error('Error fetching checkout URL:', error);
-        res.status(500).json({ error: 'Internal server error.' });
-    }
+router.get("/api/checkout-url/", async (req, res) => {
+  try {
+    const checkoutUrl = await getCheckoutUrl(req, res);
+    res.send(checkoutUrl); // Send the checkout URL directly
+  } catch (error) {
+    console.error("Error fetching checkout URL:", error);
+    res.status(500).json({ error: "Internal server error." });
+  }
 });
 
-
 ////////////////////////language/////////////////////////
-router.put('/api/english/', engIndex);
+router.put("/api/english/", engIndex);
 router.put("/api/oromo/", oroIndex);
-router.get('/api/langstatus/', getLangStatus);
+router.get("/api/langstatus/", getLangStatus);
 
-export  default router
-
+export default router;
