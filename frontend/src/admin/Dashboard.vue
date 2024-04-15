@@ -32,7 +32,7 @@
             <th>Total</th>
             <th>Status</th>
             <th>Action</th>
-            <th>bill id</th>
+            <!-- <th>bill id</th> -->
           </tr>
         </thead>
         <tbody>
@@ -41,22 +41,7 @@
             <td>{{ b.user_id }}</td>
             <td>{{ b.bill_phone }}</td>
             <td>{{ b.bill_address }}</td>
-             <!-- <td  v-if="images[0].src===require('@/assets/images/breakfast/dulet1.jpg')" >
-               <h3 v-for="(image, index) in images" :key="index">
-                {{ image.foodName }}
-              </h3>
-              <img
-                v-for="(image, index) in images"
-                :key="index"
-                :src="image.src"
-                :alt="image.alt"
-                style="width: 50px"
-              /> 
-            <img  :src="this.images[0].src" alt="" style="width: 50px;">
-             
-            </td>
-
-            <td v-else-if="images[1].src===require('@/assets/images/breakfast/enkulal-ferfer.png')"> <img  :src="this.images[1].src" alt="" style="width: 50px;"></td> -->
+            
             <td>{{ userFoods.data[0].food_name }}</td>
             <td>{{ b.bill_when }}</td>
             <td>{{ b.bill_paid }}</td>
@@ -71,9 +56,7 @@
                 {{ avaiableStatus[b.bill_status + 1] }}
               </button>
 
-              <!-- <button v-if="b.bill_status == 1" class="cancel-btn" @click="cancelBtn(b.bill_id)">
-                                Cancel
-                            </button> -->
+             
               <button
                 v-if="b.bill_status >= 2"
                 class="undo-btn"
@@ -160,8 +143,6 @@
 <script>
 import axios from "axios";
 import { mapState, mapMutations } from "vuex";
-import burger from "../assets/images/breakfast/dulet1.png";
-import burger1 from "../assets/images/breakfast/enkulal-ferfer.png";
 
 export default {
   name: "Dashboard",
@@ -189,19 +170,13 @@ export default {
         "reserved",
         "no table",
       ],
-      images: [
-        { src: burger, foodName: "burger" },
-        { src: burger1, foodName: "burrito" },
-        // { src: '../assets/images/ethio-foods.jpg', alt: 'Image 3' }
-      ],
       userFoodsData: "",
       foods: [],
       userFoods: "",
       foodSrc: "",
-      myID:2,
-      fImge: burger,
-      dImge: 'breakfast/dulet1.png',
-      cImg:`../assets/images/${this.dImge}`
+      // myID:2,
+      orderedFoodId:0,
+    
     };
   },
 
@@ -238,11 +213,6 @@ export default {
         (allbook) => allbook.book_status < 6 && allbook.book_status > 0
       );
     },
-
-    // async orderFoodName(){
-    //   const foodData = await this.getFoodsById();
-    //  return foodData.food_name;
-    // }
   },
 
   methods: {
@@ -251,12 +221,13 @@ export default {
     //get all bill status from billstatus table
     async getAllBills() {
       this.allBills = (await axios.get("/billstatus")).data;
+      // console.log(this.allBills);
     },
 
     // get all book tables from booktable
     async getAllBooks() {
       this.allBooks = (await axios.get("/booktable")).data;
-      // this.userid = (await axios.get('/userid')).data;
+   
     },
 
     sendBillId: function (id) {
@@ -282,10 +253,7 @@ export default {
       this.getAllBills();
     },
 
-    // async cancelBtn(id) {
-    //     await axios.put('/billstatus/cancel/' + id);
-    //     this.getAllBills();
-    // },
+    
     async undoBillStatusBtn(id) {
       await axios.put("/billstatus/undo/" + id);
       this.getAllBills();
@@ -305,13 +273,13 @@ export default {
 
       for (let i = 0; i < this.userFoodsData.data.length; i++) {
         var amount = i;
-        var food = this.userFoodsData.data[amount];
-        // var foodId = food.food_id;
-        var billId = food.bill_id;
-        // console.log(billId);
-        // console.log(foodId);
+        this.orderedFoodId = this.userFoodsData.data[amount].bill_id;
+      
+      // console.log('billDetail ', this.userFoodsData.data[amount].bill_id);
+        
       }
-      return billId;
+      console.log('billDetail ', this.userFoodsData.data[1].bill_id);
+      return this.orderedFoodId ;
     },
 
     async display() {
@@ -319,23 +287,14 @@ export default {
     },
 
     async getFoodsById() {
-      this.userFoods = await axios.get("/getuserfoods/" + this.myID);
+      this.userFoods = await axios.get("/getuserfoods/" + this.orderedFoodId );
       return this.userFoods.data[0].food_name;
     },
-
-    // async foodSource() {
-    //   this.getFoodsById().then((data) => {
-    //     console.log("fetched food source: ", data);
-    //   });
-    // },
     autoUpdate: function () {
       this.interval = setInterval(
         function () {
           this.getAllBills();
           this.getAllBooks();
-          // this.getFoodsData();
-          // this.getFoodsById();
-          // this.display();
         }.bind(this),
         50
       );
