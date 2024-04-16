@@ -16,7 +16,6 @@
         <button class="btn" @click="handleLogout()">Logout</button>
       </div>
     </div>
-
     <div class="table-responsive col-lg-12">
       <!-- PROJECT TABLE -->
       <table class="table colored-header datatable project-list">
@@ -32,6 +31,7 @@
             <th>Total</th>
             <th>Status</th>
             <th>Action</th>
+            <!-- <th>bill id</th> -->
             <!-- <th>bill id</th> -->
           </tr>
         </thead>
@@ -56,7 +56,6 @@
                 {{ avaiableStatus[b.bill_status + 1] }}
               </button>
 
-             
               <button
                 v-if="b.bill_status >= 2"
                 class="undo-btn"
@@ -71,7 +70,6 @@
               >
                 Paid
               </button>
-
               <button
                 v-else-if="b.bill_status == 5 && b.bill_paid == 'true'"
                 class="action-btn"
@@ -85,7 +83,6 @@
         </tbody>
       </table>
     </div>
-
     <br /><br />
     <h1>Admin Table Dashboard</h1>
     <div class="table-responsive">
@@ -103,7 +100,6 @@
             <th>Action</th>
           </tr>
         </thead>
-
         <tbody>
           <tr
             v-for="allBook in filterBooks.slice().reverse()"
@@ -117,7 +113,6 @@
             <td>{{ allBook.book_when }}</td>
             <td>{{ allBook.book_note }}</td>
             <td>{{ avaiableBookStatus[allBook.book_status] }}</td>
-
             <button
               v-if="allBook.book_status < 4"
               class="action-btn"
@@ -125,7 +120,6 @@
             >
               {{ avaiableBookStatus[allBook.book_status + 1] }}
             </button>
-
             <button
               v-if="allBook.book_status >= 2"
               class="undo-btn"
@@ -139,14 +133,13 @@
     </div>
   </div>
 </template>
-
 <script>
 import axios from "axios";
 import { mapState, mapMutations } from "vuex";
-
+// import burger from "../assets/images/breakfast/dulet1.png";
+// import burger1 from "../assets/images/breakfast/enkulal-ferfer.png";
 export default {
   name: "Dashboard",
-
   data() {
     return {
       avaiableStatus: [
@@ -170,39 +163,35 @@ export default {
         "reserved",
         "no table",
       ],
+      
       userFoodsData: "",
       foods: [],
       userFoods: "",
       foodSrc: "",
-      // myID:2,
+      myID:2,
+     
       orderedFoodId:0,
     
     };
   },
-
   created() {
     this.getAllBills();
     this.getAllBooks();
     this.getFoodsData();
     this.getFoodsById();
     this.display();
-
     if (!this.admin) {
       this.$router.push("/");
     }
   },
-
   mounted: function () {
     this.autoUpdate();
   },
-
   beforeUnmount() {
     clearInterval(this.interval);
   },
-
   computed: {
     ...mapState(["allFoods", "admin"]),
-
     filterBills: function () {
       return this.allBills.filter(
         (b) => b.bill_status < 6 && b.bill_status > 0
@@ -213,46 +202,46 @@ export default {
         (allbook) => allbook.book_status < 6 && allbook.book_status > 0
       );
     },
+    // async orderFoodName(){
+    //   const foodData = await this.getFoodsById();
+    //  return foodData.food_name;
+    // }
   },
-
   methods: {
     ...mapMutations(["setAdmin"]),
-
     //get all bill status from billstatus table
     async getAllBills() {
       this.allBills = (await axios.get("/billstatus")).data;
       // console.log(this.allBills);
     },
-
     // get all book tables from booktable
     async getAllBooks() {
       this.allBooks = (await axios.get("/booktable")).data;
+      // this.userid = (await axios.get('/userid')).data;
    
     },
-
     sendBillId: function (id) {
       this.sendId = id;
       this.showOrderDetails = !this.showOrderDetails;
     },
-
     closeView: function () {
       this.showOrderDetails = !this.showOrderDetails;
     },
-
     handleLogout: function () {
       this.setAdmin("");
     },
-
     async nextStatusBtn(id) {
       await axios.put("/billstatus/" + id);
       this.getAllBills();
     },
-
     async paidBtn(id) {
       await axios.put("/billstatus/paid/" + id);
       this.getAllBills();
     },
-
+    // async cancelBtn(id) {
+    //     await axios.put('/billstatus/cancel/' + id);
+    //     this.getAllBills();
+    // },
     
     async undoBillStatusBtn(id) {
       await axios.put("/billstatus/undo/" + id);
@@ -262,39 +251,46 @@ export default {
       await axios.put("/booktable/" + id);
       this.getAllBooks();
     },
-
     async undoBookStatusBtn(id) {
       await axios.put("/booktable/undo/" + id);
       this.getAllBooks();
     },
-
     async getFoodsData() {
       this.userFoodsData = await axios.get("/userfoods/", this.foods);
-
       for (let i = 0; i < this.userFoodsData.data.length; i++) {
         var amount = i;
+        // var food = this.userFoodsData.data[1];
+        // // var foodId = food.food_id;
+        // var billId = food.bill_id;
+        // console.log(billId);
+        // console.log(foodId);
         this.orderedFoodId = this.userFoodsData.data[amount].bill_id;
       
-      // console.log('billDetail ', this.userFoodsData.data[amount].bill_id);
+      console.log('billDetail ', this.userFoodsData.data[amount].bill_id);
         
       }
       console.log('billDetail ', this.userFoodsData.data[1].bill_id);
+
+      // return billId;
       return this.orderedFoodId ;
     },
-
     async display() {
       return this.getFoodsData();
     },
-
     async getFoodsById() {
-      this.userFoods = await axios.get("/getuserfoods/" + this.orderedFoodId );
+      this.userFoods = await axios.get("/getuserfoods/" + this.myID);
+      // this.userFoods = await axios.get("/getuserfoods/" + this.userFoodsData.data[1].bill_id );
       return this.userFoods.data[0].food_name;
     },
+   
     autoUpdate: function () {
       this.interval = setInterval(
         function () {
           this.getAllBills();
           this.getAllBooks();
+          // this.getFoodsData();
+          // this.getFoodsById();
+          // this.display();
         }.bind(this),
         50
       );
@@ -302,7 +298,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .admin-container {
   background-color: #fefeff;
@@ -316,17 +311,14 @@ export default {
 .project-list > tbody > tr > td {
   padding: 12px 8px;
 }
-
 .project-list > tbody > tr > td .avatar {
   width: 22px;
 }
-
 .table-responsive {
   margin-top: 8vh;
   margin-left: 5vh;
   /* width: 800px; */
 }
-
 .action-btn,
 .cancel-btn,
 .paid-btn {
@@ -335,12 +327,10 @@ export default {
   color: white;
   text-transform: capitalize;
 }
-
 .action-btn {
   background-color: #0da9ef;
   margin-right: 10px;
 }
-
 .cancel-btn,
 .paid-btn {
   background-color: red;
@@ -350,17 +340,14 @@ export default {
   height: 25px;
   background-color: rgb(233, 138, 14);
 }
-
 .action-btn:hover {
   background-color: #27ae60;
 }
-
 .table-contain {
   height: 5px;
   widows: 100%;
   color: orange;
 }
-
 .colored-header {
   background-color: #fffbfb;
   color: rgb(0, 0, 0);
