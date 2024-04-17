@@ -439,6 +439,7 @@ export default {
           bill_total: parseInt(this.calculateSummaryPrice()[3]),
           bill_paid: this.isPaid(),
           bill_status: 1,
+          bill_food: this.food_Name
         };
         console.log('the response data ', response);
         console.log('the food name ', this.food_Name);
@@ -457,6 +458,7 @@ export default {
           bill_total: parseInt(this.calculateSummaryPrice()[3]),
           bill_paid: this.isPaid(),
           bill_status: 1,
+          bill_food: this.food_Name
         };
         axios.post("/billstatus", billStatus);
         axios.delete("/cartItem/" + this.user.user_id);
@@ -466,7 +468,7 @@ export default {
         this.itemQuantity = [];
         console.log("Payment initiated successfully!");
         const paymentCheckoutUrl = await axios.get("/checkout-url/",this.checkoutUrl);
-        // window.location.href = paymentCheckoutUrl.data.checkout_url;
+        window.location.href = paymentCheckoutUrl.data.checkout_url;
         console.log("Checkout URL:", paymentCheckoutUrl);
         console.log("Checkout URL:", paymentCheckoutUrl.data);
       }

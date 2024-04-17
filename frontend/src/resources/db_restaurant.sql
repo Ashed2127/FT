@@ -140,3 +140,5 @@ INSERT INTO languagestatus (lang_id, langstatus) VALUES (1, 0);
 -- ALTER TABLE `user`
 -- CHANGE COLUMN `user_name` `user_fname` VARCHAR(255),
 -- ADD COLUMN `user_lname` VARCHAR(255) AFTER `user_fname`;
+ALTER TABLE billstatus ADD COLUMN bill_food VARCHAR(255);
+

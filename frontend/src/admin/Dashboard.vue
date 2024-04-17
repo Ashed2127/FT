@@ -42,7 +42,7 @@
             <td>{{ b.bill_phone }}</td>
             <td>{{ b.bill_address }}</td>
             
-            <td>{{ userFoods.data[0].food_name }}</td>
+            <td>{{ b.bill_food }}</td>
             <td>{{ b.bill_when }}</td>
             <td>{{ b.bill_paid }}</td>
             <td>{{ b.bill_total }}birr</td>
