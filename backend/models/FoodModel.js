@@ -69,7 +69,7 @@ export const deleteFoodById = (id, result) => {
 
 export const getFoodByFoodId = (id, result) => {
   // console.log(id);s
-  db.query("SELECT * FROM food WHERE food_id = ?", id, (err, results) => {
+  db.query("SELECT food_name FROM food WHERE food_id = ?", [id], (err, results) => {
     if (err) {
       console.log(err);
       result(err, null);
