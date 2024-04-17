@@ -137,6 +137,7 @@ export default {
         },
     },
 
+    
     methods: {
         async getAllBills() {
             if (this.user) {

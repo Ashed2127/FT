@@ -249,6 +249,8 @@ export default {
                 });
             }
         },
+
+        
         async getStatus(){
           let langStatus = await axios.get('/langstatus/', this.languageStatus);
           this.newLangStatus = langStatus.data[0].langstatus;

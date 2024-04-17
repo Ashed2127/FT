@@ -9,6 +9,7 @@
               >{{ calculateSummaryPrice()[3] }}birr</span
             >
           </h3>
+          <!-- <h3>{{calculateSummaryPrice()[4]}}</h3> -->
         </div>
 
         <div class="form-group details-group">
@@ -141,6 +142,11 @@ export default {
       paymentProcessing: false, // Flag to indicate payment processing state
       paymentError: null, // Store any errors during payment processing
       checkoutUrl: "",
+      foodName: "",
+      //////new part/////
+      food_Name: "",
+      food_Id: null,
+
     };
   },
 
@@ -154,6 +160,7 @@ export default {
     filterFoods: function () {
       return this.allFoods.filter((f) => this.matchID(f, this.cartItem));
     },
+
   },
 
   mounted() {
@@ -161,6 +168,7 @@ export default {
     this.getUserPhone();
     this.getUserFirstName();
     this.getUserLastName();
+    // this.getFoodsName();
   },
   methods: {
     availableTime: function () {
@@ -181,6 +189,7 @@ export default {
           temp = food;
         }
       });
+
       return temp;
     },
 
@@ -197,6 +206,8 @@ export default {
           discount +
           parseInt(this.filterFoods[i].food_discount) * this.itemQuantity[i];
         i = i + 1;
+        // console.log('discount ',discount);
+      // this.filterFoods[i].food_name;
       }
       if (!this.filterFoods.length) {
         delivery = 0;
@@ -205,12 +216,45 @@ export default {
       return [subtotal, discount, delivery, total];
     },
 
+    // getFoodsName: function () {
+    //   for(let i = 0; i < this.allFoods.length; i++){
+    //     this.food_Id = this.allFoods[i].food_id;
+    //     this.food_Name = this.allFoods[i].food_name;
+    //     //  if(this.cartItem===this.food_Id){
+    //     //     console.log('two id ', this.cartItem, this.food_Id);
+    //     //   }
+    //     // console.log('foodId',this.food_Id, 'foodName', this.food_Name ); 
+    //     return this.foodName;
+    //   }
+
+    //   // console.log('foodData',this.allFoods[0].food_name);
+      
+    // },
+
     async getAllCartItem() {
       if (this.user) {
         let existItem = await axios.get("/cartItem/" + this.user.user_id);
         existItem.data.forEach((element) => {
           this.cartItem.push(element.food_id);
           this.itemQuantity.push(element.item_qty);
+
+          // if(this.cartItem[0]!==this.food_Id){
+          //   console.log('two id ', this.cartItem[0], this.food_Id);
+          // }
+
+          for(let i = 0; i < this.allFoods.length; i++){
+        this.food_Id = this.allFoods[i].food_id;
+        this.food_Name = this.allFoods[i].food_name;
+         if(this.cartItem[0]===this.food_Id){
+            console.log('they are equal', this.cartItem[0], this.food_Id);
+            console.log('foodId',this.food_Id, 'foodName', this.food_Name ); 
+            // console.log( this.food_Name ); 
+            return this.foodName;
+          }
+          
+        // console.log('foodId',this.food_Id, 'foodName', this.food_Name ); 
+        // return this.foodName;
+      }
         });
       }
     },
@@ -218,7 +262,7 @@ export default {
     async getUserEmail() {
       if (this.user) {
         let email = await axios.get("/useremail/" + this.user.user_id);
-        console.log(email.data.user_email);
+        // console.log(email.data.user_email);
         this.email = email.data.user_email;
         return email.data.user_email;
       }
@@ -227,7 +271,7 @@ export default {
     async getUserPhone() {
       if (this.user) {
         let phone = await axios.get("/userphone/" + this.user.user_id);
-        console.log(phone.data.user_phone);
+        // console.log(phone.data.user_phone);
         this.phone = phone.data.user_phone;
         return phone.data.user_phone;
       }
@@ -333,10 +377,12 @@ export default {
           bill_discount: parseInt(this.calculateSummaryPrice()[1]),
           bill_delivery: parseInt(this.calculateSummaryPrice()[2]),
           bill_total: parseInt(this.calculateSummaryPrice()[3]),
+          // bill_food: this.calculateSummaryPrice()[4],
           bill_paid: this.isPaid(),
           bill_status: 1,
         };
         console.log(billStatus);
+
         axios.post("/billstatus", billStatus);
         axios.delete("/cartItem/" + this.user.user_id);
 
@@ -394,7 +440,8 @@ export default {
           bill_paid: this.isPaid(),
           bill_status: 1,
         };
-        console.log(response);
+        console.log('the response data ', response);
+        console.log('the food name ', this.food_Name);
         await axios.post("/initiate-payment/", response);
 
         ////////////bill status///////////////////
@@ -419,7 +466,7 @@ export default {
         this.itemQuantity = [];
         console.log("Payment initiated successfully!");
         const paymentCheckoutUrl = await axios.get("/checkout-url/",this.checkoutUrl);
-        window.location.href = paymentCheckoutUrl.data.checkout_url;
+        // window.location.href = paymentCheckoutUrl.data.checkout_url;
         console.log("Checkout URL:", paymentCheckoutUrl);
         console.log("Checkout URL:", paymentCheckoutUrl.data);
       }

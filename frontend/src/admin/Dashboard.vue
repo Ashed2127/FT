@@ -168,18 +168,19 @@ export default {
       foods: [],
       userFoods: "",
       foodSrc: "",
-      myID:2,
+      myID: 2,
+      // newMyId: null,
      
       orderedFoodId:0,
     
     };
   },
   created() {
-    this.getAllBills();
+     this.getAllBills();
     this.getAllBooks();
-    this.getFoodsData();
+    // this.getFoodsData();
     this.getFoodsById();
-    this.display();
+   
     if (!this.admin) {
       this.$router.push("/");
     }
@@ -201,11 +202,7 @@ export default {
       return this.allBooks.filter(
         (allbook) => allbook.book_status < 6 && allbook.book_status > 0
       );
-    },
-    // async orderFoodName(){
-    //   const foodData = await this.getFoodsById();
-    //  return foodData.food_name;
-    // }
+    }
   },
   methods: {
     ...mapMutations(["setAdmin"]),
@@ -255,34 +252,27 @@ export default {
       await axios.put("/booktable/undo/" + id);
       this.getAllBooks();
     },
-    async getFoodsData() {
-      this.userFoodsData = await axios.get("/userfoods/", this.foods);
-      for (let i = 0; i < this.userFoodsData.data.length; i++) {
-        var amount = i;
-        // var food = this.userFoodsData.data[1];
-        // // var foodId = food.food_id;
-        // var billId = food.bill_id;
-        // console.log(billId);
-        // console.log(foodId);
-        this.orderedFoodId = this.userFoodsData.data[amount].bill_id;
-      
-      console.log('billDetail ', this.userFoodsData.data[amount].bill_id);
-        
-      }
-      console.log('billDetail ', this.userFoodsData.data[1].bill_id);
-
-      // return billId;
-      return this.orderedFoodId ;
-    },
-    async display() {
-      return this.getFoodsData();
-    },
+    // async getFoodsData() {
+    //   this.userFoodsData = await axios.get("/userfoods/", this.foods);
+    //   for (let i = 0; i < this.userFoodsData.data.length; i++) {
+    //     // var amount = i;
+    //     // var food = this.userFoodsData.data[1];
+    //     // // var foodId = food.food_id;
+    //     // var billId = food.bill_id;
+    //     // console.log(billId);
+    //     // console.log(foodId);
+    //     this.orderedFoodId =  this.userFoodsData.data[4].food_id;
+    //   }
+    //   // return this.orderedFoodId ;
+    // },
+  
     async getFoodsById() {
-      this.userFoods = await axios.get("/getuserfoods/" + this.myID);
-      // this.userFoods = await axios.get("/getuserfoods/" + this.userFoodsData.data[1].bill_id );
+      // const foodId = this.filterFoodId;
+      this.userFoods = await axios.get(`/getuserfoods/${this.myID}`);
+      console.log('foodName: ', this.userFoods.data[0].food_name)
       return this.userFoods.data[0].food_name;
     },
-   
+  
     autoUpdate: function () {
       this.interval = setInterval(
         function () {
