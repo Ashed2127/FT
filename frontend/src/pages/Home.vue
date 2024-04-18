@@ -1,34 +1,36 @@
 <template>
     <div>
-        <div class="banner-container mx-5 mt-5 row">
-        <div class="home-main left-banner col-5">
-            <img src="../assets/images/burger.png" style="width: 60vh;" alt="">
-            
+        <div></div>
+        <div class=" banner">
+            <!-- <div class="img-container">
+                         <img src="../assets/images/burger.png" style="width: 40%;" alt="">
+                    </div> -->
+                    <div style="width: 20%;"></div>
+            <div class="img1-container"><img src="../assets/images/dpn-removebg-preview.png" class="my-4" style="width: 14%;" alt=""></div>
         </div>
-        <div class="right-banner col-5"><img src="../assets/images/burger.png" style="width: 60vh;" alt=""></div></div>
         
 
         <div class="home-banner">
-            <div class="grid-banner row">
-                <div class="grid col-md-4">
-                    <img src="../assets/images/ethio-foods.jpg" alt="">
+            <div class="grid-banner row ">
+                <div class="grid col-md-6 r col-sm-12 mb-5">
+                    <img src="../assets/images/burger.png" alt="">
                     <div class="content">
                         <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
                         <h3>{{ langObj[this.newLangStatus].words[1] }}</h3>
                         <router-link @click="scrollToTop()" to="/menu" class="btn g g-h">{{ langObj[this.newLangStatus].words[2] }}</router-link>
                     </div>
                 </div>
-
+<!-- 
                 <div class="grid col-md-4">
                     <img src="../assets/images/delivery-bike.jpg" alt="">
                     <div class="content center">
                         <span>{{ langObj[this.newLangStatus].words[3] }}</span>
                       
                     </div>
-                </div>
+                </div> -->
 
-                <div class="grid col-md-4">
-                    <img src="../assets/images/tables.jpg" alt="">
+                <div class="grid col-md-6 col-sm-12 mb-5">
+                    <img src="../assets/images/table.jpg" alt="">
                     <div class="content">
                         <h3>{{ langObj[this.newLangStatus].words[4] }}</h3>
                         <router-link @click="scrollToTop()" to="/table" class="btn g g-h">{{ langObj[this.newLangStatus].words[5] }}</router-link>
@@ -236,14 +238,11 @@ export default {
 
 
 .home-banner .grid-banner .grid {
-    border-radius: 1rem;
     overflow: hidden;
-    height: 45rem;
+    width: 25rem;
+    height: 40rem;
 }
 
-.home-banner .grid-banner .grid:hover img {
-    transform: scale(1.2);
-}
 
 .home-banner .grid-banner .grid img {
     height: 100%;
@@ -389,23 +388,35 @@ export default {
   background-color: #e0f1d1;
 }
 
-.left-banner{
+.banner{
     
-    background-color: #a9da81;
-    margin-top: 2%;
+    width: 100%;
+    height: 50px;
+    margin: auto;
+    background-color: rgba(196, 195, 195, 0.788);
+
+    margin-bottom: 5%;
 
 }
-.right-banner{
+
+.img-container{
+    width: 50px;
+    height: 60px;
     
-    background-color: #a9da81;
-    margin-top: 2%;
 }
-
-.banner-container{
-    background-color: #a9da81;
+.img1-container{
+    margin-left: 63%;
+    margin-top: 0;
+    height: 50px;
 
 }
-
+.img1-container img {
+    width: 100%;
+    height: auto;
+}
+.r{
+    background-color: rgba(238, 12, 12, 0.788);
+}
 </style>
 
 

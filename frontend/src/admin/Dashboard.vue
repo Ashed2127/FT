@@ -3,9 +3,9 @@
     <div class="navbar navbar-expand-lg">
       <div class="container-fluid">
         <router-link @click="scrollToTop()" to="/dpRegister" class="btn"
-          >Add Deliver Person</router-link
+          >Add DP</router-link
         ><router-link @click="scrollToTop()" to="/dpRegister" class="btn"
-          >remove Deliver Person</router-link
+          >remove DP</router-link
         ><router-link @click="scrollToTop()" to="/dpRegister" class="btn"
           >Add foods</router-link
         ><router-link @click="scrollToTop()" to="/dpRegister" class="btn"
@@ -16,10 +16,10 @@
         <button class="btn" @click="handleLogout()">Logout</button>
       </div>
     </div>
-    <div class="table-responsive col-lg-12 col-md-9">
+    <div class="table-responsive ">
       
       <!-- PROJECT TABLE -->
-      <table class="table colored-header datatable project-list  col-md-12">
+      <table class="table colored-header datatable project-list  ">
         <thead>
           <tr>
             <th>Bill Id</th>

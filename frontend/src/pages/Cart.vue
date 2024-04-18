@@ -79,7 +79,7 @@
 
                         </div>
 
-                        <div class="box-content row col-sm-3 col-md-3 col-lg-5  col-9 ">
+                        <div class="box-content row col-sm-6 col-md-3 col-lg-5  col-9 ">
                             <router-link to="/menu" class="btn shop-btn  backbtn r"><i class="fa fa-arrow-left"></i>{{ langObj[this.newLangStatus].words[7] }}</router-link>
                             <button class="btn check-out-btn col-sm-6 col-lg-7 checkbtn g g-h" 
                                 :disabled="filterFoods.length ? false : true" @click="checkOutBtn()">{{ langObj[this.newLangStatus].words[8] }}</button>
@@ -87,7 +87,7 @@
                     </div>
 
 
-                    <div class="col-md-3 col-sm-2 ">
+                    <div class="col-md-3 col-sm-8 ">
                         <div class="box border-shadow">
                             <div class="box-title ">
                                 <h3>{{ langObj[this.newLangStatus].words[9] }}</h3>
