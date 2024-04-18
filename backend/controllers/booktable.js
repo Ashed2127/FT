@@ -63,7 +63,7 @@ export const getAllBooksByBookName=(req,res)=>{
     });
 };
 
-//undo book status
+// undo book status
 export const undoBooksStatusById = (req, res)=>{
     undoBookStatus( req.params.id, (err, results)=> {
         if (err) {

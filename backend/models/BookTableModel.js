@@ -66,16 +66,19 @@ export const getBooksByUser = (id,result) => {
 
 
 //get getAllBooksByBookName
-export const getBooksByBookName = (id,result) => {
-    db.query("SELECT * FROM booktable WHERE book_name = ?",id, (err,results)=> {
-        if (err){
-            console.log(err);
-            result(err,null);
+export const getBooksByBookName = (book_name,result) => {
+    db.query(
+      "SELECT * FROM booktable WHERE book_name = ?",
+      book_name,
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          result(err, null);
+        } else {
+          result(null, results);
         }
-        else{
-            result(null,results);
-        }
-    });
+      }
+    );
 };
 
 
