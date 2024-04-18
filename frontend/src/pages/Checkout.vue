@@ -97,7 +97,7 @@
           <input
             type="submit"
             value="Pay"
-            class="btn"
+            class="btn g g-h"
             :disabled="paymentProcessing"
             required
           />
@@ -600,5 +600,13 @@ export default {
 
 .form-group {
   width: 100%;
+}
+
+.g{
+  background-color: #66af29;
+}
+.g-h:hover{
+    background-color: #7bbe44;
+
 }
 </style>

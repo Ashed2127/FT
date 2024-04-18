@@ -1,16 +1,16 @@
 <template>
-    <div class="shopping-cart-section">
+    <div class="shopping-cart-section ">
 
         <div class="heading">
             <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
         </div>
 
-        <div class="container">
+        <div class="container ">
             <div class="wrapper wrapper-content">
                 <div class="row">
-                    <div class="in-cart col-md-9">
-                        <div class="box">
-                            <div class="box-title item-total row">
+                    <div class="in-cart col-md-9 ">
+                        <div class="box border-shadow ">
+                            <div class="box-title item-total row ">
                                 <h3>
                                     <p style="font-size: 15px;">{{ filterFoods.length.toString() }}
                                         <span v-if="filterFoods.length < 2">{{ langObj[this.newLangStatus].words[ 1] }}</span>
@@ -21,7 +21,7 @@
 
                             <div v-if="!filterFoods.length">
                                 <div class="box-content row no-food">
-                                    <div class="content">
+                                    <div class="content ">
                                         <h2 style="color: #057835fa;">{{ langObj[this.newLangStatus].words[ 4] }}</h2>
                                     </div>
                                   
@@ -41,7 +41,7 @@
                                                 <b>{{ langObj[this.newLangStatus].words[5] }}</b>
                                                 <p>{{ f.food_desc }}</p>
                                             </div>
-                                            <button class="btn remove-btn" @click="removeBtn(index)"><i
+                                            <button class="btn remove-btn r" @click="removeBtn(index)"><i
                                                     class="fa fa-trash"></i>{{ langObj[this.newLangStatus].words[6] }}</button>
                                         </div>
 
@@ -80,20 +80,20 @@
                         </div>
 
                         <div class="box-content row col-sm-3 col-md-3 col-lg-5  col-9 ">
-                            <router-link to="/menu" class="btn shop-btn  backbtn"><i class="fa fa-arrow-left"></i>{{ langObj[this.newLangStatus].words[7] }}</router-link>
-                            <button class="btn check-out-btn col-sm-6 col-lg-7 checkbtn" 
+                            <router-link to="/menu" class="btn shop-btn  backbtn r"><i class="fa fa-arrow-left"></i>{{ langObj[this.newLangStatus].words[7] }}</router-link>
+                            <button class="btn check-out-btn col-sm-6 col-lg-7 checkbtn g g-h" 
                                 :disabled="filterFoods.length ? false : true" @click="checkOutBtn()">{{ langObj[this.newLangStatus].words[8] }}</button>
                         </div>
                     </div>
 
 
-                    <div class="col-md-3 col-sm-2">
-                        <div class="box">
-                            <div class="box-title">
+                    <div class="col-md-3 col-sm-2 ">
+                        <div class="box border-shadow">
+                            <div class="box-title ">
                                 <h3>{{ langObj[this.newLangStatus].words[9] }}</h3>
                             </div>
 
-                            <div class="box-content">
+                            <div class="box-content ">
                                 <span>{{ langObj[this.newLangStatus].words[10] }}</span>
                                 <h3 class="font-bold total-first-price">{{ calculateSummaryPrice()[0] }}birr</h3>
 
@@ -511,5 +511,33 @@ export default {
     bottom: 33.5px;
 }
 
+}
+.r{
+    background-color: rgba(235, 21, 21, 0.788);
+}
+.r:hover{
+    background-color: rgba(241, 44, 44, 0.788)
+}
+.g{
+  background-color: #66af29;
+}
+.g-h:hover{
+  background-color: #7bbe44;
+}
+
+.color{
+    background-color: #fe2d2d;
+}
+.color-light{
+    background-color: #f34040;
+}
+.border-color{
+    border: 1px #fe2d2d solid;
+}
+.border-shadow{
+    box-shadow: 
+    0px 0px 10px rgba(0, 0, 0, 0.2), /* Top left */
+    0px 4px 6px rgba(0, 0, 0, 0.1),   /* Bottom right */
+    0px 8px 25px rgba(0, 0, 0, 0.2);   /* Bottom right, larger blur */
 }
 </style>

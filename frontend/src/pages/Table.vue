@@ -262,10 +262,10 @@ export default {
                     book_phone: parseInt(this.orderObj.phone),
                     book_people: parseInt(this.orderObj.people),
                     book_tables: parseInt(this.orderObj.tables),
-                    // user_id: parseInt(this.user.user_id),
+                    // user_id: this.user.user_id,
                     book_when: this.orderObj.when,
                     book_note: this.orderObj.note,
-                    book_status: 1
+                    book_status: 1,
                 }
                 // console.log(data);
                

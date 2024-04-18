@@ -126,19 +126,31 @@ export default {
 
         filterBooks: function () {
             return this.allBooks.filter((allbook) => allbook.book_status < 6 && allbook.book_status > 0);
-           
-
         },
     },
 
     methods: {
+        // async getAllBooks() {
+        //     if (this.user) {
+        //         this.allBooks = await axios.get('/booktable/username/' + this.user.user_fname);
+        //         // console.log('user name ',this.user.user_fname);
+        //          console.log('table data ',this.allBooks.data[0]);
+                 
+        //     }
+        // },
+
         async getAllBooks() {
-            if (this.user) {
-                this.allBooks = (await axios.get('/booktable/username/' + this.user.user_name)).data;
-                // console.log(this.user.user_name);
-                console.log(this.allBooks);
-            }
-        },
+  if (this.user) {
+    const response = await axios.get('/booktable/username/' + this.user.user_fname);
+    if (Array.isArray(response.data)) {
+      this.allBooks = response.data;
+    } else {
+      this.allBooks = []; // Ensure it's initialized as an array
+    }
+    console.log('table data ', this.allBooks[0]);
+  }
+},
+
 
         async getStatus(){
           let langStatus = await axios.get('/langstatus/', this.languageStatus);
@@ -150,7 +162,7 @@ export default {
         autoUpdate: function () {
             this.interval = setInterval(function () {
                 this.getAllBooks();
-                this.getStatus();
+            //    this.getStatus();
 
             }.bind(this), 50);
         }

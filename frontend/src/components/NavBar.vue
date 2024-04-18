@@ -6,7 +6,7 @@
         <router-link @click="scrollToTop()" to="/menu">{{ langObj[this.newLangStatus].words[1] }}</router-link>
         <router-link @click="scrollToTop()" to="/table">{{ langObj[this.newLangStatus].words[2] }}</router-link>
         <router-link @click="scrollToTop()" to="/about">{{ langObj[this.newLangStatus].words[3] }}</router-link>
-        <router-link @click="scrollToTop()" to="/pay">pay</router-link>
+        <!-- <router-link @click="scrollToTop()" to="/pay">pay</router-link> -->
         <!-- <router-link @click="scrollToTop()" to="/newPay">neway</router-link> -->
     </nav>
     
