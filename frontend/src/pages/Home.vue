@@ -1,15 +1,12 @@
 <template>
     <div>
-        <div class="home-main">
-            <!-- <img src="../assets/images/burger.png" alt="">
-            <h1>ds Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus ullam quia minus hic recusandae sint dolor eum! Ex, sit fugiat! Est molestias beatae illum harum laudantium nihil quod tenetur cum?</h1> -->
-            <!-- <div class="content">
-        
-                <router-link @click="scrollToTop()" to="/menu" class="btn">order now</router-link>
-            </div> -->
-       
+        <div class="banner-container mx-5 mt-5 row">
+        <div class="home-main left-banner col-5">
+            <img src="../assets/images/burger.png" style="width: 60vh;" alt="">
+            
         </div>
-
+        <div class="right-banner col-5"><img src="../assets/images/burger.png" style="width: 60vh;" alt=""></div></div>
+        
 
         <div class="home-banner">
             <div class="grid-banner row">
@@ -18,7 +15,7 @@
                     <div class="content">
                         <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
                         <h3>{{ langObj[this.newLangStatus].words[1] }}</h3>
-                        <router-link @click="scrollToTop()" to="/menu" class="btn">{{ langObj[this.newLangStatus].words[2] }}</router-link>
+                        <router-link @click="scrollToTop()" to="/menu" class="btn g g-h">{{ langObj[this.newLangStatus].words[2] }}</router-link>
                     </div>
                 </div>
 
@@ -34,7 +31,7 @@
                     <img src="../assets/images/tables.jpg" alt="">
                     <div class="content">
                         <h3>{{ langObj[this.newLangStatus].words[4] }}</h3>
-                        <router-link @click="scrollToTop()" to="/table" class="btn">{{ langObj[this.newLangStatus].words[5] }}</router-link>
+                        <router-link @click="scrollToTop()" to="/table" class="btn g g-h">{{ langObj[this.newLangStatus].words[5] }}</router-link>
                     </div>
                 </div>
 
@@ -42,12 +39,12 @@
 
         </div>
 
-        <div class="home-about">
+        <div class="home-about g-l">
             
-            <div class="content">
+            <div class="content ">
                 <h3 class="title">{{ langObj[this.newLangStatus].words[6] }}</h3>
                 <p>{{ langObj[this.newLangStatus].words[7] }}</p>
-                <router-link @click="scrollToTop()" to="/about" class="btn">{{ langObj[this.newLangStatus].words[8] }}</router-link>
+                <router-link @click="scrollToTop()" to="/about" class="btn g g-h">{{ langObj[this.newLangStatus].words[8] }}</router-link>
 
                
             </div>
@@ -129,7 +126,7 @@ export default {
     flex: 1 1 41rem;
 }
 .home-about{
-    width: 82%;
+    width: 95%;
     margin: auto;
     margin-bottom: 2%;
 }
@@ -381,6 +378,34 @@ export default {
         font-size: 1.5rem;
     }
 }
+
+.g{
+  background-color: #66af29;
+}
+.g-h:hover{
+  background-color: #7bbe44;
+}
+.g-l{
+  background-color: #e0f1d1;
+}
+
+.left-banner{
+    
+    background-color: #a9da81;
+    margin-top: 2%;
+
+}
+.right-banner{
+    
+    background-color: #a9da81;
+    margin-top: 2%;
+}
+
+.banner-container{
+    background-color: #a9da81;
+
+}
+
 </style>
 
 

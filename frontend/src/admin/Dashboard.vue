@@ -16,9 +16,10 @@
         <button class="btn" @click="handleLogout()">Logout</button>
       </div>
     </div>
-    <div class="table-responsive col-lg-12">
+    <div class="table-responsive col-lg-12 col-md-9">
+      
       <!-- PROJECT TABLE -->
-      <table class="table colored-header datatable project-list">
+      <table class="table colored-header datatable project-list  col-md-12">
         <thead>
           <tr>
             <th>Bill Id</th>

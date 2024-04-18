@@ -69,7 +69,7 @@
                 </div>
             </div>
 
-            <input type="submit" :value="langObj[this.newLangStatus].words[12]" class="btn">
+            <input type="submit" :value="langObj[this.newLangStatus].words[12]" class="btn g g-h">
         </form>
 
     </section>
@@ -410,5 +410,11 @@ export default {
     .order-section .icons-container {
         grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     }
+}
+.g{
+  background-color: #66af29;
+}
+.g-h:hover{
+  background-color: #7bbe44;
 }
 </style>

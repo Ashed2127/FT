@@ -5,15 +5,15 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-12 col-xl-12 col-lg-12 col-md-12 filter-box ">
+            <div class="col-sm-12 col-xl-11 col-lg-11 col-md-12 filter-box mx-5 border-color  box-shadow">
                 <div class="row search-box ">
-                    <input type="text" class="search-input col-sm-12 col-md-12 col-lg-12" v-model="foodObj.name" :placeholder=" langObj[this.newLangStatus].words[0]" />
+                    <input type="text" class="search-input col-sm-12 col-md-12 col-lg-11" v-model="foodObj.name" :placeholder=" langObj[this.newLangStatus].words[0]" />
                 </div>
 
             
             </div>
 
-            <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="col-sm-12 col-md-11 col-lg-11 mx-5">
                 <div class="row">
                     <div class="menu-tabs">
                         
@@ -32,9 +32,9 @@
                     </div>
                 </div>
 
-                <div class="row box-container">
+                <div class="row box-container ">
                     <div v-for="(f, index) in currentPageItems" :key="index">
-                        <div class="box">
+                        <div class="box border-shadow b-r">
                             <div class="image">
                                 <img :src="require(`../assets/images/${f.food_src}`)" alt="" />
                             </div>
@@ -49,7 +49,7 @@
                                     <span v-if="parseFloat(f.food_discount) != 0.00">{{ parseFloat(f.food_price)
                                     }}birr</span>
                                 </div>
-                                <button class="btn" @click="addItem(index)">{{langObj[this.newLangStatus].words[8]}}</button>
+                                <button class="btn g g-h" @click="addItem(index)">{{langObj[this.newLangStatus].words[8]}}</button>
                             </div>
                         </div>
                     </div>
@@ -64,12 +64,12 @@
                 </div>
                 <div v-if="calculatePages > 1" class="action-row">
 
-                    <button v-if="pageNum != 0" @click="previous()" class="action-btn"> {{ "<" }} </button>
+                    <button v-if="pageNum != 0" @click="previous()" class="action-btn"> {{ "Previous" }} </button>
                             <div v-for="(p, i) in calculatePages" :key="i" class="d-inline">
                                 <span v-if="i == pageNum" class="highlight" @click="set(i)">{{ i + 1 }}</span>
                                 <span v-else @click="set(i)">{{ i + 1 }}</span>
                             </div>
-                            <button v-if="pageNum != calculatePages - 1" @click="next()" class="action-btn"> {{ ">" }}
+                            <button v-if="pageNum != calculatePages - 1" @click="next()" class="action-btn"> {{ "Next" }}
                             </button>
                 </div>
             </div>
@@ -260,17 +260,17 @@ export default {
         filterFoodBtn: function (e) {
             this.pageNum = 0;
             if (this.foodObj.category != e.target.value && this.previousCategoryClicked != "") {
-                this.previousCategoryClicked.target.style.background = "#7cc200";
+                this.previousCategoryClicked.target.style.background = "#66af29";
             }
             this.foodObj.category = e.target.value;
             this.previousCategoryClicked = e;
-            e.target.style.background = "#6ca404";
+            e.target.style.background = "#66af29";
         },
         filterStatusBtn: function (e) {
             this.pageNum = 0;
             if (this.foodObj.status.includes(e.target.value) == false) {
                 this.foodObj.status.push(e.target.value);
-                document.querySelector(`[for=${e.target.id}]`).style.background = "#7cc200";
+                document.querySelector(`[for=${e.target.id}]`).style.background = "#66af29";
                 document.querySelector(`[for=${e.target.id}]`).style.color = "white";
                 document.querySelector(`[for=${e.target.id}]`).querySelector(":scope > button").style.display = "block";
             }
@@ -279,7 +279,7 @@ export default {
             this.pageNum = 0;
             this.foodObj.price = "";
             this.foodObj.price += e.target.value;
-            document.querySelector(`[for=${e.target.id}]`).style.background = "#7cc200";
+            document.querySelector(`[for=${e.target.id}]`).style.background = "#66af29";
             document.querySelector(`[for=${e.target.id}]`).style.color = "white";
             document.querySelector(`[for=${e.target.id}]`).querySelector(":scope > button").style.display = "block";
             if (this.previousPriceClicked != "") {
@@ -293,7 +293,7 @@ export default {
             this.pageNum = 0;
             this.foodObj.type = "";
             this.foodObj.type += e.target.value;
-            document.querySelector(`[for=${e.target.id}]`).style.background = "#2f5899";
+            document.querySelector(`[for=${e.target.id}]`).style.background = "#66af29";
             document.querySelector(`[for=${e.target.id}]`).style.color = "white";
             document.querySelector(`[for=${e.target.id}]`).querySelector(":scope > button").style.display = "block";
             if (this.previousTypeClicked != "") {
@@ -390,7 +390,7 @@ input[type="button"] {
 }
 
 hr {
-    border-top: 3px solid #2f5899;
+    border-top: 3px solid #66af29;
     width: 100%;
 }
 
@@ -438,6 +438,7 @@ hr {
     justify-content: center;
     position: relative;
     display: flex;
+    background-color: aliceblue;
 }
 
 .search-input {
@@ -445,12 +446,13 @@ hr {
     width: 100%;
     height: 40px;
     font-size: 20px;
-    color: white;
-    background: #919292;
+    color: rgb(0, 0, 0);
+    background-color: rgb(240, 255, 248);
+
 }
 
 ::placeholder {
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .menu-section {
@@ -462,7 +464,7 @@ hr {
     flex: 0 0 100%;
     max-width: 100%;
     text-align: center;
-    background-color: #2f5899;
+    background-color: #66af29;
 }
 
 .menu-section .menu-tabs .menu-tab-item {
@@ -564,10 +566,12 @@ hr {
 }
 
 .menu-section .action-row .action-btn {
-    background-color: #2f5899;
+    background-color: #66af29;
+    width: 16vh;
+    height: 6vh;
     padding: 3px;
-    border: 2px solid #2f5899;
-    border-radius: 30%;
+    border: 2px solid #66af29;
+    border-radius: 5%;
     color: white;
 }
 
@@ -679,5 +683,36 @@ hr {
         font-size: 14px !important;
         height: 28px;
     }
+}
+
+.border-color{
+    background-color: rgb(240, 255, 248);
+
+}
+.border-shadow{
+    box-shadow: 
+    0px 0px 10px rgba(0, 0, 0, 0.2), /* Top left */
+    0px 4px 6px rgba(0, 0, 0, 0.1),   /* Bottom right */
+    0px 8px 25px rgba(0, 0, 0, 0.2);   /* Bottom right, larger blur */
+}
+
+.r{
+    background-color: rgba(235, 21, 21, 0.788);
+}
+.r-h{
+    background-color: rgba(241, 44, 44, 0.788)
+}
+.r-h:hover{
+    background-color: rgba(241, 44, 44, 0.788)
+}
+.g{
+  background-color: #66af29;
+}
+.g-h:hover{
+  background-color: #7bbe44;
+}
+
+.b-r{
+    border:1px #66af29 solid;
 }
 </style>
