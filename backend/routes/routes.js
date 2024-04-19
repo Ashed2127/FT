@@ -104,6 +104,7 @@ router.get("/api/admin/:email", showAAdmin);
 //create admin account
 router.post("/api/admin/", createAdminAccount);
 router.get("/api/admindata/", allAdmin);
+
 // router.get("/api/admindata/", getAdminData);
 
 ////////////////////////////DP//////////////////////
