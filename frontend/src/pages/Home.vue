@@ -1,18 +1,18 @@
 <template>
     <div>
         <div></div>
-        <div class=" banner">
-            <!-- <div class="img-container">
-                         <img src="../assets/images/burger.png" style="width: 40%;" alt="">
-                    </div> -->
+        <!-- <div class=" banner">
+            <div class="img-container">
+                         <img src="../assets/images/burger.png" style="width: 90px;" alt="">
+                    </div>
                     <div style="width: 20%;"></div>
             <div class="img1-container"><img src="../assets/images/dpn-removebg-preview.png" class="my-4" style="width: 14%;" alt=""></div>
-        </div>
+        </div> -->
         
 
         <div class="home-banner">
             <div class="grid-banner row ">
-                <div class="grid col-md-6 r col-sm-12 mb-5">
+                <div class="grid col-md-6 r col-sm-12 mt-5 col-12 ">
                     <img src="../assets/images/burger.png" alt="">
                     <div class="content">
                         <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
@@ -29,7 +29,7 @@
                     </div>
                 </div> -->
 
-                <div class="grid col-md-6 col-sm-12 mb-5">
+                <div class="grid col-md-6 col-sm-12 my-5 col-12">
                     <img src="../assets/images/table.jpg" alt="">
                     <div class="content">
                         <h3>{{ langObj[this.newLangStatus].words[4] }}</h3>

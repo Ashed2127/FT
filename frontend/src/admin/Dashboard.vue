@@ -1,21 +1,20 @@
 <template>
-  <div class="admin-container">
-    <div class="navbar navbar-expand-lg">
-      <div class="container-fluid">
-        <router-link @click="scrollToTop()" to="/dpRegister" class="btn"
-          >Add DP</router-link
-        ><router-link @click="scrollToTop()" to="/dpRegister" class="btn"
-          >remove DP</router-link
-        ><router-link @click="scrollToTop()" to="/dpRegister" class="btn"
-          >Add foods</router-link
-        ><router-link @click="scrollToTop()" to="/dpRegister" class="btn"
-          >remove foods</router-link
-        ><router-link @click="scrollToTop()" to="/dpRegister" class="btn"
-          >Add Deliver Person</router-link
+  <div class="row">
+        <router-link @click="scrollToTop()" to="/updateAmount" class="btn b-r  col-3 "
+          >update amount</router-link
+        ><router-link @click="scrollToTop()" to="/dpRegister" class="btn b-r col-2"
+          >add DP</router-link
+        ><router-link @click="scrollToTop()" to="/dpRegister" class="btn b-r col-3"
+          >remove Dp</router-link
         >
-        <button class="btn" @click="handleLogout()">Logout</button>
+        <button class="btn b-r col" @click="handleLogout()">Logout</button>
       </div>
-    </div>
+  <div class="admin-container">
+    <!-- <div class="navbar navbar-expand-lg"> -->
+      
+    
+      
+    <!-- </div> -->
     <div class="table-responsive ">
       
       <!-- PROJECT TABLE -->
@@ -317,6 +316,7 @@ export default {
   height: 25px;
   color: white;
   text-transform: capitalize;
+  
 }
 .action-btn {
   background-color: #0da9ef;
@@ -342,5 +342,9 @@ export default {
 .colored-header {
   background-color: #fffbfb;
   color: rgb(0, 0, 0);
+}
+
+.b-r{
+  border-radius: 0;
 }
 </style>

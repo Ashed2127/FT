@@ -7,27 +7,23 @@
             <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
         </div>
 
-        <div class="icons-container">
-
+        <!-- <div class="icons-container">
             <div class="icons ">
-                
                 <h2>{{ langObj[this.newLangStatus].words[1] }}</h2>
                 <h3>{{ langObj[this.newLangStatus].words[2] }}</h3>
             </div>
-
-
-        </div>
+        </div> -->
 
         <!-- booking form -->
-        <form id="bookTableForm" @submit="handleSubmit" novalidate autocomplete="off">
+        <form id="bookTableForm" class="mb" @submit="handleSubmit" novalidate autocomplete="off">
 
             <div class="row">
-                <div class="input-box">
+                <div class="col-md-6 col-sm-5">
                     <label for="uName">{{ langObj[this.newLangStatus].words[3] }}</label>
                     <input type="text" name="uName" id="uName" v-model="orderObj.name" :placeholder=" langObj[this.newLangStatus].words[4]" >
                     <p v-if="errorObj.nameErr.length > 0">{{ errorObj.nameErr[0] }}</p>
                 </div>
-                <div class="input-box">
+                <div class="col-md-6 col-sm-5">
                     <label for="uPhone">{{ langObj[this.newLangStatus].words[5] }}</label>
                     <input type="text" name="uPhone" id="uPhone" v-model="orderObj.phone" :placeholder="langObj[this.newLangStatus].words[6]">
                     <p v-if="errorObj.phoneErr.length > 0">{{ errorObj.phoneErr[0] }}</p>
@@ -35,12 +31,12 @@
             </div>
 
             <div class="row">
-                <div class="input-box">
+                <div class="col-md-6 col-sm-5 ">
                     <label for="oPeople">{{ langObj[this.newLangStatus].words[7] }}</label>
                     <input type="number" name="oPeople" id="oPeople" v-model="orderObj.people">
                     <p v-if="errorObj.peopleErr.length > 0">{{ errorObj.peopleErr[0] }}</p>
                 </div>
-                <div class="input-box">
+                <div class="col-md-6 col-sm-5">
                     <label forinput-box="oTables">{{ langObj[this.newLangStatus].words[8] }}</label>
                     <input type="number" name="oTables" id="oTables" v-model="orderObj.tables">
                     <p v-if="errorObj.tablesErr.length > 0">{{ errorObj.tablesErr[0] }}</p>
@@ -48,7 +44,7 @@
             </div>
 
             <div class="row">
-                <div class="input-box">
+                <div class="col-md-6 col-sm-5">
                     <label for="oWhen">{{ langObj[this.newLangStatus].words[9] }}</label>
                     <input type="datetime-local" name="oWhen" id="oWhen" v-model="orderObj.when"
                         @click="availableTime()">
@@ -57,19 +53,19 @@
             </div>
 
             <div class="row">
-                <div class="input-box">
+                <div class="col-md-6 col-sm-5">
                     <label for="uMessage">{{ langObj[this.newLangStatus].words[10] }}</label>
-                    <textarea :placeholder="langObj[this.newLangStatus].words[11]" name="uMessage"
-                        id="uMessage" cols="30" rows="10" v-model="orderObj.note"></textarea>
+                    <input :placeholder="langObj[this.newLangStatus].words[11]" name="uMessage"
+                        id="uMessage"  v-model="orderObj.note">
                 </div>
-                <div class="input-box">
+                <!-- <div class="input-box">
                     <iframe class="map"
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.5986171544287!2d37.97055081089951!3d8.538290196441066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164d291ac3042f53%3A0xe9b9ecc78ddf5a12!2sLewi%20Cafe!5e0!3m2!1sen!2set!4v1706103828101!5m2!1sen!2set"
                         loading="lazy"></iframe>
-                </div>
+                </div> -->
             </div>
 
-            <input type="submit" :value="langObj[this.newLangStatus].words[12]" class="btn g g-h">
+            <input type="submit" :value="langObj[this.newLangStatus].words[12]" class="btn col-md-5 col-sm-6 my-sm-5 col-lg-12 g g-h">
         </form>
 
     </section>
@@ -89,9 +85,9 @@ export default {
             languageStatus : 0,
             langObj: [
                 
-                    { words: ["Table Form","Opening Hours","2:00am To 6:00pm","Your Name","write your account name","your phone number","write your account number","how many people","how many tables","when","note","your message, do you want to decorate your table?","Book Now", "Booking Successfully !"
+                    { words: ["Table Form","Opening Hours","2:00am To 6:00pm","Your Name","write your account name","your phone number","write your account number","how many people","how many tables","when","note","decorate your table?","Book Now", "Booking Successfully !"
                      ] },
-                    { words: ["Unka Gabatee","Sa'aatii Baniinsaa", "2:00am Hanga 6:00pm","Maqaa Kee", "maqaa herrega keessanii barreessaa", "lakkoofsa bilbila keessanii", "lakkoofsa herrega keessanii barreessaa", "namoota meeqa", "gabatee meeqa", "yoom","yaadannoo","ergaa kee, minjaala kee faayuu barbaaddaa?","Amma Kitaaba", "Booking Milkaa'inaan !"] },
+                    { words: ["Unka Gabatee","Sa'aatii Baniinsaa", "2:00am Hanga 6:00pm","Maqaa Kee", "maqaa herrega keessanii barreessaa", "lakkoofsa bilbila keessanii", "lakkoofsa herrega keessanii barreessaa", "namoota meeqa", "gabatee meeqa", "yoom","yaadannoo"," minjaala keessan faayadhaa?","Amma Kitaaba", "Booking Milkaa'inaan !"] },
                      ],
          newLangStatus : 0,
          interval: "",
@@ -304,7 +300,11 @@ export default {
 
 <style scoped>
 .order-section {
-    padding: 2rem 9%;
+    padding: 2rem 25%;
+    background-image: url('../assets/images/table.jpg');
+    background-size: cover;
+    width: 100%;
+    height: auto;
 }
 
 .order-section .icons-container {
@@ -348,10 +348,13 @@ export default {
 }
 
 .order-section form .row .input-box {
+    width: 95%;
+    padding: 1.8rem 0;
+}
+.order-section form .row .input-box-last {
     width: 49%;
     padding: 1.8rem 0;
 }
-
 .order-section form .row label {
     font-size: 1.7rem;
     color: #666;
@@ -389,6 +392,9 @@ export default {
 }
 
 @media (max-width: 768px) {
+    .order-section {
+    padding: 2rem 9%;
+}
     .order form .row .input-box {
         width: 100%;
     }
@@ -407,6 +413,8 @@ export default {
 }
 
 @media (max-width: 576px) {
+
+    
     .order-section .icons-container {
         grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     }
@@ -416,5 +424,11 @@ export default {
 }
 .g-h:hover{
   background-color: #7bbe44;
+}
+.mb{
+    margin-bottom: 15px;
+}
+.heading h3{
+    color: white;
 }
 </style>

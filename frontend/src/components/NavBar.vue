@@ -1,7 +1,9 @@
 <template>
     <div class="header">
-
+<!-- <div class=" paper">
+</div> -->
       <nav class="navbar">
+        
         <router-link @click="scrollToTop()" to="/">{{ langObj[this.newLangStatus].words[0] }}</router-link>
         <router-link @click="scrollToTop()" to="/menu">{{ langObj[this.newLangStatus].words[1] }}</router-link>
         <router-link @click="scrollToTop()" to="/table">{{ langObj[this.newLangStatus].words[2] }}</router-link>
@@ -174,7 +176,8 @@ export default {
     left: 0;
     right: 0;
     z-index: 1000;
-    background-color: #FFA500;
+    background-color: #7bbe44
+;
     box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.05);
     color: rgb(255, 255, 255);
     display: flex;
@@ -226,7 +229,8 @@ export default {
 
 .header .icons div:hover {
     color: #2f5899;
-    background: orange !important;
+    background: #7bbe44
+ !important;
 }
 
 .header .icons a.router-link-exact-active .cart {
@@ -263,7 +267,8 @@ export default {
 }
 
 .header .icons .account .drop-down-select.active a:hover {
-    background-color: #f38609;
+    background-color: #7bbe44
+;
     color: white;
 }
 
@@ -277,7 +282,8 @@ export default {
 }
 
 .header .icons .account:hover .drop-down-select a:hover {
-    background-color: #f38609;
+    background-color: #7bbe44
+;
     color: white;
 }
 
@@ -293,7 +299,8 @@ export default {
         top: 99%;
         left: 0;
         right: 0;
-        background-color: #f38609;
+          background-color: #7bbe44;
+
         border-top: 0.1rem solid rgba(0, 0, 0, 0.2);
         border-bottom: 0.1rem solid rgba(0, 0, 0, 0.2);
         clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
@@ -321,7 +328,9 @@ export default {
 
 @media (max-width: 576px) {
     .header .navbar{
-        background-image: linear-gradient(90deg,#f38609, #f38609);
+        background-image: linear-gradient(90deg,#7bbe44
+, #7bbe44
+);
 
     }
     .header .navbar a {
@@ -329,5 +338,17 @@ export default {
         margin: 0;
         color: white;
     }
+   }
+
+   .paper{
+  background-color: #fc0e0e71;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(4deg); /* Rotate the element */
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 70%;
+  z-index: -1;
    }
 </style>
