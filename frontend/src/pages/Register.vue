@@ -1,63 +1,67 @@
 <template>
     <div class="register-container">
         <div class="register-form-container">
-            <form id="registerForm" @submit="handleSubmit" novalidate autocomplete="off">
+            <form id="registerForm row" @submit="handleSubmit" novalidate autocomplete="off">
                 <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
-                <div class="form-group">
-                    <label for="uName">{{ langObj[this.newLangStatus].words[1] }}
-                    </label>
+                <div class="form-group col-md-12">
+                    <!-- <label for="uName">{{ langObj[this.newLangStatus].words[1] }}
+                    </label> -->
                     <input type="text" name="uName" :placeholder="langObj[this.newLangStatus].words[2] " id="uName" class="form-control"
                         v-model="registerObj.fname" />
                     <p class="error-mess" v-if="errorObj.fName.length > 0">{{ errorObj.fName[0] }}</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="uName">{{ langObj[this.newLangStatus].words[14] }}
-                    </label>
+                <div class="form-group col-md-12">
+                    <!-- <label for="uName">{{ langObj[this.newLangStatus].words[14] }}
+                    </label> -->
                     <input type="text" name="uName" :placeholder="langObj[this.newLangStatus].words[15] " id="uName" class="form-control"
                         v-model="registerObj.lname" />
                     <p class="error-mess" v-if="errorObj.lName.length > 0">{{ errorObj.lName[10] }}</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="uEmail">{{ langObj[this.newLangStatus].words[3] }}
-                    </label>
+                <div class="form-group col-md-12">
+                    <!-- <label for="uEmail">{{ langObj[this.newLangStatus].words[3] }}
+                    </label> -->
                     <input type="email" name="uEmail" :placeholder="langObj[this.newLangStatus].words[4]" id="uEmail" class="form-control"
                         v-model="registerObj.email" />
                     <p class="error-mess" v-if="errorObj.emailErr.length > 0">{{ errorObj.emailErr[0] }}</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="uPass">{{ langObj[this.newLangStatus].words[5] }}
-                    </label>
+                <div class="form-group col-md-12">
+                    <!-- <label for="uPass">{{ langObj[this.newLangStatus].words[5] }}
+                    </label> -->
                     <input type="password" name="uPass" :placeholder="langObj[this.newLangStatus].words[6]" id="uPass"
                         class="form-control" v-model="registerObj.pass" />
                     <p class="error-mess" v-if="errorObj.passErr.length > 0">{{ errorObj.passErr[0] }}</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="uPassConfirm">{{ langObj[this.newLangStatus].words[7] }}
-                    </label>
+                <div class="form-group col-md-12">
+                    <!-- <label for="uPassConfirm">{{ langObj[this.newLangStatus].words[7] }}
+                    </label> -->
                     <input type="password" name="uPassConfirm" :placeholder="langObj[this.newLangStatus].words[8]" id="uPassConfirm"
                         class="form-control" v-model="registerObj.confirm" />
                     <p class="error-mess" v-if="errorObj.confirmErr.length > 0">{{ errorObj.confirmErr[0] }}</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="uPhone">{{ langObj[this.newLangStatus].words[9] }}
-                    </label>
+                <div class="form-group col-md-12">
+                    <!-- <label for="uPhone">{{ langObj[this.newLangStatus].words[9] }}
+                    </label> -->
                     <input type="tel" name="uPhone" :placeholder="langObj[this.newLangStatus].words[10]" id="uPhone"
                         class="form-control" v-model="registerObj.phone" />
                     <p class="error-mess" v-if="errorObj.phoneErr.length > 0">{{ errorObj.phoneErr[0] }}</p>
                 </div>
 
-                <div class="form-group">
-                    <input type="submit" :value="langObj[this.newLangStatus].words[11]" class="btn" />
+                <div class="form-group col-md-12">
+                    <input type="submit" :value="langObj[this.newLangStatus].words[11]" class="btn g" />
                     <p>{{ langObj[this.newLangStatus].words[12] }} <router-link @click="scrollToTop()" to="/login">{{ langObj[this.newLangStatus].words[13] }}</router-link>
                     </p>
                 </div>
             </form>
         </div>
+      <div class="z-0"></div>
+      <div class="z-1"></div>
+      <div class="z-2"></div>
+
     </div>
 </template>
 
@@ -260,8 +264,8 @@ export default {
     position: relative;
     left: 50%;
     transform: translate(-50%, 0%);
-    max-width: 70rem;
-    width: 100%;
+    max-width: 40rem;
+    width: 80%;
     box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.05);
     border: 0.1rem solid rgba(0, 0, 0, 0.2);
     padding: 2rem;
@@ -334,4 +338,38 @@ export default {
     margin: 0;
     padding: 0;
 }
+
+.g {
+    background-color: #489e02;
+
+}
+.g:hover {
+  background-color: #7bbe44;
+}
+
+.z-0 {
+  background-color: #489e02;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(25deg); /* Rotate the element */
+  position: absolute;
+  top: 20%;
+  left: 27%;
+  width: 60%;
+  height: 8%;
+  z-index: -1;
+}
+
+.z-1{
+  background-color: #ff0101;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(25deg); /* Rotate the element */
+  position: absolute;
+  top: 90%;
+  left: 22%;
+  width: 60%;
+  height: 8%;
+  z-index: -1;
+}
+
+
 </style>

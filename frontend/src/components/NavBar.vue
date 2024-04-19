@@ -35,7 +35,7 @@
 
 
 
-            <div v-else class="fas fa-user account" style="background: #f38609;color: white;" @click="showLog">
+            <div v-else class="fas fa-user account" style="color: white;" @click="showLog">
                 <ul class="drop-down-select">
                     <li>
                         <router-link @click="scrollToTop()" to="/myorder">{{ langObj[this.newLangStatus].words[6] }}</router-link>
@@ -51,7 +51,7 @@
             </div>
             
           
-            <div class="fas fa-solid fa-language account" style="background: #f38609;color: white; width: 40px;" @click="showLog">
+            <div class="fas fa-solid fa-language account" style="color: white; width: 40px;" @click="showLog">
                 <ul class="drop-down-select">
                     <li>
                         <router-link @click="english()" to="#">english</router-link>
@@ -146,7 +146,7 @@ export default {
             let mq = window.matchMedia("(max-width: 768px)");
             if (mq.matches) {
                 let log = document.querySelector('.drop-down-select');
-                log.classList.toggle('active');
+                log.classList.remove('active');
             }
         },
 
@@ -176,7 +176,7 @@ export default {
     left: 0;
     right: 0;
     z-index: 1000;
-    background-color: #7bbe44
+    background-color: #e73803
 ;
     box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.05);
     color: rgb(255, 255, 255);
@@ -228,8 +228,7 @@ export default {
 }
 
 .header .icons div:hover {
-    color: #2f5899;
-    background: #7bbe44
+    color: #2f5899
  !important;
 }
 
@@ -267,7 +266,7 @@ export default {
 }
 
 .header .icons .account .drop-down-select.active a:hover {
-    background-color: #7bbe44
+    background-color: #be4444
 ;
     color: white;
 }
@@ -282,7 +281,7 @@ export default {
 }
 
 .header .icons .account:hover .drop-down-select a:hover {
-    background-color: #7bbe44
+    background-color: #3d8800
 ;
     color: white;
 }

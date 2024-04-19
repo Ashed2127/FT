@@ -80,7 +80,8 @@ data(){
 .footer {
     background: #ffffff;
     padding: 2rem 9%;
-    
+        z-index: 4;
+
 }
 
 .footer .news-letter {
@@ -125,7 +126,7 @@ data(){
     background: #130f40;
 }
 .footer{
-    background-color: #FFA500;
+    background-color: #65af29f1;
     width: 100%;
     height: 10%;
 }
@@ -134,12 +135,15 @@ data(){
    padding-left: 40%;
    padding-top: 0.5%;
    padding-bottom: 1%;
+    z-index: 2;
+
 }
 .footer .box-container .box {
     width: 60%;
     margin:  auto;
     display: flex;
     justify-content: space-around;
+    z-index: 2;
 }
 
 .footer .box-container .box h3 {

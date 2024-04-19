@@ -518,13 +518,14 @@ export default {
 .r:hover{
     background-color: rgba(241, 44, 44, 0.788)
 }
-.g{
-  background-color: #66af29;
+
+.g {
+    background-color: #489e02;
+
 }
-.g-h:hover{
+.g-h:hover {
   background-color: #7bbe44;
 }
-
 .color{
     background-color: #fe2d2d;
 }

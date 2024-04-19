@@ -20,7 +20,7 @@ import DpLogin from '../admin/DpLogin.vue';
 // import  Chapa  from "../chapa.vue";
 // import newPay from "../pages/Voice.vue";
 import Pay from "../pages/pay.vue";
-
+// import axios from "axios";
 
 const routes = [
   {
@@ -64,6 +64,7 @@ const routes = [
     name: "AdminLogin",
     component: AdminLogin,
   },
+  
   {
     path: "/adminregister",
     name: "AdminRegister",
@@ -145,5 +146,26 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+
+//   router.beforeEach(async(to, from, next) => {
+//   if (to.name === 'AdminRegister') {
+//     // Fetch admin data here...
+//     let getAdmin = [];
+//     const adminData = await axios.get('/admindata', getAdmin);// Get admin data from admin table;
+    
+    
+
+//     // Check if admin data exists
+//     if (adminData && adminData.admin_email > 0) {
+//       // If admin data exists, prevent routing to /adminregister
+//       next(false);
+//     } else {
+//       // If admin data does not exist, allow routing to /adminregister
+//       next();
+//     }
+//   }
+// });
+
 
 export default router;

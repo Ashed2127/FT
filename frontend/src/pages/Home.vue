@@ -12,7 +12,7 @@
 
         <div class="home-banner">
             <div class="grid-banner row ">
-                <div class="grid col-md-6 r col-sm-12 mt-5 col-12 ">
+                <div class="grid col-md-6 r col-sm-12 mt-5 col-12 z-1 img-1">
                     <img src="../assets/images/burger.png" alt="">
                     <div class="content">
                         <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
@@ -41,15 +41,15 @@
 
         </div>
 
-        <div class="home-about g-l">
+        <div class="home-about g-l ">
             
-            <div class="content ">
+            <div class="content z-2">
                 <h3 class="title">{{ langObj[this.newLangStatus].words[6] }}</h3>
                 <p>{{ langObj[this.newLangStatus].words[7] }}</p>
                 <router-link @click="scrollToTop()" to="/about" class="btn g g-h">{{ langObj[this.newLangStatus].words[8] }}</router-link>
-
-               
             </div>
+      <div class="paper-1"></div>
+
         </div>
     </div>
 </template>
@@ -379,10 +379,10 @@ export default {
 }
 
 .g{
-  background-color: #66af29;
+    background-color: #489e02;
 }
 .g-h:hover{
-  background-color: #7bbe44;
+  background-color: #fc0000;
 }
 .g-l{
   background-color: #e0f1d1;
@@ -415,7 +415,30 @@ export default {
     height: auto;
 }
 .r{
-    background-color: rgba(238, 12, 12, 0.788);
+    background-color: rgb(238, 12, 12);
+}
+
+.paper-1 {
+  background-color: #489e02;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(35deg); /* Rotate the element */
+  position: absolute;
+  top: 40%;
+  left: 0%;
+  width: 100%;
+  height: 15%;
+  z-index: 1;
+}
+
+.z-1{
+    z-index: 3;
+}
+.z-2{
+    z-index: 4;
+}
+.img-1{
+  box-shadow: 25px 0 25px rgba(0, 0, 0, 0.5); /* Add a subtle shadow */
+
 }
 </style>
 

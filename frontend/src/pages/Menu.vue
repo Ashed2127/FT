@@ -821,14 +821,15 @@ hr {
   background-color: rgba(241, 44, 44, 0.788);
 }
 .g {
-  background-color: #66af29;
+    background-color: #489e02;
+
 }
-.g-h:hover {
-  background-color: #7bbe44;
+.g:hover {
+  background-color: #59ac16;
 }
 
 .b-r {
-  border: 1px #66af29 solid;
+  border: 1px #68b926 solid;
 }
 
 .food_status {
@@ -840,7 +841,7 @@ hr {
   right: 0;
 }
 .paper {
-  background-color: #fc3d0e;
+  background-color: #ff0404;
   box-shadow: 0 20px 25px rgba(0, 0, 0, 0.4); /* Add a subtle shadow */
   padding: 15px; /* Adjust padding as needed */
   transform: rotate(-5deg);

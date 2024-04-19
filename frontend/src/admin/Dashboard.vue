@@ -1,13 +1,13 @@
 <template>
-  <div class="row">
-        <router-link @click="scrollToTop()" to="/updateAmount" class="btn b-r  col-3 "
+  <div class="row r">
+        <router-link @click="scrollToTop()" to="/updateAmount" class="btn b-r r col-3 "
           >update amount</router-link
-        ><router-link @click="scrollToTop()" to="/dpRegister" class="btn b-r col-2"
+        ><router-link @click="scrollToTop()" to="/dpRegister" class="btn b-r r col-2"
           >add DP</router-link
-        ><router-link @click="scrollToTop()" to="/dpRegister" class="btn b-r col-3"
+        ><router-link @click="scrollToTop()" to="/dpRegister" class="btn b-r r col-3"
           >remove Dp</router-link
         >
-        <button class="btn b-r col" @click="handleLogout()">Logout</button>
+        <button class="btn b-r r col" @click="handleLogout()">Logout</button>
       </div>
   <div class="admin-container">
     <!-- <div class="navbar navbar-expand-lg"> -->
@@ -21,7 +21,7 @@
       <table class="table colored-header datatable project-list  ">
         <thead>
           <tr>
-            <th>Bill Id</th>
+            <!-- <th>Bill Id</th> -->
             <th>User Id</th>
             <th>Phone</th>
             <th>Address</th>
@@ -37,7 +37,7 @@
         </thead>
         <tbody>
           <tr v-for="b in filterBills.slice().reverse()" :key="b.bill_id">
-            <td>{{ b.bill_id }}</td>
+            <!-- <td>{{ b.bill_id }}</td> -->
             <td>{{ b.user_id }}</td>
             <td>{{ b.bill_phone }}</td>
             <td>{{ b.bill_address }}</td>
@@ -346,5 +346,11 @@ export default {
 
 .b-r{
   border-radius: 0;
+}
+.r{
+    background-color: rgb(238, 12, 12);
+}
+.r:hover{
+    background-color: rgb(236, 39, 39);
 }
 </style>

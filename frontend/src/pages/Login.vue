@@ -26,13 +26,19 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" :value="langObj[this.newLangStatus].words[3]" class="btn">
+                    <input type="submit" :value="langObj[this.newLangStatus].words[3]" class="btn g">
                     <p>{{ langObj[this.newLangStatus].words[4] }}<router-link @click="scrollToTop()" to="/register">{{ langObj[this.newLangStatus].words[5] }}
                         </router-link>
                     </p>
                 </div>
+      <div class="z-0"></div>
+                
             </form>
+      <div class="z-0"></div>
+            
         </div>
+      <div class="z-0"></div>
+
     </div>
 </template>
 
@@ -243,5 +249,13 @@ components: {
 .login-container .login-form-container form .error-box ul li {
     padding-left: 10px;
     color: rgb(182, 0, 0);
+}
+
+.g {
+    background-color: #489e02;
+
+}
+.g:hover {
+  background-color: #59ac16;
 }
 </style>

@@ -1,7 +1,12 @@
 <template>
   <div class="checkout-container">
     <div class="checkout-form-container">
-      <form @submit="initiatePayment" novalidate autocomplete="off">
+      <form
+        class="chapa-form"
+        @submit="initiatePayment"
+        novalidate
+        autocomplete="off"
+      >
         <div class="checkout-heading">
           <h3>your order form<span>Total</span></h3>
           <h3 v-if="user">
@@ -103,6 +108,9 @@
           />
         </div>
       </form>
+      <div class="paper-1"></div>
+      <div class="paper-2"></div>
+      <div class="paper-3"></div>
     </div>
   </div>
 </template>
@@ -146,7 +154,6 @@ export default {
       //////new part/////
       food_Name: "",
       food_Id: null,
-
     };
   },
 
@@ -160,7 +167,6 @@ export default {
     filterFoods: function () {
       return this.allFoods.filter((f) => this.matchID(f, this.cartItem));
     },
-
   },
 
   mounted() {
@@ -207,7 +213,7 @@ export default {
           parseInt(this.filterFoods[i].food_discount) * this.itemQuantity[i];
         i = i + 1;
         // console.log('discount ',discount);
-      // this.filterFoods[i].food_name;
+        // this.filterFoods[i].food_name;
       }
       if (!this.filterFoods.length) {
         delivery = 0;
@@ -223,12 +229,12 @@ export default {
     //     //  if(this.cartItem===this.food_Id){
     //     //     console.log('two id ', this.cartItem, this.food_Id);
     //     //   }
-    //     // console.log('foodId',this.food_Id, 'foodName', this.food_Name ); 
+    //     // console.log('foodId',this.food_Id, 'foodName', this.food_Name );
     //     return this.foodName;
     //   }
 
     //   // console.log('foodData',this.allFoods[0].food_name);
-      
+
     // },
 
     async getAllCartItem() {
@@ -242,19 +248,19 @@ export default {
           //   console.log('two id ', this.cartItem[0], this.food_Id);
           // }
 
-          for(let i = 0; i < this.allFoods.length; i++){
-        this.food_Id = this.allFoods[i].food_id;
-        this.food_Name = this.allFoods[i].food_name;
-         if(this.cartItem[0]===this.food_Id){
-            console.log('they are equal', this.cartItem[0], this.food_Id);
-            console.log('foodId',this.food_Id, 'foodName', this.food_Name ); 
-            // console.log( this.food_Name ); 
-            return this.foodName;
+          for (let i = 0; i < this.allFoods.length; i++) {
+            this.food_Id = this.allFoods[i].food_id;
+            this.food_Name = this.allFoods[i].food_name;
+            if (this.cartItem[0] === this.food_Id) {
+              console.log("they are equal", this.cartItem[0], this.food_Id);
+              console.log("foodId", this.food_Id, "foodName", this.food_Name);
+              // console.log( this.food_Name );
+              return this.foodName;
+            }
+
+            // console.log('foodId',this.food_Id, 'foodName', this.food_Name );
+            // return this.foodName;
           }
-          
-        // console.log('foodId',this.food_Id, 'foodName', this.food_Name ); 
-        // return this.foodName;
-      }
         });
       }
     },
@@ -365,7 +371,8 @@ export default {
         var month = ("0" + (now.getMonth() + 1)).slice(-2);
         var hour = ("0" + now.getHours()).slice(-2);
         var min = ("0" + now.getMinutes()).slice(-2);
-        var currentTime = now.getFullYear() + "-" + month + "-" + day + "T" + hour + ":" + min;
+        var currentTime =
+          now.getFullYear() + "-" + month + "-" + day + "T" + hour + ":" + min;
 
         let billStatus = {
           bill_id: parseInt(billId),
@@ -399,7 +406,7 @@ export default {
         e.preventDefault();
       } else {
         e.preventDefault();
-         let billId = (await axios.get("/billstatus/new")).data;
+        let billId = (await axios.get("/billstatus/new")).data;
 
         if (billId == "") {
           billId = 1;
@@ -416,7 +423,8 @@ export default {
         var month = ("0" + (now.getMonth() + 1)).slice(-2);
         var hour = ("0" + now.getHours()).slice(-2);
         var min = ("0" + now.getMinutes()).slice(-2);
-        var currentTime = now.getFullYear() + "-" + month + "-" + day + "T" + hour + ":" + min;
+        var currentTime =
+          now.getFullYear() + "-" + month + "-" + day + "T" + hour + ":" + min;
 
         this.paymentProcessing = true; // Set processing flag
 
@@ -439,14 +447,14 @@ export default {
           bill_total: parseInt(this.calculateSummaryPrice()[3]),
           bill_paid: this.isPaid(),
           bill_status: 1,
-          bill_food: this.food_Name
+          bill_food: this.food_Name,
         };
-        console.log('the response data ', response);
-        console.log('the food name ', this.food_Name);
+        console.log("the response data ", response);
+        console.log("the food name ", this.food_Name);
         await axios.post("/initiate-payment/", response);
 
         ////////////bill status///////////////////
-          let billStatus = {
+        let billStatus = {
           bill_id: parseInt(billId),
           user_id: parseInt(this.user.user_id),
           bill_phone: this.phone,
@@ -458,16 +466,18 @@ export default {
           bill_total: parseInt(this.calculateSummaryPrice()[3]),
           bill_paid: this.isPaid(),
           bill_status: 1,
-          bill_food: this.food_Name
+          bill_food: this.food_Name,
         };
         axios.post("/billstatus", billStatus);
         axios.delete("/cartItem/" + this.user.user_id);
 
-
         this.cartItem = [];
         this.itemQuantity = [];
         console.log("Payment initiated successfully!");
-        const paymentCheckoutUrl = await axios.get("/checkout-url/",this.checkoutUrl);
+        const paymentCheckoutUrl = await axios.get(
+          "/checkout-url/",
+          this.checkoutUrl
+        );
         window.location.href = paymentCheckoutUrl.data.checkout_url;
         console.log("Checkout URL:", paymentCheckoutUrl);
         console.log("Checkout URL:", paymentCheckoutUrl.data);
@@ -561,6 +571,7 @@ export default {
 
 .checkout-container .checkout-form-container form .form-group.details-group {
   margin-top: 40px;
+  z-index: 2;
 }
 
 .checkout-container .checkout-form-container form .form-group .error-mess {
@@ -602,11 +613,48 @@ export default {
   width: 100%;
 }
 
-.g{
+.g {
   background-color: #66af29;
 }
-.g-h:hover{
-    background-color: #7bbe44;
+.g-h:hover {
+  background-color: #7bbe44;
+}
 
+.paper-1 {
+  background-color: #57be02;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(35deg); /* Rotate the element */
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 12%;
+  z-index: 1;
+}
+.paper-2 {
+  background-color: #ff0000;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(35deg); /* Rotate the element */
+  position: absolute;
+  top: 350px;
+  left: 0;
+  width: 34%;
+  height: 9%;
+  z-index: 1;
+}
+.paper-3 {
+  background-color: #0044fffb;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(35deg); /* Rotate the element */
+  position: absolute;
+  top: 650px;
+  right: 0;
+  width: 34%;
+  height: 9%;
+  z-index: 1;
+}
+
+.chapa-form {
+  z-index: 2;
 }
 </style>

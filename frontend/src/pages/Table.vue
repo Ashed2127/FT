@@ -18,43 +18,38 @@
         <form id="bookTableForm" class="mb" @submit="handleSubmit" novalidate autocomplete="off">
 
             <div class="row">
-                <div class="col-md-6 col-sm-5">
-                    <label for="uName">{{ langObj[this.newLangStatus].words[3] }}</label>
+                <div class="col-md-6 col-sm-5 mb-4">
+                    <!-- <label for="uName">{{ langObj[this.newLangStatus].words[3] }}</label> -->
                     <input type="text" name="uName" id="uName" v-model="orderObj.name" :placeholder=" langObj[this.newLangStatus].words[4]" >
                     <p v-if="errorObj.nameErr.length > 0">{{ errorObj.nameErr[0] }}</p>
                 </div>
-                <div class="col-md-6 col-sm-5">
-                    <label for="uPhone">{{ langObj[this.newLangStatus].words[5] }}</label>
-                    <input type="text" name="uPhone" id="uPhone" v-model="orderObj.phone" :placeholder="langObj[this.newLangStatus].words[6]">
+
+                <div class="col-md-6 col-sm-5 ">
+                    <!-- <label for="uPhone">{{ langObj[this.newLangStatus].words[5] }}</label> -->
+                    <input type="text"   name="uPhone" id="uPhone"  v-model="orderObj.phone" :placeholder="langObj[this.newLangStatus].words[6]">
                     <p v-if="errorObj.phoneErr.length > 0">{{ errorObj.phoneErr[0] }}</p>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6 col-sm-5 ">
-                    <label for="oPeople">{{ langObj[this.newLangStatus].words[7] }}</label>
-                    <input type="number" name="oPeople" id="oPeople" v-model="orderObj.people">
+                <div class="col-md-6 col-sm-5 mb-4">
+                    <!-- <label for="oPeople">{{ langObj[this.newLangStatus].words[7] }}</label> -->
+                    <input type="number"  name="oPeople" id="oPeople" :placeholder="langObj[this.newLangStatus].words[7]" v-model="orderObj.people">
                     <p v-if="errorObj.peopleErr.length > 0">{{ errorObj.peopleErr[0] }}</p>
                 </div>
+
                 <div class="col-md-6 col-sm-5">
-                    <label forinput-box="oTables">{{ langObj[this.newLangStatus].words[8] }}</label>
-                    <input type="number" name="oTables" id="oTables" v-model="orderObj.tables">
+                    <!-- <label forinput-box="oTables">{{ langObj[this.newLangStatus].words[8] }}</label> -->
+                    <input type="number" :placeholder="langObj[this.newLangStatus].words[8] " name="oTables" id="oTables" v-model="orderObj.tables">
                     <p v-if="errorObj.tablesErr.length > 0">{{ errorObj.tablesErr[0] }}</p>
                 </div>
-            </div>
-
-            <div class="row">
+            
                 <div class="col-md-6 col-sm-5">
-                    <label for="oWhen">{{ langObj[this.newLangStatus].words[9] }}</label>
-                    <input type="datetime-local" name="oWhen" id="oWhen" v-model="orderObj.when"
+                    <!-- <label for="oWhen">{{ langObj[this.newLangStatus].words[9] }}</label> -->
+                    <input type="datetime-local" :placeholder="langObj[this.newLangStatus].words[9] " name="oWhen" id="oWhen" v-model="orderObj.when"
                         @click="availableTime()">
                     <p v-if="errorObj.whenErr.length > 0">{{ errorObj.whenErr[0] }}</p>
                 </div>
-            </div>
-
-            <div class="row">
+            
                 <div class="col-md-6 col-sm-5">
-                    <label for="uMessage">{{ langObj[this.newLangStatus].words[10] }}</label>
+                    <!-- <label for="uMessage">{{ langObj[this.newLangStatus].words[10] }}</label> -->
                     <input :placeholder="langObj[this.newLangStatus].words[11]" name="uMessage"
                         id="uMessage"  v-model="orderObj.note">
                 </div>
@@ -65,7 +60,9 @@
                 </div> -->
             </div>
 
-            <input type="submit" :value="langObj[this.newLangStatus].words[12]" class="btn col-md-5 col-sm-6 my-sm-5 col-lg-12 g g-h">
+            <input type="submit" :value="langObj[this.newLangStatus].words[12]" class="btn col-md-5 col-sm-6 my-sm-5 col-lg-12 g g-h mt-5">
+            <!-- <div class="paper">best
+                </div> -->
         </form>
 
     </section>
@@ -301,38 +298,10 @@ export default {
 <style scoped>
 .order-section {
     padding: 2rem 25%;
-    background-image: url('../assets/images/table.jpg');
+    background-image: url('../assets/images/tables-new.jpg');
     background-size: cover;
+    background-repeat: no-repeat;
     width: 100%;
-    height: auto;
-}
-
-.order-section .icons-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.order-section .icons-container .icons {
-    border-radius: .5rem;
-    padding: 2rem;
-    text-align: center;
-    background: #f7f7f7;
-    background: #dfebeb;
-}
-
-.order-section .icons-container .icons img {
-    height: 10rem;
-}
-
-.order-section .icons-container .icons h2{
-    color: #130f40;
-}
-.order-section .icons-container .icons h3 {
-    font-size: 2rem;
-    color: #130f40;
-    margin-top: .5rem;
 }
 
 .order-section form {
@@ -409,6 +378,17 @@ export default {
     .order-section form .row .input-box {
         width: 100%;
     }
+      .paper{
+  background-color: #be444488;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(-45deg); /* Rotate the element */
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 30%;
+  height: 5%;
+  z-index: -1;
+   }
 
 }
 
@@ -418,6 +398,17 @@ export default {
     .order-section .icons-container {
         grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     }
+    .paper{
+  background-color: #be444488;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(-45deg); /* Rotate the element */
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 30%;
+  height: 5%;
+  z-index: 1;
+   }
 }
 .g{
   background-color: #66af29;
@@ -431,4 +422,15 @@ export default {
 .heading h3{
     color: white;
 }
+  .paper{
+  background-color: #77f38c88;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(-45deg); /* Rotate the element */
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 30%;
+  height: 55%;
+  z-index: 1;
+   }
 </style>

@@ -57,6 +57,7 @@ export default {
         async getMatchUser(email) {
             let data = await axios.get('/admin/' + email);
             this.matchUser = data.data;
+            console.log(this.matchUser);
         },
 
         scrollToTop() {
