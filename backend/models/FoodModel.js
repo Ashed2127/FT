@@ -85,7 +85,8 @@ export const getFoodByFoodId = (id, result) => {
 
 export const updateFoodByFoodName = (data, result) => {
   db.query(
-    "UPDATE food SET food_price = ?, food_desc = ? WHERE food_name = ?",[data.food_price, data.food_desc, data.food_name],
+    "UPDATE food SET food_price = ?, food_discount = ? WHERE food_name = ?",
+    [data.price, data.discount, data.name],
     (err, results) => {
       if (err) {
         console.log(err);

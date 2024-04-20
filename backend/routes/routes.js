@@ -87,7 +87,7 @@ router.put("/api/foods/:id", updateFood);
 
 // delete Food
 router.delete("/api/foods/:id", deleteFood);
-router.post("/api/foodname/", updateFoodsByFoodName);
+router.put("/api/foodname/", updateFoodsByFoodName);
 ////////////////////////// USER ///////////////////////
 // get all user
 router.get("/api/users/:email", showAUser);

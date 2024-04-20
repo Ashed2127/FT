@@ -30,8 +30,8 @@ export const responseData = async (req, res) => {
     //   console.log(verifier);
       if (response.status === "success") {
         // checkoutUrl = response.data.checkout_url;
-        checkoutUrl = response.data;
-        // console.log('url: ', checkoutUrl);
+        checkoutUrl = response;
+        console.log('url: ', checkoutUrl);
         // console.log(response.status);
 
         // Send the checkoutUrl as a response
