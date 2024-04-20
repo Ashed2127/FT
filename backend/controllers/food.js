@@ -7,6 +7,7 @@ import {
   updateFoodById,
   deleteFoodById,
   getFoodByFoodId,
+  updateFoodByFoodName,
 } from "../models/FoodModel.js";
 
 // get all Foods
@@ -81,4 +82,17 @@ export const getFoodsByFoodId = (req, res) => {
       res.json(results);
     }
   });
+};
+
+//updateFoodsByFoodName
+export const updateFoodsByFoodName = (req, res) => {
+  const data = req.body;
+//   const id = req.params.foodName;
+    updateFoodByFoodName(data, (err, results) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(results);
+      }
+    });
 };

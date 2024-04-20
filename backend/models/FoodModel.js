@@ -69,12 +69,30 @@ export const deleteFoodById = (id, result) => {
 
 export const getFoodByFoodId = (id, result) => {
   // console.log(id);s
-  db.query("SELECT food_name FROM food WHERE food_id = ?", [id], (err, results) => {
-    if (err) {
-      console.log(err);
-      result(err, null);
-    } else {
-      result(null, results);
+  db.query(
+    "SELECT food_name FROM food WHERE food_id = ?",
+    [id],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        result(err, null);
+      } else {
+        result(null, results);
+      }
     }
-  });
+  );
+};
+
+export const updateFoodByFoodName = (data, result) => {
+  db.query(
+    "UPDATE food SET food_price = ?, food_desc = ? WHERE food_name = ?",[data.food_price, data.food_desc, data.food_name],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        result(err, null);
+      } else {
+        result(null, results);
+      }
+    }
+  );
 };
