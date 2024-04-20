@@ -6,6 +6,8 @@
           >add DP</router-link
         ><router-link @click="scrollToTop()" to="/dpRegister" class="btn b-r r col-3"
           >remove Dp</router-link
+        ><router-link @click="scrollToTop()" to="/dpRegister" class="btn b-r r col-3"
+          >remove Dp</router-link
         >
         <button class="btn b-r r col" @click="handleLogout()">Logout</button>
       </div>

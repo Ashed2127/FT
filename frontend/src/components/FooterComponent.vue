@@ -166,7 +166,7 @@ data(){
 }
 
 .footer .box-container .box a:hover {
-    color: #fa9806;
+    color: #860808;
 }
 
 

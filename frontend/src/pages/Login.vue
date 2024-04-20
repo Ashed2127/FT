@@ -32,12 +32,11 @@
                     </p>
                 </div>
       <div class="z-0"></div>
+      <div class="z-1"></div>
                 
             </form>
-      <div class="z-0"></div>
             
         </div>
-      <div class="z-0"></div>
 
     </div>
 </template>
@@ -167,21 +166,24 @@ components: {
 <style scoped>
 .login-container {
     padding: 2rem 9%;
+    background-color: #e8f0fe;
 }
 
 .login-container .login-form-container {
-    background-color: #fff;
     height: 90vh;
+    background-color: #e8f0fe;
+
 }
 
 .login-container .login-form-container form {
+    background-color: white;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     max-width: 40rem;
     width: 100%;
-    box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.05);
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.4);
     border: 0.1rem solid rgba(0, 0, 0, 0.2);
     padding: 2rem;
     border-radius: .5rem;
@@ -258,4 +260,29 @@ components: {
 .g:hover {
   background-color: #59ac16;
 }
+.z-0 {
+  background-color: #489e02;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(-20deg); /* Rotate the element */
+  position: absolute;
+  top: 0;
+  right: 0%;
+  width: 1%;
+  height: 20px;
+  z-index: -1;
+}
+
+.z-1{
+  background-color: #ff0101;
+ padding: 15px; /* Adjust padding as needed */
+  transform: skewY(-20deg);
+   /* Rotate the element */
+  position: absolute;
+  bottom: 0;
+  left: 0%;
+  width: 1%;
+  height: 10px;
+  z-index: -1;
+}
+
 </style>

@@ -2,14 +2,21 @@
     <div class="shopping-cart-section ">
 
         <div class="heading">
+            
+      <div class="z-0"></div>
+
             <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
         </div>
 
         <div class="container ">
+            
             <div class="wrapper wrapper-content">
+                
                 <div class="row">
+                    
                     <div class="in-cart col-md-9 ">
                         <div class="box border-shadow ">
+                            
                             <div class="box-title item-total row ">
                                 <h3>
                                     <p style="font-size: 15px;">{{ filterFoods.length.toString() }}
@@ -17,6 +24,7 @@
                                         <span v-else>{{ langObj[this.newLangStatus].words[2] }}</span>
                                     </p>{{ langObj[this.newLangStatus].words[3] }}
                                 </h3>
+                                
                             </div>
 
                             <div v-if="!filterFoods.length">
@@ -88,6 +96,7 @@
 
 
                     <div class="col-md-3 col-sm-8 ">
+                        
                         <div class="box border-shadow">
                             <div class="box-title ">
                                 <h3>{{ langObj[this.newLangStatus].words[9] }}</h3>
@@ -513,7 +522,7 @@ export default {
 
 }
 .r{
-    background-color: rgba(235, 21, 21, 0.788);
+    background-color: rgb(255, 0, 0);
 }
 .r:hover{
     background-color: rgba(241, 44, 44, 0.788)
@@ -540,5 +549,30 @@ export default {
     0px 0px 10px rgba(0, 0, 0, 0.2), /* Top left */
     0px 4px 6px rgba(0, 0, 0, 0.1),   /* Bottom right */
     0px 8px 25px rgba(0, 0, 0, 0.2);   /* Bottom right, larger blur */
+}
+
+.z-0 {
+  background-color: #489e02;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(-20deg); /* Rotate the element */
+  position: absolute;
+  top: 0;
+  right: 0%;
+  width: 1%;
+  height: 20px;
+  z-index: -1;
+}
+
+
+.z-1{
+  background-color: #ff0101;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(25deg); /* Rotate the element */
+  position: absolute;
+  top: 100%;
+  left: 32%;
+  width: 10%;
+  height: 8%;
+  z-index: 1;
 }
 </style>

@@ -21,6 +21,7 @@ import DpLogin from '../admin/DpLogin.vue';
 // import newPay from "../pages/Voice.vue";
 import Pay from "../pages/pay.vue";
 // import axios from "axios";
+import UpdateAmount from '../admin/UpdateAmount.vue';
 
 const routes = [
   {
@@ -135,6 +136,12 @@ const routes = [
   //   name: "newPay",
   //   component: newPay,
   // },
+
+  {
+    path: "/updateamount",
+    name: "UpdateAmount",
+    component: UpdateAmount,
+  },
   {
     path: '/:pathMatch(.*)*',
     component: Home,

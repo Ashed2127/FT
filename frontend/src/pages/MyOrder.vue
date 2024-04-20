@@ -1,17 +1,16 @@
 <template>
-    <div class="my-order-container" :class="filterBills.length > 0 ? '' : 'fit-screen'">
+    <div class="my-order-container banner " :class="filterBills.length > 0 ? '' : 'fit-screen'">
         <div v-if="filterBills.length > 0" class="my-order-cards">
-            <div v-for="b in filterBills.slice().reverse()" class="card" :key="b.bill_id">
-                <div class="card-head d-flex flex-wrap flex-sm-nowrap justify-content-between">
-                    <!-- -->
+            <div v-for="b in filterBills.slice().reverse()" class="card mb-5" :key="b.bill_id" >
+                <div class="card-head track-1 d-flex flex-wrap flex-sm-nowrap justify-content-between">
                     <div><h1>{{ langObj[this.newLangStatus].words[0] }}</h1> 
                         <span>{{ langObj[this.newLangStatus].words[1] }}</span>
                         <span>{{ b.bill_id }}</span>
                     </div>
-                    <button @click="sendBillId(b.bill_id)">{{ langObj[this.newLangStatus].words[2] }}</button>
+                    <button class="btn g py-1" @click="sendBillId(b.bill_id)">{{ langObj[this.newLangStatus].words[2] }}</button>
                 </div>
 
-                <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between card-summary">
+                <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between card-summary ">
                     <div class="w-100 text-center py-1 px-2"><span>{{ langObj[this.newLangStatus].words[3] }}</span>{{ " " + b.bill_paid }}
                     </div>
                     <div v-if="b.bill_status < 6" class="w-100 text-center py-1 px-2"><span>{{ langObj[this.newLangStatus].words[4] }}</span>{{ " " + avaiableStatus[b.bill_status]
@@ -21,7 +20,7 @@
                     </div>
                     <div class="w-100 text-center py-1 px-2"><span>{{ langObj[this.newLangStatus].words[5] }}</span> {{ b.bill_when }}</div>
                 </div>
-                <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between card-summary">
+                <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between card-summary ">
 
                     <div class="w-100 text-center py-1 px-2"><span>{{ langObj[this.newLangStatus].words[6] }}</span> {{ b.bill_total }}birr</div>
                     <div class="w-100 text-center py-1 px-2"><span>{{ langObj[this.newLangStatus].words[7] }}</span>{{ " " + b.bill_address }}
@@ -30,8 +29,8 @@
                     </div>
                 </div>
 
-                <div class="card-body">
-                    <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between">
+                <div class="card-body track">
+                    <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between transparent">
                         <div class="step" :class="b.bill_status >= 1 ? 'completed ' : ''">
                             <div class="step-icon-wrap">
                                 <div class="step-icon"><i class="fa-solid fa-utensils"></i></div>
@@ -74,7 +73,7 @@
                 <h2 style="color: #057835fa;">{{ langObj[this.newLangStatus].words[14] }}</h2>
             </div>
             <div>
-                <img src="../assets/images/no-orders.png" alt="" />
+                <!-- <img src="../assets/images/no-orders.png" alt="" /> -->
             </div>
             <router-link class="btn" to="/menu">{{ langObj[this.newLangStatus].words[15] }}</router-link>
         </div>
@@ -190,13 +189,15 @@ export default {
 
 .card {
     margin-bottom: 3px;
+    margin: auto;
+    width: 80%;
 }
 
 .card-head {
     padding: 12px 0px;
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 16px;
-    background: #2f5899;
+    background: #ffffff33;
 
 }
 
@@ -209,16 +210,17 @@ export default {
     color: white;
     margin-right: 20px;
     font-weight: 500;
+    background-color: #128b02;
+
 }
 
-.card-head button:hover {
-    color: #f38609;
-}
+
 
 .card-summary {
     padding: 12px 10px;
-    background: #eee;
+    background: #ff0303;
     font-size: 14px;
+    color: white;
 }
 
 .steps .step {
@@ -389,5 +391,34 @@ export default {
 .bg-faded,
 .bg-secondary {
     background-color: #f5f5f5 !important;
+}
+
+.banner{
+    background-image: url('../assets/images/body.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.banner-1{
+    background-color: #6ca404;
+}
+
+.g {
+    background-color: #489e02;
+
+}
+.g:hover {
+  background-color: #59ac16;
+}
+
+.track{
+    box-shadow: 0 2px 20px rgba(0.9, 0, 0, 0.9);
+}
+.track-1{
+    box-shadow: 0 -20px 25px rgba(0, 0, 0, 0.9);
+
+}
+.transparent{
+    background-color: transparent;
 }
 </style>

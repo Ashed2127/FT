@@ -1,5 +1,15 @@
 <template>
- 
+   <div class="row r">
+        <router-link @click="scrollToTop()" to="/admin/dashboard" class="btn b-r r col-3"
+          >Dashboard</router-link
+        ><router-link @click="scrollToTop()" to="/updateAmount" class="btn b-r r col-3 "
+          >update amount</router-link
+        ><router-link @click="scrollToTop()" to="/dpRegister" class="btn b-r r col-3"
+          >remove Dp</router-link
+        ><router-link @click="scrollToTop()" to="/dpRegister" class="btn b-r r col-3"
+          >remove Dp</router-link
+        >
+      </div>
   <div class="register-container">
     <div class="register-form-container">
      
@@ -8,14 +18,12 @@
         @submit="handleSubmit"
         novalidate
         autocomplete="off"
-      ><router-link @click="scrollToTop()" to="admin/dashboard" class="btn b-r  col-6 col-md-12 col-sm-12 "
+      >
+      <!-- <router-link @click="scrollToTop()" to="admin/dashboard" class="btn  col-6 col-md-12 col-sm-12 "
           >back to dashboard</router-link
-        >
-        <h3>Create Deliver Person Account</h3>
-
-        
+        > -->
+        <h2>create deliver person account</h2>
         <div class="form-group">
-          <label for="aEmail">Enter your email: </label>
           <input
             type="email"
             name="aEmail"
@@ -30,7 +38,6 @@
         </div>
 
         <div class="form-group">
-          <label for="aPass">Enter your password: </label>
           <input
             type="password"
             name="aPass"
@@ -45,7 +52,6 @@
         </div>
 
         <div class="form-group">
-          <label for="aPassConfirm">Check your password again: </label>
           <input
             type="password"
             name="aPassConfirm"
@@ -117,7 +123,7 @@ export default {
       this.resetCheckErr();
 
       if (!this.registerObj.email) {
-        this.errorObj.emailErr.push("Entering a email is required");
+        this.errorObj.emailErr.push("email is required");
       } else {
         if (
           !/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(
@@ -194,7 +200,7 @@ export default {
   position: relative;
   left: 50%;
   transform: translate(-50%, 0%);
-  max-width: 70rem;
+  max-width: 40rem;
   width: 100%;
   box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.05);
   border: 0.1rem solid rgba(0, 0, 0, 0.2);
@@ -264,11 +270,17 @@ export default {
 .register-container .register-form-container form .form-group .error-mess {
   font-size: 1.5rem;
   position: relative;
-  color: #2f5899;
+  color: #ff0000;
   margin: 0;
   padding: 0;
 }
 .b-r{
   border-radius: 0;
+}
+.r{
+    background-color: rgb(238, 12, 12);
+}
+.r:hover{
+    background-color: rgb(236, 39, 39);
 }
 </style>

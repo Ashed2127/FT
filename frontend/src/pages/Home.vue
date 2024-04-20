@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="home-body">
         <div></div>
         <!-- <div class=" banner">
             <div class="img-container">
@@ -13,7 +13,7 @@
         <div class="home-banner">
             <div class="grid-banner row ">
                 <div class="grid col-md-6 r col-sm-12 mt-5 col-12 z-1 img-1">
-                    <img src="../assets/images/burger.png" alt="">
+                    <img src="../assets/images/burger.png" class="mt-5 " alt="">
                     <div class="content">
                         <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
                         <h3>{{ langObj[this.newLangStatus].words[1] }}</h3>
@@ -108,6 +108,11 @@ export default {
 </script>
 
 <style scoped>
+
+.home-body{
+    background-color: #c0a763;
+    background-size: contain;
+}
 .home-main,
 .home-about,
 .home-banner,

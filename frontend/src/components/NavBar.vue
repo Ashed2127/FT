@@ -176,8 +176,8 @@ export default {
     left: 0;
     right: 0;
     z-index: 1000;
-    background-color: #e73803
-;
+    background-color: #e73803;
+    background-image: url('../assets/images/header.jpg');
     box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.05);
     color: rgb(255, 255, 255);
     display: flex;
@@ -206,14 +206,16 @@ export default {
 }
 
 .header .navbar a:hover {
-    color: #2f5899;
+        color: #860808;
+
 }
 
 .header .navbar a.router-link-exact-active {
     color: white;
 }
 .header .navbar a.router-link-exact-active:hover {
-    color: #2f5899;
+      color: #860808;
+
 }
 .header .icons div {
     height: 4.5rem;
@@ -228,7 +230,8 @@ export default {
 }
 
 .header .icons div:hover {
-    color: #2f5899
+        color: #860808
+
  !important;
 }
 
@@ -299,6 +302,7 @@ export default {
         left: 0;
         right: 0;
           background-color: #7bbe44;
+  background-color: #fc0e0e71;
 
         border-top: 0.1rem solid rgba(0, 0, 0, 0.2);
         border-bottom: 0.1rem solid rgba(0, 0, 0, 0.2);
@@ -330,6 +334,8 @@ export default {
         background-image: linear-gradient(90deg,#7bbe44
 , #7bbe44
 );
+  background-color: #fc0e0e71;
+
 
     }
     .header .navbar a {

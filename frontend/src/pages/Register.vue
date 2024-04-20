@@ -253,24 +253,28 @@ export default {
 <style scoped>
 .register-container {
     padding: 8rem 9%;
+    background-color: #e8f0fe;
+
 }
 
 .register-container .register-form-container {
-    background: #fff;
-
+    background-color: #e8f0fe;
+    z-index: 2;
 }
 
 .register-container .register-form-container form {
+    background-color: white;
     position: relative;
     left: 50%;
     transform: translate(-50%, 0%);
     max-width: 40rem;
     width: 80%;
-    box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.05);
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.4);
     border: 0.1rem solid rgba(0, 0, 0, 0.2);
     padding: 2rem;
     border-radius: 0.5rem;
     animation: fadeUp 0.4s linear;
+    z-index: 2;
 }
 
 .register-container .register-form-container form h3 {
@@ -352,11 +356,11 @@ export default {
   padding: 15px; /* Adjust padding as needed */
   transform: skewY(25deg); /* Rotate the element */
   position: absolute;
-  top: 20%;
-  left: 27%;
-  width: 60%;
+  top: 25%;
+  left: 60%;
+  width: 10%;
   height: 8%;
-  z-index: -1;
+  z-index: 1;
 }
 
 .z-1{
@@ -364,11 +368,11 @@ export default {
   padding: 15px; /* Adjust padding as needed */
   transform: skewY(25deg); /* Rotate the element */
   position: absolute;
-  top: 90%;
-  left: 22%;
-  width: 60%;
+  top: 100%;
+  left: 32%;
+  width: 10%;
   height: 8%;
-  z-index: -1;
+  z-index: 1;
 }
 
 

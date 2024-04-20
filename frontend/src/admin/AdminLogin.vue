@@ -62,7 +62,7 @@ export default {
             this.errors = [];
 
             if (!this.loginObj.email) {
-                this.errors.push("Entering a email is required");
+                this.errors.push("email is required");
             }
             else {
                 if (!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(this.loginObj.email)) {
