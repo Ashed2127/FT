@@ -71,6 +71,7 @@
 <script>
 import axios from 'axios';
 import VueBasicAlert from 'vue-basic-alert';
+import { mapState } from 'vuex';
 // import { mapState } from "vuex";
 export default {
     name: "Table",
@@ -109,6 +110,11 @@ export default {
     beforeUnmount() {
         clearInterval(this.interval);
         window.removeEventListener('scroll', this.handleScroll);
+    },
+
+    computed:{
+    ...mapState(["user"]),
+
     },
     methods: {
         availableTime: function () {
@@ -247,7 +253,7 @@ export default {
                 e.preventDefault();
             } else {
                 e.preventDefault();
-                // let user_data = await axios.get('/user/' + data.book_phone);
+                // let user_data = await axios.get('/user/' + data.bo ok_phone);
                 // console.log(user_data[1].user_id);
                 // console.log(data.book_phone);
                 let data = {
@@ -255,7 +261,7 @@ export default {
                     book_phone: parseInt(this.orderObj.phone),
                     book_people: parseInt(this.orderObj.people),
                     book_tables: parseInt(this.orderObj.tables),
-                    // user_id: this.user.user_id,
+                    user_id: parseInt(this.user.user_id),
                     book_when: this.orderObj.when,
                     book_note: this.orderObj.note,
                     book_status: 1,

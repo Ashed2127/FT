@@ -4,10 +4,11 @@ import axios from "axios"
 const store = createStore({
     state() {
         return {
-            allFoods: [],
-            user: undefined,
-            admin: undefined,
-        }
+          allFoods: [],
+          user: undefined,
+          admin: undefined,
+          deliver_person: undefined,
+        };
     },
     mutations: {
         setFoodsData(state, payload){
@@ -18,7 +19,10 @@ const store = createStore({
         },
         setAdmin(state, payload){
             state.admin = payload;
-        }
+        },
+        setDp(state, payload){
+            state.deliver_person = payload;
+        },
     },
     actions: {
         async getFoodsData(context){

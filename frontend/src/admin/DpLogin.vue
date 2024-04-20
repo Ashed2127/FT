@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="login now" class="btn">
+                    <input type="submit" value="login now" class="btn r">
                     <p>don't have an account? <router-link @click="scrollToTop()" to="/dpregister">create one
                         </router-link>
                     </p>
@@ -34,7 +34,7 @@
 
 <script>
 import axios from "axios";
-import { mapMutations } from "vuex";
+// import { mapState } from "vuex";
 export default {
     name: 'DpLogin',
 
@@ -45,9 +45,13 @@ export default {
             errors: [],
         }
     },
-
+    // created() {
+    //     if(!this.dp || !this.admin){
+    //         this.$router.push("/")
+    //     }
+    // },
     methods: {
-        ...mapMutations(["setDp"]),
+        //  ...mapState(["dp", "admin"]),
 
         scrollToTop() {
             window.scrollTo(0, 0);
@@ -191,5 +195,11 @@ export default {
 .login-container .login-form-container form .error-box ul li {
     padding-left: 10px;
     color: rgb(182, 0, 0);
+}
+.r{
+    background-color: #c1282d;
+}
+.r:hover{
+    background-color: rgb(236, 39, 39);
 }
 </style>

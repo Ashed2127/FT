@@ -350,7 +350,7 @@ export default {
   border-radius: 0;
 }
 .r{
-    background-color: rgb(238, 12, 12);
+    background-color: #c1282d;
 }
 .r:hover{
     background-color: rgb(236, 39, 39);

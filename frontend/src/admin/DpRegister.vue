@@ -66,7 +66,7 @@
         </div>
 
         <div class="form-group">
-          <input type="submit" value="create account" class="btn" />
+          <input type="submit" value="create account" class="btn r" />
           <p>
             have an account?
             <router-link @click="scrollToTop()" to="dplogin">login</router-link>
@@ -79,7 +79,11 @@
 
 <script>
 import axios from "axios";
+import { mapState, mapMutations } from "vuex";
+
 export default {
+  watch: {
+  },
   name: "DpRegister",
 
   data() {
@@ -89,8 +93,18 @@ export default {
       matchDp: undefined,
     };
   },
+ created() {
+        if(!this.admin){
+            this.$router.push("/")
+        }
+    },
 
+    computed:{
+      ...mapState(["admin"]),
+    },
   methods: {
+      ...mapMutations(["setAdmin"]),
+
     async getmatchDp(email) {
       let data = await axios.get("/dp/" + email);
       this.matchDp = data.data;
@@ -278,7 +292,7 @@ export default {
   border-radius: 0;
 }
 .r{
-    background-color: rgb(238, 12, 12);
+    background-color: #c1282d;
 }
 .r:hover{
     background-color: rgb(236, 39, 39);

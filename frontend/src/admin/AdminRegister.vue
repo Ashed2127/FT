@@ -41,6 +41,8 @@
 
 <script>
 import axios from 'axios';
+import { mapState } from "vuex";
+
 export default {
     name: "AdminRegister",
 
@@ -52,8 +54,13 @@ export default {
 
         }
     },
-
+created() {
+        if(!this.admin){
+            this.$router.push("/")
+        }
+    },
     methods: {
+         ...mapState(["admin"]),
         async getMatchUser(email) {
             let data = await axios.get('/admin/' + email);
             this.matchUser = data.data;
