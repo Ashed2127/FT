@@ -76,7 +76,12 @@
           <div v-for="(f, index) in currentPageItems" :key="index">
             <div class="box border-shadow b-r">
               <div class="food_status col-md-12 mt-4 py-2 paper">
-                <h4>{{ f.food_status }}</h4>
+                <h4> {{
+                    parseFloat(f.food_price) - parseFloat(f.food_discount)
+                  }}birr
+                  <span class="del" v-if="parseFloat(f.food_discount) != 0.0"
+                    >{{ parseFloat(f.food_price) }}birr</span
+                  ></h4>
               </div>
 
               <div class="image">
@@ -88,14 +93,14 @@
                 <div class="desc">
                   <p>{{ f.food_desc }}</p>
                 </div>
-                <div class="price">
+                <!-- <div class="price">
                   {{
                     parseFloat(f.food_price) - parseFloat(f.food_discount)
                   }}birr
-                  <span v-if="parseFloat(f.food_discount) != 0.0"
+                  <span  v-if="parseFloat(f.food_discount) != 0.0"
                     >{{ parseFloat(f.food_price) }}birr</span
                   >
-                </div>
+                </div> -->
                 <button class="btn g g-h" @click="addItem(index)">
                   {{ langObj[this.newLangStatus].words[8] }}
                 </button>
@@ -847,4 +852,12 @@ hr {
   transform: rotate(-5deg);
   transform: skewY(-7deg); /* Rotate the element */
 }
+
+.del {
+  text-decoration: line-through;
+  color: rgba(243, 236, 236, 0.87); /* Change the color to red */
+  /* Add additional styling as needed */
+}
+
+
 </style>

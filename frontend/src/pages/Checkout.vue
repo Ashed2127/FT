@@ -454,6 +454,7 @@ export default {
         console.log("the response data ", response);
         console.log("the food name ", this.food_Name);
         await axios.post("/initiate-payment/", response);
+        
 
         ////////////bill status///////////////////
         let billStatus = {
