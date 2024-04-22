@@ -110,8 +110,7 @@ import axios from "axios";
 const router = express.Router();
 let checkoutUrl;
 let transactionreference;
-
-
+// Endpoint to handle webhook notifications from Chapa
 
 export const responseData = async (req, res) => {
   try {
@@ -140,7 +139,7 @@ export const responseData = async (req, res) => {
     if (response.status === "success") {
       checkoutUrl = response.data;
       transactionreference = response.tx_ref;
-      console.log('initiate payment ', response);
+      // console.log('initiate payment ', response);
       // Call getTransactionReference after responseData completes
       await getTransactionReference();
 
@@ -162,12 +161,14 @@ async function getTransactionReference() {
     };
 
     const response = await axios.get(url, { headers });
-
-    console.log("verify payment ", response.data); // Access data using .data
+    console.log("verify payment ", response.data);
+    // console.log('trx reponse ', response);
+     // Access data using .data
   } catch (error) {
     console.error(error);
   }
 }
+
 export const getCheckoutUrl = async (req, res) => {
    try {
      // Here, you would fetch the checkout URL from your database or some other source
@@ -181,4 +182,17 @@ export const getCheckoutUrl = async (req, res) => {
      return res.status(500).json({ error: "Internal server error." });
    }
  };
+
+
+/////////////////////////////WEBHOOKS//////////////////////////////
+// router.get("/my/webhook/https://checkout.chapa.co/checkout/payment/:token",
+//   function (req, res) {
+//     // Retrieve the request's body
+//     var event = req.body;
+//     console.log("web hooks", event);
+//     res.send(200);
+//   }
+// );
+
+
 export default router;

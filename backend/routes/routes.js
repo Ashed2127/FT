@@ -67,7 +67,7 @@ import { format } from "mysql2";
 // import initializeChapaPayment from "../chapa-wrapper.js";
 // import customerInfo from "../cha.js";
 // init express router
-import { responseData, getCheckoutUrl } from "../pay.js";
+import { responseData, getCheckoutUrl} from "../pay.js";
 
 import { engIndex, oroIndex, getLangStatus } from "../controllers/lang.js";
 const router = express.Router();
@@ -176,6 +176,7 @@ router.get("/api/checkout-url/", async (req, res) => {
     console.error("Error fetching checkout URL:", error);
     res.status(500).json({ error: "Internal server error." });
   }
+
 });
 
 ////////////////////////language/////////////////////////
