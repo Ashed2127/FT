@@ -1,24 +1,24 @@
 <template>
-    <div class="order-details">
-        <div class="order-details-inner">
+    <div class="order-details blur ">
+        <div class="order-details-inner ">
             <h2 class="d-flex justify-content-between">{{ langObj[this.newLangStatus].words[0] }}
                 <slot></slot>
             </h2>
             <div class="d-flex flex-wrap h-30 flex-row" style="overflow-y: auto;">
                 <div style="flex: 50%;" v-for="(f, index) in filterFoods" :key="f.food_id">
-                    <div class="product-detail d-flex">
+                    <div class="product-detail d-flex ">
                         <!-- <div class="image">
                             <img :src="require(`../assets/images/${f.food_src}`)" alt="" />
                         </div> -->
-                        <div class="content">
-                            <p class="name">{{ f.food_name }} <span>X {{ item_qty[index] }}</span></p>
+                        <div class="content ">
+                            <p class="name ">{{ f.food_name }} <span> quantity {{ item_qty[index] }}</span></p>
                             <!-- <p class="desc">{{ f.food_desc }}</p> -->
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="price px-5">
+            <div class="price px-5 ">
                 <h1>{{ langObj[this.newLangStatus].words[1] }} {{ billMatch.bill_paid }}</h1>
                 <h1>{{ langObj[this.newLangStatus].words[2] }}{{ billMatch.bill_discount }}birr</h1>
                 <h1>{{ langObj[this.newLangStatus].words[3] }} {{ billMatch.bill_delivery }}birr</h1>
@@ -149,7 +149,7 @@ export default {
 .order-details .order-details-inner h2 {
     margin: 0;
     font-size: 32px;
-    color: #2f5899;
+    color: #128a07;
     margin-bottom: 20px;
 }
 
@@ -229,5 +229,40 @@ export default {
     }
 
 
+}
+.g {
+    background-color: #489e02;
+
+}
+.g:hover {
+  background-color: #59ac16;
+}
+.blur{
+    background-color: #1817178e;
+}
+
+
+.z-0 {
+  background-color: #489e02;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(25deg); /* Rotate the element */
+  position: absolute;
+  top: 25%;
+  left: 60%;
+  width: 10%;
+  height: 8%;
+  z-index: 1;
+}
+
+.z-1{
+  background-color: #ff0101;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(25deg); /* Rotate the element */
+  position: absolute;
+  top: 100%;
+  left: 32%;
+  width: 10%;
+  height: 8%;
+  z-index: 1;
 }
 </style>

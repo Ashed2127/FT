@@ -443,18 +443,18 @@ export default {
           bill_phone: this.phone,
           bill_address: this.checkoutObj.address,
           bill_when: currentTime,
-          // bill_method: this.checkoutObj.paymentMethod,
+          bill_method: "chapa",
           bill_discount: parseInt(this.calculateSummaryPrice()[1]),
           bill_delivery: parseInt(this.calculateSummaryPrice()[2]),
           bill_total: parseInt(this.calculateSummaryPrice()[3]),
-          bill_paid: this.isPaid(),
+          bill_paid: "pending",
           bill_status: 1,
           bill_food: this.food_Name,
         };
         console.log("the response data ", response);
         console.log("the food name ", this.food_Name);
         await axios.post("/initiate-payment/", response);
-        
+
 
         ////////////bill status///////////////////
         let billStatus = {
@@ -463,11 +463,11 @@ export default {
           bill_phone: this.phone,
           bill_address: this.checkoutObj.address,
           bill_when: currentTime,
-          //   bill_method: this.checkoutObj.paymentMethod,
+          bill_method: "chapa",
           bill_discount: parseInt(this.calculateSummaryPrice()[1]),
           bill_delivery: parseInt(this.calculateSummaryPrice()[2]),
           bill_total: parseInt(this.calculateSummaryPrice()[3]),
-          bill_paid: this.isPaid(),
+          bill_paid: "pending",
           bill_status: 1,
           bill_food: this.food_Name,
         };
@@ -482,8 +482,18 @@ export default {
           this.checkoutUrl
         );
         window.location.href = paymentCheckoutUrl.data.checkout_url;
+
         console.log("Checkout URL:", paymentCheckoutUrl);
         console.log("Checkout URL:", paymentCheckoutUrl.data);
+        // Parse query parameters from URL
+        // const urlParams = new URLSearchParams(window.location.search);
+
+        // // Extract payment data
+        // const paymentId = urlParams.get('payment_id');
+        // const amount = urlParams.get('amount');
+        // const currency = urlParams.get('currency');
+        // const status = urlParams.get('status');
+        // console.login('webhooks data ',paymentId, amount, currency, status);
       }
     },
   },

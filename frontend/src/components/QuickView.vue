@@ -21,7 +21,7 @@
                         <input type="number" name="qty" id="qty" value="1" min="1" max="1000"
                             @change="onQtyChange($event)" />
                     </div>
-                    <button class="btn" @click="addToCart">{{ langObj[this.newLangStatus].words[1] }}</button>
+                    <button class="btn g" @click="addToCart">{{ langObj[this.newLangStatus].words[1] }}</button>
                 </div>
             </div>
         </div>
@@ -31,8 +31,8 @@
             <h2 class="d-flex justify-content-between">{{ langObj[this.newLangStatus].words[2] }}
                 <slot></slot>
             </h2>
-            <div class="link-to-login" style="text-align: center; margin-top: 120px;">
-                <router-link class="btn" to="/login" style="padding: 28px; font-size: 24px">{{ langObj[this.newLangStatus].words[3] }}
+            <div class="link-to-login " style="text-align: center; margin-top: 120px;">
+                <router-link class="btn g" to="/login" style="padding: 28px; font-size: 24px">{{ langObj[this.newLangStatus].words[3] }}
                 </router-link>
             </div>
         </div>
@@ -53,10 +53,10 @@ export default {
             languageStatus : 0,
 
             langObj: [
-                { words: ["Quantity:","Add to cart","Please login to add","login now", "Added  Successfully"
+                { words: ["Quantity:","Add to cart","Please login first","login now", "Added  Successfully"
             ] },
                     
-                    { words: ["Baay'ina:","Gara gaariitti dabali", "Mee Dabaluuf Galmaa'aa", "amma seeni", "Milkaa'inaan Dabalame"] },
+                    { words: ["Baay'ina:","Gara gaariitti dabali", "Mee dursa Galmaa'aa", "amma seeni", "Milkaa'inaan Dabalame"] },
             ],
             newLangStatus : 0,
             interval: "",
@@ -164,7 +164,7 @@ export default {
 .quick-view .quick-view-inner h2 {
     margin: 0;
     font-size: 32px;
-    color: #2f5899;
+    color: #489e02;
 }
 
 .quick-view .quick-view-inner .product-detail .image img {
@@ -246,4 +246,12 @@ export default {
     }
 
 }
+.g {
+    background-color: #489e02;
+
+}
+.g:hover {
+  background-color: #59ac16;
+}
+
 </style>

@@ -137,10 +137,10 @@
         </div>
       </div>
     </div>
-
-    <QuickView v-if="showQuickView" :food="sendId">
-      <button class="btn" @click="closeView">X</button>
+         <QuickView v-if="showQuickView" :food="sendId">
+      <button class="btn g" @click="closeView">X</button>
     </QuickView>
+ 
   </div>
 </template>
 
@@ -859,5 +859,28 @@ hr {
   /* Add additional styling as needed */
 }
 
+.z-0 {
+  background-color: #489e02;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(25deg); /* Rotate the element */
+  position: absolute;
+  top: 25%;
+  left: 60%;
+  width: 10%;
+  height: 8%;
+  z-index: 1;
+}
+
+.z-1{
+  background-color: #ff0101;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(25deg); /* Rotate the element */
+  position: absolute;
+  top: 100%;
+  left: 32%;
+  width: 10%;
+  height: 8%;
+  z-index: 1;
+}
 
 </style>

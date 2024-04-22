@@ -110,7 +110,7 @@ export default {
 <style scoped>
 
 .home-body{
-    background-color: #c0a763;
+    background-color: #ffffffe5;
     background-size: contain;
 }
 .home-main,

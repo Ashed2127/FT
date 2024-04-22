@@ -67,7 +67,6 @@
             </div>
         </div>
 
-
         <div v-else class="box-content row no-food">
             <div class="content">
                 <h2 style="color: #057835fa;">{{ langObj[this.newLangStatus].words[14] }}</h2>
@@ -79,7 +78,7 @@
         </div>
 
         <OrderDetails v-if="showOrderDetails" :bill="sendId">
-            <button class="btn" @click="closeView">X</button>
+            <button class="btn g" @click="closeView">X</button>
         </OrderDetails>
     </div>
 

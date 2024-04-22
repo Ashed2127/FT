@@ -34,7 +34,7 @@
 
 <script>
 import axios from "axios";
-// import { mapState } from "vuex";
+import { mapMutations } from "vuex";
 export default {
     name: 'DpLogin',
 
@@ -46,12 +46,12 @@ export default {
         }
     },
     // created() {
-    //     if(!this.dp || !this.admin){
+    //     if(!this.dp){
     //         this.$router.push("/")
     //     }
     // },
     methods: {
-        //  ...mapState(["dp", "admin"]),
+        ...mapMutations(["setDp"]),
 
         scrollToTop() {
             window.scrollTo(0, 0);
