@@ -22,6 +22,7 @@ import DpLogin from '../admin/DpLogin.vue';
 import Pay from "../pages/pay.vue";
 // import axios from "axios";
 import UpdateAmount from '../admin/UpdateAmount.vue';
+import TableDashboard from "../admin/TableDashboard.vue";
 
 const routes = [
   {
@@ -141,6 +142,11 @@ const routes = [
     path: "/updateamount",
     name: "UpdateAmount",
     component: UpdateAmount,
+  },
+  {
+    path: "/tabledashboard",
+    name: "TableDashboard",
+    component: TableDashboard,
   },
   {
     path: '/:pathMatch(.*)*',

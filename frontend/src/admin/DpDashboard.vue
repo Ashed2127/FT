@@ -7,13 +7,13 @@
         </div>
 
         <div class="table-responsive">
-            <!-- PROJECT TABLE -->
             <table class="table colored-header datatable project-list">
                 <thead>
                     <tr>
                         <th>Bill Id</th>
                         <th>User Id</th>
                         <th>Phone</th>
+                        <th>Foods</th>
                         <th>Address</th>
                         <th>When</th>
                         <th>Paid</th>
@@ -27,6 +27,7 @@
                         <td>{{ b.bill_id }}</td>
                         <td>{{ b.user_id }}</td>
                         <td>{{ b.bill_phone }}</td>
+                        <td>{{ b.bill_food }}</td>
                         <td>{{ b.bill_address }}</td>
                         <td>{{ b.bill_when }}</td>
                         <td>{{ b.bill_paid }}</td>
@@ -37,10 +38,8 @@
                                 {{ avaiableStatus[b.bill_status + 1] }}
                             </button>
 
-                            <!-- <button v-if="b.bill_status == 1" class="cancel-btn" @click="cancelBtn(b.bill_id)">
-                                Cancel
-                            </button> -->
-                            <button v-if="b.bill_status >= 2" class="undo-btn" @click="undoBillStatusBtn(b.bill_id)">
+                            
+                            <button v-if="b.bill_status > 4" class="undo-btn" @click="undoBillStatusBtn(b.bill_id)">
                             Undo
                         </button>
                             <button v-else-if="b.bill_status == 5 && b.bill_paid == 'false'" class="paid-btn"
@@ -97,7 +96,7 @@ export default {
         ...mapState(["allFoods", "admin"]),
 
         filterBills: function () {
-            return this.allBills.filter((b) => b.bill_status < 6 && b.bill_status > 0);
+            return this.allBills.filter((b) => b.bill_status < 6 && b.bill_status > 3);
         },
     },
 

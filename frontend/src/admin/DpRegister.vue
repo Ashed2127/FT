@@ -1,15 +1,15 @@
 <template>
-   <div class="row r">
-        <router-link @click="scrollToTop()" to="/admin/dashboard" class="btn b-r r col-3"
-          >Dashboard</router-link
-        ><router-link @click="scrollToTop()" to="/updateAmount" class="btn b-r r col-3 "
-          >update amount</router-link
-        ><router-link @click="scrollToTop()" to="/dpRegister" class="btn b-r r col-3"
-          >remove Dp</router-link
-        ><router-link @click="scrollToTop()" to="/dpRegister" class="btn b-r r col-3"
-          >remove Dp</router-link
-        >
-      </div>
+    <div class="sidebar">
+          <div class="admin-profile">   <i class="fas fa-user"></i></div>
+
+      <router-link @click="scrollToTop()" to="/admin/dashboard" class="sidebar-link" >order dashboard</router-link>
+      <router-link @click="scrollToTop()" to="/tabledashboard" class="sidebar-link">Table Dashboard</router-link>
+      <router-link @click="scrollToTop()" to="/updateAmount" class="sidebar-link" >Update Amount</router-link>
+      <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link">Add Deliver Person</router-link>
+      <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link">Remove DP</router-link>
+      <button class="sidebar-logout-btn" @click="handleLogout()">Logout</button>
+
+    </div>
   <div class="register-container">
     <div class="register-form-container">
      
@@ -104,6 +104,9 @@ export default {
     },
   methods: {
       ...mapMutations(["setAdmin"]),
+       handleLogout: function () {
+      this.setAdmin("");
+    },
 
     async getmatchDp(email) {
       let data = await axios.get("/dp/" + email);
@@ -296,5 +299,62 @@ export default {
 }
 .r:hover{
     background-color: rgb(236, 39, 39);
+}
+
+
+.sidebar {
+  background-color: #333;
+  color: white;
+  height: 100vh;
+  width: 235px;
+
+  padding: 20px;
+  position: fixed;
+}
+
+.sidebar-link {
+  display: block;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.sidebar-link:hover {
+  text-decoration: underline;
+  color: #c1282d;
+}
+
+.sidebar-logout-btn {
+  background-color: #c1282d;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.sidebar-logout-btn:hover {
+  background-color: #a92226;
+}
+
+.admin-profile {
+  width: 70px;
+  height: 70px;
+  background-color: #fff; /* White background */
+  border-radius: 50%; /* Make it a circle */
+  margin-bottom: 20px;
+  margin-left: 60px; /* Spacing */
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: #333; /* Icon color */
 }
 </style>

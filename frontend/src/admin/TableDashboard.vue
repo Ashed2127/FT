@@ -1,65 +1,65 @@
 <template>
-  <div>
-    <!-- Sidebar -->
+   <!-- Sidebar -->
     <div class="sidebar">
           <div class="admin-profile">   <i class="fas fa-user"></i></div>
+
       <router-link @click="scrollToTop()" to="/admin/dashboard" class="sidebar-link" >order dashboard</router-link>
       <router-link @click="scrollToTop()" to="/tabledashboard" class="sidebar-link">Table Dashboard</router-link>
       <router-link @click="scrollToTop()" to="/updateAmount" class="sidebar-link" >Update Amount</router-link>
       <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link">Add Deliver Person</router-link>
       <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link">Remove DP</router-link>
       <button class="sidebar-logout-btn" @click="handleLogout()">Logout</button>
+
     </div>
-
-    <!-- Main content -->
-    <div class="admin-container">
-       <br />
-      <div class="table-responsive">
-        <!-- PROJECT TABLE -->
-        <h1>Order dashboard</h1> <br>
-        <table class="table colored-header datatable project-list">
-          <thead>
-            <tr>
-              <th>User Id</th>
-              <th>Phone</th>
-              <th>Address</th>
-              <th>Foods</th>
-              <th>When</th>
-              <th>Paid</th>
-              <th>Total</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="b in filterBills.slice().reverse()" :key="b.bill_id">
-              <td>{{ b.user_id }}</td>
-              <td>{{ b.bill_phone }}</td>
-              <td>{{ b.bill_address }}</td>
-              <td>{{ b.bill_food }}</td>
-              <td>{{ b.bill_when }}</td>
-              <td>{{ b.bill_paid }}</td>
-              <td>{{ b.bill_total }}birr</td>
-              <td>{{ avaiableStatus[b.bill_status] }}</td>
-              <td>
-                <button v-if="b.bill_status < 5" class="action-btn" @click="nextStatusBtn(b.bill_id)">
-                  {{ avaiableStatus[b.bill_status + 1] }}
-                </button>
-
-                <button v-if="b.bill_status >= 2" class="undo-btn" @click="undoBillStatusBtn(b.bill_id)">
-                  Undo
-                </button>
-                <button v-else-if="b.bill_status == 5 && b.bill_paid == 'false'" class="paid-btn" @click="paidBtn(b.bill_id)">
-                  Paid
-                </button>
-                <button v-else-if="b.bill_status == 5 && b.bill_paid == 'true'" class="action-btn" @click="nextStatusBtn(b.bill_id)">
-                  {{ avaiableStatus[b.bill_status + 1] }}
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <div class="admin-container">
+    <br />
+  
+    <div class="table-responsive">
+          <h1>Table Dashboard</h1>
+      <table class="table colored-header datatable project-list">
+        <thead>
+          <tr>
+            <!-- <th>User Id</th> -->
+            <th>Name</th>
+            <th>Phone</th>
+            <th>People</th>
+            <th>Tables</th>
+            <th>When</th>
+            <th>Note</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="allBook in filterBooks.slice().reverse()"
+            :key="allBook.book_id"
+          >
+            <!-- <td>{{ allBook.user_id }}</td> -->
+            <td>{{ allBook.book_name }}</td>
+            <td>{{ allBook.book_phone }}</td>
+            <td>{{ allBook.book_people }}</td>
+            <td>{{ allBook.book_tables }}</td>
+            <td>{{ allBook.book_when }}</td>
+            <td>{{ allBook.book_note }}</td>
+            <td>{{ avaiableBookStatus[allBook.book_status] }}</td>
+            <button
+              v-if="allBook.book_status < 4"
+              class="action-btn"
+              @click="nextBookBtn(allBook.book_id)"
+            >
+              {{ avaiableBookStatus[allBook.book_status + 1] }}
+            </button>
+            <button
+              v-if="allBook.book_status >= 2"
+              class="undo-btn"
+              @click="undoBookStatusBtn(allBook.book_id)"
+            >
+              Undo
+            </button>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -69,7 +69,7 @@ import { mapState, mapMutations } from "vuex";
 // import burger from "../assets/images/breakfast/dulet1.png";
 // import burger1 from "../assets/images/breakfast/enkulal-ferfer.png";
 export default {
-  name: "Dashboard",
+  name: "TableDashboard",
   data() {
     return {
       avaiableStatus: [
@@ -93,23 +93,24 @@ export default {
         "reserved",
         "no table",
       ],
-
+      
       userFoodsData: "",
       foods: [],
       userFoods: "",
       foodSrc: "",
       myID: 2,
       // newMyId: null,
-
-      orderedFoodId: 0,
+     
+      orderedFoodId:0,
+    
     };
   },
   created() {
-    this.getAllBills();
+     this.getAllBills();
     this.getAllBooks();
     // this.getFoodsData();
     this.getFoodsById();
-
+   
     if (!this.admin) {
       this.$router.push("/");
     }
@@ -131,13 +132,11 @@ export default {
       return this.allBooks.filter(
         (allbook) => allbook.book_status < 6 && allbook.book_status > 0
       );
-    },
+    }
   },
   methods: {
     ...mapMutations(["setAdmin"]),
-    scrollToTop() {
-            window.scrollTo(0, 0);
-        },
+   
     //get all bill status from billstatus table
     async getAllBills() {
       this.allBills = (await axios.get("/billstatus")).data;
@@ -147,6 +146,7 @@ export default {
     async getAllBooks() {
       this.allBooks = (await axios.get("/booktable")).data;
       // this.userid = (await axios.get('/userid')).data;
+   
     },
     sendBillId: function (id) {
       this.sendId = id;
@@ -170,7 +170,7 @@ export default {
     //     await axios.put('/billstatus/cancel/' + id);
     //     this.getAllBills();
     // },
-
+    
     async undoBillStatusBtn(id) {
       await axios.put("/billstatus/undo/" + id);
       this.getAllBills();
@@ -183,14 +183,27 @@ export default {
       await axios.put("/booktable/undo/" + id);
       this.getAllBooks();
     },
-
+    // async getFoodsData() {
+    //   this.userFoodsData = await axios.get("/userfoods/", this.foods);
+    //   for (let i = 0; i < this.userFoodsData.data.length; i++) {
+    //     // var amount = i;
+    //     // var food = this.userFoodsData.data[1];
+    //     // // var foodId = food.food_id;
+    //     // var billId = food.bill_id;
+    //     // console.log(billId);
+    //     // console.log(foodId);
+    //     this.orderedFoodId =  this.userFoodsData.data[4].food_id;
+    //   }
+    //   // return this.orderedFoodId ;
+    // },
+  
     async getFoodsById() {
       // const foodId = this.filterFoodId;
       this.userFoods = await axios.get(`/getuserfoods/${this.myID}`);
-      console.log("foodName: ", this.userFoods.data[0].food_name);
+      console.log('foodName: ', this.userFoods.data[0].food_name)
       return this.userFoods.data[0].food_name;
     },
-
+  
     autoUpdate: function () {
       this.interval = setInterval(
         function () {
@@ -227,9 +240,6 @@ export default {
   margin-left: 20vh;
   /* width: 800px; */
 }
-.table-responsive h1{
-  padding-bottom: 0;
-}
 .action-btn,
 .cancel-btn,
 .paid-btn {
@@ -237,6 +247,7 @@ export default {
   height: 25px;
   color: white;
   text-transform: capitalize;
+  
 }
 .action-btn {
   background-color: #0da9ef;
@@ -264,22 +275,22 @@ export default {
   color: rgb(0, 0, 0);
 }
 
-.b-r {
+.b-r{
   border-radius: 0;
 }
-.r {
-  background-color: #c1282d;
+.r{
+    background-color: #c1282d;
 }
-.r:hover {
-  background-color: rgb(236, 39, 39);
+.r:hover{
+    background-color: rgb(236, 39, 39);
 }
+
 
 .sidebar {
   background-color: #333;
   color: white;
   height: 100vh;
-    width: 235px;
-
+  width: 235px;
   padding: 20px;
   position: fixed;
 }
@@ -315,6 +326,7 @@ export default {
 .sidebar-logout-btn:hover {
   background-color: #a92226;
 }
+
 .admin-profile {
   width: 70px;
   height: 70px;

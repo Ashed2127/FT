@@ -21,7 +21,7 @@
                 <div class="col-md-6 col-sm-5 mb-4">
                     <!-- <label for="uName">{{ langObj[this.newLangStatus].words[3] }}</label> -->
                     <input type="text" name="uName" id="uName" v-model="orderObj.name" :placeholder=" langObj[this.newLangStatus].words[4]" >
-                    <p v-if="errorObj.nameErr.length > 0">{{ errorObj.nameErr[0] }}</p>
+                    <p v-if="errorObj.nameErr.length > 0">{{ errorObj.nameErr[0] }} </p>
                 </div>
 
                 <div class="col-md-6 col-sm-5 ">

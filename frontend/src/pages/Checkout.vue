@@ -7,15 +7,14 @@
         novalidate
         autocomplete="off"
       >
-        <div class="checkout-heading">
+        <!-- <div class="checkout-heading">
           <h3>your order form<span>Total</span></h3>
           <h3 v-if="user">
             {{ this.fName }} {{ this.lName }} Order<span
               >{{ calculateSummaryPrice()[3] }}birr</span
             >
           </h3>
-          <!-- <h3>{{calculateSummaryPrice()[4]}}</h3> -->
-        </div>
+        </div> -->
 
         <div class="form-group details-group">
           <div class="form-group chapa">
@@ -152,7 +151,7 @@ export default {
       checkoutUrl: "",
       foodName: "",
       //////new part/////
-      food_Name: "",
+      food_Name: [],
       food_Id: null,
     };
   },
@@ -212,8 +211,7 @@ export default {
           discount +
           parseInt(this.filterFoods[i].food_discount) * this.itemQuantity[i];
         i = i + 1;
-        // console.log('discount ',discount);
-        // this.filterFoods[i].food_name;
+       
       }
       if (!this.filterFoods.length) {
         delivery = 0;
@@ -222,21 +220,6 @@ export default {
       return [subtotal, discount, delivery, total];
     },
 
-    // getFoodsName: function () {
-    //   for(let i = 0; i < this.allFoods.length; i++){
-    //     this.food_Id = this.allFoods[i].food_id;
-    //     this.food_Name = this.allFoods[i].food_name;
-    //     //  if(this.cartItem===this.food_Id){
-    //     //     console.log('two id ', this.cartItem, this.food_Id);
-    //     //   }
-    //     // console.log('foodId',this.food_Id, 'foodName', this.food_Name );
-    //     return this.foodName;
-    //   }
-
-    //   // console.log('foodData',this.allFoods[0].food_name);
-
-    // },
-
     async getAllCartItem() {
       if (this.user) {
         let existItem = await axios.get("/cartItem/" + this.user.user_id);
@@ -244,22 +227,18 @@ export default {
           this.cartItem.push(element.food_id);
           this.itemQuantity.push(element.item_qty);
 
-          // if(this.cartItem[0]!==this.food_Id){
-          //   console.log('two id ', this.cartItem[0], this.food_Id);
-          // }
-
+         
           for (let i = 0; i < this.allFoods.length; i++) {
             this.food_Id = this.allFoods[i].food_id;
             this.food_Name = this.allFoods[i].food_name;
             if (this.cartItem[0] === this.food_Id) {
               console.log("they are equal", this.cartItem[0], this.food_Id);
               console.log("foodId", this.food_Id, "foodName", this.food_Name);
-              // console.log( this.food_Name );
+    
               return this.foodName;
             }
 
-            // console.log('foodId',this.food_Id, 'foodName', this.food_Name );
-            // return this.foodName;
+         
           }
         });
       }
@@ -268,7 +247,7 @@ export default {
     async getUserEmail() {
       if (this.user) {
         let email = await axios.get("/useremail/" + this.user.user_id);
-        // console.log(email.data.user_email);
+
         this.email = email.data.user_email;
         return email.data.user_email;
       }
@@ -277,7 +256,7 @@ export default {
     async getUserPhone() {
       if (this.user) {
         let phone = await axios.get("/userphone/" + this.user.user_id);
-        // console.log(phone.data.user_phone);
+
         this.phone = phone.data.user_phone;
         return phone.data.user_phone;
       }
@@ -381,11 +360,9 @@ export default {
           bill_phone: this.phone,
           bill_address: this.checkoutObj.address,
           bill_when: currentTime,
-          //   bill_method: this.checkoutObj.paymentMethod,
           bill_discount: parseInt(this.calculateSummaryPrice()[1]),
           bill_delivery: parseInt(this.calculateSummaryPrice()[2]),
           bill_total: parseInt(this.calculateSummaryPrice()[3]),
-          // bill_food: this.calculateSummaryPrice()[4],
           bill_paid: this.isPaid(),
           bill_status: 1,
         };
@@ -439,7 +416,6 @@ export default {
           //////////from bill status//////////
           bill_id: parseInt(billId),
           user_id: parseInt(this.user.user_id),
-          // deliverperson_id: parseInt(this.deliver_person.deliverperson_id),
           bill_phone: this.phone,
           bill_address: this.checkoutObj.address,
           bill_when: currentTime,
@@ -477,23 +453,16 @@ export default {
         this.cartItem = [];
         this.itemQuantity = [];
         console.log("Payment initiated successfully!");
+        console.log('check food name ',this.food_Name);
         const paymentCheckoutUrl = await axios.get(
           "/checkout-url/",
           this.checkoutUrl
         );
-        window.location.href = paymentCheckoutUrl.data.checkout_url;
+        // window.location.href = paymentCheckoutUrl.data.checkout_url;
 
         console.log("Checkout URL:", paymentCheckoutUrl);
         console.log("Checkout URL:", paymentCheckoutUrl.data);
-        // Parse query parameters from URL
-        // const urlParams = new URLSearchParams(window.location.search);
-
-        // // Extract payment data
-        // const paymentId = urlParams.get('payment_id');
-        // const amount = urlParams.get('amount');
-        // const currency = urlParams.get('currency');
-        // const status = urlParams.get('status');
-        // console.login('webhooks data ',paymentId, amount, currency, status);
+   
       }
     },
   },
@@ -583,7 +552,7 @@ export default {
 }
 
 .checkout-container .checkout-form-container form .form-group.details-group {
-  margin-top: 40px;
+  margin-top: 0px;
   z-index: 2;
 }
 

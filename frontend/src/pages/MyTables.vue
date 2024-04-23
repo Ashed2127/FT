@@ -218,7 +218,7 @@ export default {
     async getAllBooks() {
       if (this.user) {
         const response = await axios.get(
-          "/booktable/username/" + this.user.user_fname
+          "/booktable/id/" + this.user.user_id
         );
         if (Array.isArray(response.data)) {
           this.allBooks = response.data;

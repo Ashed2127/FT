@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="login now" class="btn">
+                    <input type="submit" value="login now" class="btn brwn">
                     <p>don't have an account? <router-link @click="scrollToTop()" to="adminregister">create one
                         </router-link>
                     </p>
@@ -189,5 +189,9 @@ export default {
 .login-container .login-form-container form .error-box ul li {
     padding-left: 10px;
     color: rgb(182, 0, 0);
+}
+
+.brwn{
+    background-color: #c1282d;
 }
 </style>
