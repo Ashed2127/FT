@@ -24,7 +24,7 @@ import {
   showAAdmin,
   createAdminAccount,
   allAdmin,
-  // getAdminData
+  // getAllAdminData,
 } from "../controllers/admin.js";
 
 import { showADp, createDpAccount } from "../controllers/dp.js";
@@ -105,6 +105,7 @@ router.get("/api/admin/:email", showAAdmin);
 //create admin account
 router.post("/api/admin/", createAdminAccount);
 router.get("/api/admindata/", allAdmin);
+// router.get("/api/alladmindata/", getAllAdminData);
 
 // router.get("/api/admindata/", getAdminData);
 
@@ -145,7 +146,7 @@ router.get("/api/booktable/user/:id", getAllBooksByUser);
 router.put("/api/booktable/undo/:id", undoBooksStatusById);
 
 // get table data by user name
-router.get("/api/booktable/username/:id", getAllBooksByBookName);
+router.get("/api/booktable/id/:id", getAllBooksByBookName);
 router.get("/api/user/:id", getUserId);
 
 ////////////////////////// Bill Details ///////////////////////

@@ -68,7 +68,7 @@ export const getBooksByUser = (id,result) => {
 //get getAllBooksByBookName
 export const getBooksByBookName = (book_name,result) => {
     db.query(
-      "SELECT * FROM booktable WHERE book_name = ?",
+      "SELECT * FROM booktable WHERE user_id = ?",
       book_name,
       (err, results) => {
         if (err) {

@@ -1,10 +1,10 @@
 // import functions from Admin model
 
 import {
-    getAllAdmin,
-    getAdminByEmail,
-    insertAdmin,
-    // getAdmin
+  getAllAdmin,
+  getAdminByEmail,
+  insertAdmin,
+//   getAdminData,
 } from "../models/AdminModel.js";
 
 // get all Admin
@@ -43,8 +43,8 @@ export const createAdminAccount=(req,res)=>{
 };
 
 // // getAdminData
-// export const getAdminData=(req,res)=>{
-//     getAdmin((err,results)=> {
+// export const getAllAdminData=(req,res)=>{
+//     getAdminData((err,results)=> {
 //         if (err) {
 //             res.send(err);
 //         }else {

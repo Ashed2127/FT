@@ -139,6 +139,7 @@ export const responseData = async (req, res) => {
     if (response.status === "success") {
       checkoutUrl = response.data;
       transactionreference = response.tx_ref;
+      console.log(checkoutUrl);
       // console.log('initiate payment ', response);
       // Call getTransactionReference after responseData completes
       await getTransactionReference();
