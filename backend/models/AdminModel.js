@@ -39,16 +39,16 @@ export const insertAdmin = (data,result) => {
 };
 
 // // getAdmin
-// export const  getAdminData = (result) => {
-//     db.query("SELECT * FROM admin", (err,results)=> {
-//         if (err){
-//             console.log(err);
-//             result(err,null);
-//         }else{
-//             result(null,results[0]);
-//         }
-//     });
-// };
+export const  getAdminData = (result) => {
+    db.query("SELECT * FROM admin", (err,results)=> {
+        if (err){
+            console.log(err);
+            result(err,null);
+        }else{
+            result(null,results[0]);
+        }
+    });
+};
 
 
 

@@ -24,7 +24,7 @@ import {
   showAAdmin,
   createAdminAccount,
   allAdmin,
-  // getAllAdminData,
+  getAllAdminData,
 } from "../controllers/admin.js";
 
 import { showADp, createDpAccount } from "../controllers/dp.js";
@@ -105,7 +105,7 @@ router.get("/api/admin/:email", showAAdmin);
 //create admin account
 router.post("/api/admin/", createAdminAccount);
 router.get("/api/admindata/", allAdmin);
-// router.get("/api/alladmindata/", getAllAdminData);
+router.get("/api/alladmindata/", getAllAdminData);
 
 // router.get("/api/admindata/", getAdminData);
 
