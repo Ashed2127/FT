@@ -24,7 +24,7 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
-## to test chapa payment use one of those numbers which provided by chapa
+## to test chapa payment use one of those number which provided by chapa
 ### awash
 ```
  0900123456
@@ -37,4 +37,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### telebirr
 ```
 0900123456
+```
+
+```
+https://github.com/Ashed2127/FT.git
 ```
