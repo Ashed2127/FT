@@ -41,4 +41,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ```
 https://github.com/Ashed2127/FT.git
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> 941107d61a525e7eeead64c2060d4754e851e865
