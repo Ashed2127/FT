@@ -56,12 +56,12 @@
 
         <div class="form-group">
           <input type="submit" value="create account" class="btn brwn" />
-          <p>
+          <!-- <p>
             have an account?
             <router-link @click="scrollToTop()" to="adminlogin"
               >login</router-link
             >
-          </p>
+          </p> -->
         </div>
       </form>
     </div>
@@ -83,19 +83,31 @@ export default {
       adminData: [],
     };
   },
-  created() {
-    if (!this.admin) {
+  async mounted() {
+    const response = await axios.get("/alladmindata/");
+    this.adminData = response.data;
+    if (this.adminData) {
       this.$router.push("/");
+    } else if (!this.adminData) {
+      this.$router.push("/adminregister");
+
     }
   },
-  mounted: function () {
-    // this.getAdminData;
-    // if (this.adminData.data.length > 0) {
-    //   this.$router.push("/");
-    // }
+  // mounted: async function () {
+  //    const response = await axios.get("/alladmindata/");
+  //       this.adminData = response.data;
+  //   if (this.adminData) {
+  //     this.$router.push("/");
+  //   }
+  //   else {
+  //     this.$router.push("/adminregister");
+  //   }
+
+  // },
+  computed: {
+    ...mapState(["admin"]),
   },
   methods: {
-    ...mapState(["admin"]),
     async getMatchUser(email) {
       let data = await axios.get("/admin/" + email);
       this.matchUser = data.data;
@@ -166,18 +178,18 @@ export default {
       }
     },
 
-    async getAdminData() {
-      try {
-        const response = await axios.get("/alladmindata/");
-        this.adminData = response.data;
-        console.log(this.adminData);
-        // if (this.adminData.length > 0) {
-        //     this.$router.push("/");
-        // }
-      } catch (error) {
-        console.error("Error fetching admin data:", error);
-      }
-    },
+    // async getAdminData() {
+    //   try {
+    //     const response = await axios.get("/alladmindata/");
+    //     this.adminData = response.data;
+    //     console.log(this.adminData);
+    //     // if (this.adminData.length > 0) {
+    //     //     this.$router.push("/");
+    //     // }
+    //   } catch (error) {
+    //     console.error("Error fetching admin data:", error);
+    //   }
+    // },
 
     async handleSubmit(e) {
       this.checkForm();
@@ -296,7 +308,10 @@ export default {
   padding: 0;
 }
 
-.brwn{
-    background-color: #c1282d;
+.brwn {
+  background-color: #c1282d;
+}
+.brwn:hover{
+  background-color: #c73b40;
 }
 </style>

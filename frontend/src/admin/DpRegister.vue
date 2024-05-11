@@ -103,7 +103,7 @@ export default {
       ...mapState(["admin"]),
     },
   methods: {
-      ...mapMutations(["setAdmin"]),
+      ...mapMutations(["setDp"]),
        handleLogout: function () {
       this.setAdmin("");
     },

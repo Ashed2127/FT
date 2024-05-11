@@ -26,7 +26,7 @@
 
                 <div class="col-md-6 col-sm-5 ">
                     <!-- <label for="uPhone">{{ langObj[this.newLangStatus].words[5] }}</label> -->
-                    <input type="text"   name="uPhone" id="uPhone"  v-model="orderObj.phone" :placeholder="langObj[this.newLangStatus].words[6]">
+                    <input type="text"   name="uPhone" id="uPhone"  :value="phone" >
                     <p v-if="errorObj.phoneErr.length > 0">{{ errorObj.phoneErr[0] }}</p>
                 </div>
                 <div class="col-md-6 col-sm-5 mb-4">
@@ -60,7 +60,7 @@
                 </div> -->
             </div>
 
-            <input type="submit" :value="langObj[this.newLangStatus].words[12]" class="btn col-md-5 col-sm-6 my-sm-5 col-lg-12 g g-h mt-5">
+            <input type="submit" :value="langObj[this.newLangStatus].words[12]" class="btn col-md-5 col-sm-6 my-sm-5 col-lg-12 w mt-5">
             <!-- <div class="paper">best
                 </div> -->
         </form>
@@ -83,12 +83,13 @@ export default {
             languageStatus : 0,
             langObj: [
                 
-                    { words: ["Table Form","Opening Hours","2:00am To 6:00pm","Your Name","write your account name","your phone number","write your account number","how many people","how many tables","when","note","decorate your table?","Book Now", "Booking Successfully !"
+                    { words: ["Table Form","Opening Hours","2:00am To 6:00pm","Your Name","write names","your phone number","write your account number","how many people","how many tables","when","note","decorate your table?","reserve table", "Booking Successfully !"
                      ] },
-                    { words: ["Unka Gabatee","Sa'aatii Baniinsaa", "2:00am Hanga 6:00pm","Maqaa Kee", "maqaa herrega keessanii barreessaa", "lakkoofsa bilbila keessanii", "lakkoofsa herrega keessanii barreessaa", "namoota meeqa", "gabatee meeqa", "yoom","yaadannoo"," minjaala keessan faayadhaa?","Amma Kitaaba", "Booking Milkaa'inaan !"] },
+                    { words: ["Unka Gabatee","Sa'aatii Baniinsaa", "2:00am Hanga 6:00pm","Maqaa Kee", "maqaa barreessi", "lakkoofsa bilbila keessanii", "lakkoofsa herrega keessanii barreessaa", "namoota meeqa", "gabatee meeqa", "yoom","yaadannoo"," minjaala keessan faayadhaa?","gabatee rizaabii", "Booking Milkaa'inaan !"] },
                      ],
          newLangStatus : 0,
          interval: "",
+         phone: "",
 
         }
     },
@@ -103,6 +104,7 @@ export default {
         this.getStatus()
     },
     mounted: function () {
+    this.getUserPhone();
         this.autoUpdate(); 
         window.addEventListener('scroll', this.handleScroll);
     },
@@ -117,6 +119,16 @@ export default {
 
     },
     methods: {
+        
+    async getUserPhone() {
+      if (this.user) {
+        let phone = await axios.get("/userphone/" + this.user.user_id);
+
+        this.phone = phone.data.user_phone;
+        return phone.data.user_phone;
+      }
+    },
+
         availableTime: function () {
             var now = new Date();
             var day = ("0" + now.getDate()).slice(-2);
@@ -165,19 +177,19 @@ export default {
             }
 
             // Phone validate
-            if (!this.orderObj.phone) {
+            if (!this.phone) {
                 this.errorObj.phoneErr.push('Entering phone number is required');
             }
             else {
-                if (!this.orderObj.phone.startsWith('09')) {
+                if (!this.phone.startsWith('09')) {
                     this.errorObj.phoneErr.push('Phone numbers must start with 09');
                 }
 
-                if (!/[0-9]{10}/.test(this.orderObj.phone)) {
+                if (!/[0-9]{10}/.test(this.phone)) {
                     this.errorObj.phoneErr.push('Phone numbers can only contain numbers');
                 }
 
-                if (this.orderObj.phone.length != 10) {
+                if (this.phone.length != 10) {
                     this.errorObj.phoneErr.push('Phone numbers must have exactly 10 digits');
                 }
             }
@@ -258,7 +270,7 @@ export default {
                 // console.log(data.book_phone);
                 let data = {
                     book_name: this.orderObj.name,
-                    book_phone: parseInt(this.orderObj.phone),
+                    book_phone: parseInt(this.phone),
                     book_people: parseInt(this.orderObj.people),
                     book_tables: parseInt(this.orderObj.tables),
                     user_id: parseInt(this.user.user_id),
@@ -303,10 +315,8 @@ export default {
 
 <style scoped>
 .order-section {
+    background-color: rgb(187, 139, 76);
     padding: 2rem 25%;
-    background-image: url('../assets/images/tables-new.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
     width: 100%;
 }
 
@@ -416,11 +426,11 @@ export default {
   z-index: 1;
    }
 }
-.g{
-  background-color: #66af29;
+.w{
+  background-color: rgb(126, 85, 31);
 }
-.g-h:hover{
-  background-color: #7bbe44;
+.w:hover{
+  background-color: burlywood;
 }
 .mb{
     margin-bottom: 15px;

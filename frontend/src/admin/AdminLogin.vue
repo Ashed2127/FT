@@ -22,9 +22,9 @@
 
                 <div class="form-group">
                     <input type="submit" value="login now" class="btn brwn">
-                    <p>don't have an account? <router-link @click="scrollToTop()" to="adminregister">create one
+                    <!-- <p >don't have an account? <router-link @click="scrollToTop()" to="adminregister">create one
                         </router-link>
-                    </p>
+                    </p> -->
                 </div>
             </form>
         </div>
@@ -193,5 +193,8 @@ export default {
 
 .brwn{
     background-color: #c1282d;
+}
+.brwn:hover{
+  background-color: #c73b40;
 }
 </style>

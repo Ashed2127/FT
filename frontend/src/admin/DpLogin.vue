@@ -34,7 +34,7 @@
 
 <script>
 import axios from "axios";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 export default {
     name: 'DpLogin',
 
@@ -45,11 +45,14 @@ export default {
             errors: [],
         }
     },
-    // created() {
-    //     if(!this.dp){
-    //         this.$router.push("/")
-    //     }
-    // },
+    computed: {
+        ...mapState("dp", "admin")
+    },
+    mounted() {
+        if(!this.dp || !this.admin){
+            this.$router.push("/")
+        }
+    },
     methods: {
         ...mapMutations(["setDp"]),
 

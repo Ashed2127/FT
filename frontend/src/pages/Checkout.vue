@@ -34,7 +34,7 @@
               type="text"
               name="coAddress"
               id="coAddress"
-              placeholder="Your Address Here..."
+              :placeholder="langObj[this.newLangStatus].words[0]"
               class="form-control"
               v-model="checkoutObj.address"
             />
@@ -100,7 +100,7 @@
         <div v-if="user" class="form-group">
           <input
             type="submit"
-            value="Pay"
+            :value="langObj[this.newLangStatus].words[1]"
             class="btn g g-h"
             :disabled="paymentProcessing"
             required
@@ -129,15 +129,15 @@ export default {
         voiceMessage: "",
         email: "",
       },
-      cardObj: { number: "", name: "", expiryDate: "", cvv: "" },
+      // cardObj: { number: "", name: "", expiryDate: "", cvv: "" },
       errorObj: {
-        phoneErr: [],
+        //   phoneErr: [],
         addressErr: [],
-        payErr: [],
-        numErr: [],
-        nameErr: [],
-        exDateErr: [],
-        cvvErr: [],
+        //   payErr: [],
+        //   numErr: [],
+        //   nameErr: [],
+        //   exDateErr: [],
+        //   cvvErr: [],
       },
       cartItem: [],
       itemQuantity: [],
@@ -153,11 +153,17 @@ export default {
       //////new part/////
       food_Name: [],
       food_Id: null,
+      langObj: [
+        { words: ["Your Address Here...", "pay"] },
+        { words: ["Teessoo Keessan Asirratti...", "kaffaluu"] },
+      ],
+      newLangStatus: 0,
     };
   },
 
   created() {
     this.getAllCartItem();
+    this.getStatus();
   },
 
   computed: {
@@ -173,19 +179,20 @@ export default {
     this.getUserPhone();
     this.getUserFirstName();
     this.getUserLastName();
+    this.autoUpdate();
     // this.getFoodsName();
   },
   methods: {
-    availableTime: function () {
-      var now = new Date();
-      var currentMonth = ("0" + (now.getMonth() + 1)).slice(-2);
+    // availableTime: function () {
+    //   var now = new Date();
+    //   var currentMonth = ("0" + (now.getMonth() + 1)).slice(-2);
 
-      var minRange = now.getFullYear() + "-" + currentMonth;
-      var maxRange = now.getFullYear() + 10 + "-" + currentMonth;
+    //   var minRange = now.getFullYear() + "-" + currentMonth;
+    //   var maxRange = now.getFullYear() + 10 + "-" + currentMonth;
 
-      document.getElementById("coCardEx").setAttribute("min", minRange);
-      document.getElementById("coCardEx").setAttribute("max", maxRange);
-    },
+    //   document.getElementById("coCardEx").setAttribute("min", minRange);
+    //   document.getElementById("coCardEx").setAttribute("max", maxRange);
+    // },
 
     matchID: function (food, cartArray) {
       let temp = "";
@@ -211,13 +218,19 @@ export default {
           discount +
           parseInt(this.filterFoods[i].food_discount) * this.itemQuantity[i];
         i = i + 1;
-       
       }
       if (!this.filterFoods.length) {
         delivery = 0;
       }
       let total = subtotal - discount + delivery;
       return [subtotal, discount, delivery, total];
+    },
+    async getStatus() {
+      let langStatus = await axios.get("/langstatus/", this.languageStatus);
+      this.newLangStatus = langStatus.data[0].langstatus;
+      //   console.log(this.newLangStatus);
+      //   console.log(this.langObj[this.newLangStatus].words[0] )
+      return this.newLangStatus;
     },
 
     async getAllCartItem() {
@@ -227,18 +240,15 @@ export default {
           this.cartItem.push(element.food_id);
           this.itemQuantity.push(element.item_qty);
 
-         
           for (let i = 0; i < this.allFoods.length; i++) {
             this.food_Id = this.allFoods[i].food_id;
             this.food_Name = this.allFoods[i].food_name;
             if (this.cartItem[0] === this.food_Id) {
               console.log("they are equal", this.cartItem[0], this.food_Id);
               console.log("foodId", this.food_Id, "foodName", this.food_Name);
-    
+
               return this.foodName;
             }
-
-         
           }
         });
       }
@@ -280,13 +290,13 @@ export default {
       }
     },
     resetCheckErr: function () {
-      this.errorObj.phoneErr = [];
+      //   this.errorObj.phoneErr = [];
       this.errorObj.addressErr = [];
-      this.errorObj.payErr = [];
-      this.errorObj.numErr = [];
-      this.errorObj.nameErr = [];
-      this.errorObj.exDateErr = [];
-      this.errorObj.cvvErr = [];
+      //   this.errorObj.payErr = [];
+      //   this.errorObj.numErr = [];
+      //   this.errorObj.nameErr = [];
+      //   this.errorObj.exDateErr = [];
+      //   this.errorObj.cvvErr = [];
     },
 
     checkEmptyErr: function () {
@@ -309,13 +319,13 @@ export default {
       }
     },
 
-    isPaid: function () {
-      if (this.checkoutObj.paymentMethod == "cash") {
-        return "false";
-      } else if (this.checkoutObj.paymentMethod == "card") {
-        return "true";
-      }
-    },
+    // isPaid: function () {
+    //   if (this.checkoutObj.paymentMethod == "cash") {
+    //     return "false";
+    //   } else if (this.checkoutObj.paymentMethod == "card") {
+    //     return "true";
+    //   }
+    // },
 
     async sendBillDetails(billId, foodId, qty) {
       let billDetails = {
@@ -431,7 +441,6 @@ export default {
         console.log("the food name ", this.food_Name);
         await axios.post("/initiate-payment/", response);
 
-
         ////////////bill status///////////////////
         let billStatus = {
           bill_id: parseInt(billId),
@@ -453,17 +462,25 @@ export default {
         this.cartItem = [];
         this.itemQuantity = [];
         console.log("Payment initiated successfully!");
-        console.log('check food name ',this.food_Name);
+        console.log("check food name ", this.food_Name);
         const paymentCheckoutUrl = await axios.get(
           "/checkout-url/",
           this.checkoutUrl
         );
-        // window.location.href = paymentCheckoutUrl.data.checkout_url;
+        window.location.href = paymentCheckoutUrl.data.checkout_url;
 
         console.log("Checkout URL:", paymentCheckoutUrl);
         console.log("Checkout URL:", paymentCheckoutUrl.data);
-   
       }
+    },
+
+    autoUpdate: function () {
+      this.interval = setInterval(
+        function () {
+          this.getStatus();
+        }.bind(this),
+        50
+      );
     },
   },
 };

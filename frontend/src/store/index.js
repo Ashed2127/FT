@@ -21,7 +21,7 @@ const store = createStore({
             state.admin = payload;
         },
         setDp(state, payload){
-            state.deliver_person = payload;
+            state.dp = payload;
         },
     },
     actions: {
