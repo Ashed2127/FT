@@ -121,7 +121,7 @@
       <!-- <div>
                 <img src="../assets/images/no-orders.png" alt="" />
             </div> -->
-      <router-link class="btn" to="/table">{{
+      <router-link class="btn w" to="/table">{{
         langObj[this.newLangStatus].words[9]
       }}</router-link>
     </div>
@@ -240,9 +240,7 @@ export default {
         function () {
           this.getAllBooks();
           //    this.getStatus();
-        }.bind(this),
-        50
-      );
+        }.bind(this),50);
     },
   },
 };
@@ -452,10 +450,11 @@ export default {
   background-color: #f5f5f5 !important;
 }
 
-.banner {
-  background-image: url("../assets/images/reserved.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+.w{
+  background-color: rgb(126, 85, 31);
+}
+.w:hover{
+  background-color: rgb(150, 113, 64);
 }
 
 .track{

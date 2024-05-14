@@ -40,21 +40,21 @@
               required
             >
               <option value="" disabled selected>Select food</option>
+              <option value="chechebsa">chechebsa</option>
+              <option value="burger">burger</option>
+              <option value="tematem silse">tematem silse</option>
               <option value="dulet">dulet</option>
               <option value="tibs">tibs</option>
               <option value="tibs-ferfer">tibs-ferfer</option>
               <option value="special">special</option>
               <option value="bozena-shiro">bozena-shiro</option>
               <option value="fast shiro">fast shiro</option>
-              <option value="special pizza">special pizza</option>
-              <option value="pasta-enkulal">pasta-enkulal</option>
-              <option value="shiro">shiro</option>
-              <option value="coffee">coffee</option>
-              <option value="macchiato">macchiato</option>
-              <option value="special milk">special milk</option>
               <option value="Cake">Cake</option>
               <option value="bombolino">bombolino</option>
               <option value="Doughnut">Doughnut</option>
+              <option value="coffee">coffee</option>
+              <option value="macchiato">macchiato</option>
+              <option value="special milk">special milk</option>
               <option value="coca cola">coca cola</option>
               <option value="ambo weeha">ambo weeha</option>
               <option value="pepsi">pepsi</option>

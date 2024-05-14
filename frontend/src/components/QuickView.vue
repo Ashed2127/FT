@@ -8,7 +8,7 @@
             </h2>
             <div class="product-detail d-flex">
                 <div class="image">
-                    <img :src="require(`../assets/images/${f.food_src}`)" alt="" />
+                    <!-- <img :src="require(`../assets/images/${f.food_src}`)" alt="" /> -->
                 </div>
                 <div class="content">
                     <p class="desc">{{ f.food_desc }}</p>
@@ -53,10 +53,10 @@ export default {
             languageStatus : 0,
 
             langObj: [
-                { words: ["Quantity:","Add to cart","Please login first","login now", "Added  Successfully"
+                { words: ["Quantity:","again click to add","Please login first","login now", "Added  Successfully"
             ] },
                     
-                    { words: ["Baay'ina:","Gara gaariitti dabali", "Mee dursa Galmaa'aa", "amma seeni", "Milkaa'inaan Dabalame"] },
+                    { words: ["Baay'ina:","ammas itti dabaluuf cuqaasaa", "Mee dursa Galmaa'aa", "amma seeni", "Milkaa'inaan Dabalame"] },
             ],
             newLangStatus : 0,
             interval: "",
@@ -146,7 +146,7 @@ export default {
     right: 0;
     bottom: 0;
     z-index: 99;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.5);
 
     display: flex;
     align-items: center;
@@ -155,7 +155,7 @@ export default {
 
 .quick-view .quick-view-inner {
     width: 45vw;
-    height: 65vh;
+    height: 55vh;
     background-color: #fff;
     padding: 32px;
 }
@@ -248,7 +248,7 @@ export default {
 }
 .g {
     background-color: #489e02;
-
+    width: 100%;
 }
 .g:hover {
   background-color: #59ac16;
