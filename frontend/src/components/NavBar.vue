@@ -159,6 +159,7 @@ export default {
 
         handleLogout: function () {
             this.setUser("");
+            this.$router.push("/login")
         },
         autoUpdate: function () {
             this.interval = setInterval(function () {

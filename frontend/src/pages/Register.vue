@@ -55,7 +55,8 @@
                     <input type="submit" :value="langObj[this.newLangStatus].words[11]" class="btn g" />
                     <p>{{ langObj[this.newLangStatus].words[12] }} <router-link @click="scrollToTop()" to="/login">{{ langObj[this.newLangStatus].words[13] }}</router-link>
                     </p>
-                    <p>login as deliver person <router-link @click="scrollToTop()" to="/dplogin">login</router-link>  </p>
+                    <!-- <div class="dp pb-3"></div> -->
+                    
                     <input type="button" id="myButton">
                 </div>
             </form>
@@ -400,5 +401,7 @@ export default {
   50% { background-color: #ffffff; }
   100% { background-color: #4CAF50; }
 }
-
+.dp{
+    border: 1px rgb(7, 189, 7) solid;
+}
 </style>

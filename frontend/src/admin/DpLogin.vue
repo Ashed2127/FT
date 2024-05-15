@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="login-form-container">
       <form id="loginForm" @submit="handleSubmit" novalidate autocomplete="off">
-        <h3>Deliver Person LOGIN</h3>
+        <span class="size">{{ langObj[this.newLangStatus].words[0] }}</span>
 
         <div v-if="errors.length" class="error-box">
           <ul>
@@ -16,8 +16,9 @@
             id="aEmail"
             name="aEmail"
             class="form-control"
-            placeholder="enter your email"
+            :placeholder="langObj[this.newLangStatus].words[1]"
             v-model="loginObj.email"
+            
           />
         </div>
 
@@ -27,20 +28,24 @@
             id="aPass"
             name="aPass"
             class="form-control"
-            placeholder="enter your password"
+            :placeholder="langObj[this.newLangStatus].words[2]"
             v-model="loginObj.pass"
           />
         </div>
 
+<!-- v-bind:class="{'hidden': loginObj.email == 0 && loginObj.pass == 0 }" -->
+
         <div class="form-group">
-          <input type="submit" value="login now" class="btn r" />
+          <input type="submit" :value="langObj[this.newLangStatus].words[3]" class="btn g"  />
           <p v-if="user">
-            don't have an account?
+            {{ langObj[this.newLangStatus].words[4] }}
             <router-link @click="scrollToTop()" to="/dpregister"
-              >create one
+              >{{ langObj[this.newLangStatus].words[5] }}
             </router-link>
           </p>
         </div>
+         <div class="z-0"></div>
+      <div class="z-1"></div>
       </form>
     </div>
   </div>
@@ -57,6 +62,12 @@ export default {
       loginObj: { email: "", pass: "" },
       matchDp: undefined,
       errors: [],
+      langObj: [
+                { words: ["welcome to deliver","enter your email","enter your password","login to your account","don't have an account? ", "Create account"
+            ] },
+                { words: ["baga nagaan dhufte geessuuf", "email keessan galchaa", "jecha icciitii keessan galchaa", "akkaawuntii keessanitti seena","account hin qabdan?","Akkaawuntii uumi"] },
+            ],
+      newLangStatus : 0,
     };
   },
   computed: {
@@ -68,13 +79,13 @@ export default {
   //   }
   // },
   created(){
-      // if(!this.dp){
-      //     this.$router.push("/")
-      // }
-       if(!this.admin) {
-          this.$router.push("/")
-      }
+    this.getStatus();
   },
+   mounted: function () {
+        this.autoUpdate(); 
+        window.addEventListener('scroll', this.handleScroll);
+    },
+
   methods: {
     ...mapMutations(["setDp"]),
 
@@ -122,6 +133,18 @@ export default {
         }
       }
     },
+     async getStatus(){
+          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          this.newLangStatus = langStatus.data[0].langstatus;
+        //   console.log(this.newLangStatus);
+        //   console.log(this.langObj[this.newLangStatus].words[0] )
+        
+        },
+        autoUpdate: function () {
+            this.interval = setInterval(function () {
+                this.getStatus();
+            }.bind(this), 50);
+        }
   },
 };
 </script>
@@ -129,10 +152,13 @@ export default {
 <style scoped>
 .login-container {
   padding: 2rem 9%;
+    background-color: #e8f0fe;
+
 }
 
 .login-container .login-form-container {
-  background-color: #fff;
+      background-color: #e8f0fe;
+
   height: 90vh;
 }
 
@@ -143,11 +169,13 @@ export default {
   transform: translate(-50%, -50%);
   max-width: 40rem;
   width: 100%;
-  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.05);
+     box-shadow: 0 20px 25px rgba(0, 0, 0, 0.4);
+
   border: 0.1rem solid rgba(0, 0, 0, 0.2);
   padding: 2rem;
   border-radius: 0.5rem;
   animation: fadeUp 0.4s linear;
+  background-color: white;
 }
 
 .login-container .login-form-container form h3 {
@@ -212,10 +240,42 @@ export default {
   padding-left: 10px;
   color: rgb(182, 0, 0);
 }
-.r {
-  background-color: #c1282d;
+.g {
+    background-color: #489e02;
+
 }
-.r:hover {
-  background-color: rgb(236, 39, 39);
+.g:hover {
+  background-color: #59ac16;
+}
+
+.z-0 {
+  background-color: #489e02;
+  padding: 15px; /* Adjust padding as needed */
+  transform: skewY(-20deg); /* Rotate the element */
+  position: absolute;
+  top: 0;
+  right: 0%;
+  width: 1%;
+  height: 20px;
+  z-index: -1;
+}
+
+.z-1{
+  background-color: #ff0101;
+ padding: 15px; /* Adjust padding as needed */
+  transform: skewY(-20deg);
+   /* Rotate the element */
+  position: absolute;
+  bottom: 0;
+  left: 0%;
+  width: 1%;
+  height: 10px;
+  z-index: -1;
+}
+.hidden{
+  background-color:rgb(143, 204, 94)d;
+}
+.size{
+  font-size: large;
 }
 </style>

@@ -76,12 +76,12 @@ export default {
         }
     },
 
-    created() {
-        this.getAllBills();
-        if (!this.admin ) {
-            this.$router.push("/");
-        }
-    },
+    // created() {
+    //     this.getAllBills();
+    //     if (!this.admin || !this.dp) {
+    //         this.$router.push("/");
+    //     }
+    // },
 
     mounted: function () {
         this.autoUpdate();
@@ -92,7 +92,7 @@ export default {
     },
 
     computed: {
-        ...mapState(["allFoods", "admin"]),
+        ...mapState(["allFoods", "admin", "dp"]),
 
         filterBills: function () {
             return this.allBills.filter((b) => b.bill_status < 6 && b.bill_status > 3);
@@ -117,6 +117,7 @@ export default {
 
         handleLogout: function () {
             this.setAdmin("");
+            this.$router.push("/dplogin");
         },
 
         async nextStatusBtn(id) {

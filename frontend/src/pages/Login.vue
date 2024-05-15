@@ -7,7 +7,7 @@
 
             <form id="loginForm" @submit="handleSubmit" novalidate autocomplete="off">
 
-                <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
+                <span class="size">{{ langObj[this.newLangStatus].words[0] }}</span>
 
                 <div v-if="errors.length" class="error-box">
                     <ul>
@@ -30,6 +30,7 @@
                     <p>{{ langObj[this.newLangStatus].words[4] }}<router-link @click="scrollToTop()" to="/register">{{ langObj[this.newLangStatus].words[5] }}
                         </router-link>
                     </p>
+                    <p>{{ langObj[this.newLangStatus].words[6] }} <router-link @click="scrollToTop()" to="/dplogin">{{ langObj[this.newLangStatus].words[7] }} </router-link>  </p>
                 </div>
       <div class="z-0"></div>
       <div class="z-1"></div>
@@ -57,17 +58,17 @@ export default {
 
             languageStatus : 0,
             langObj: [
-                { words: ["LOGIN","enter your email","enter your password","login now","don't have an account? ","create one"
+                { words: ["welcome to order and reserve","enter your email","enter your password","login to your account","don't have an account? ","create account","for deliver person", "login"
             ] },
                     
-                    { words: ["SEENAA", "email keessan galchaa", "jecha icciitii keessan galchaa", "amma seeni", "account hin qabdan? ", "tokko uumuu"] },
+                    { words: ["baga nagaan dhuftan ajajuu fi reserve gochuuf", "email keessan galchaa", "jecha icciitii keessan galchaa", "akkaawuntii keessanitti seena", "account hin qabdan? ", "account uumuu", "nama geessuu","seenuu"] },
             ],
             newLangStatus : 0,
             interval: "",
                 }
     },
     created() {
-        this.getStatus()
+        this.getStatus();
     },
     mounted: function () {
         this.autoUpdate(); 
@@ -284,5 +285,7 @@ components: {
   height: 10px;
   z-index: -1;
 }
-
+.size{
+  font-size:medium
+}
 </style>
