@@ -69,12 +69,12 @@
 
         <div v-else class="box-content row no-food">
             <div class="content">
-                <h2 style="color: #057835fa;">{{ langObj[this.newLangStatus].words[14] }}</h2>
+                <h2>{{ langObj[this.newLangStatus].words[14] }}</h2>
             </div>
             <div>
                 <!-- <img src="../assets/images/no-orders.png" alt="" /> -->
             </div>
-            <router-link class="btn" to="/menu">{{ langObj[this.newLangStatus].words[15] }}</router-link>
+            <router-link class="btn b" to="/menu">{{ langObj[this.newLangStatus].words[15] }}</router-link>
         </div>
 
         <OrderDetails v-if="showOrderDetails" :bill="sendId">
@@ -403,7 +403,7 @@ export default {
 }
 
 .g {
-    background-color: #489e02;
+    background-color: #57ad06e1;
 
 }
 .g:hover {
@@ -419,5 +419,16 @@ export default {
 }
 .transparent{
     background-color: transparent;
+}
+.b {
+    background-color: #ad061ce1;
+
+}
+.b:hover {
+  background-color: #cc0d26e1;
+}
+
+.content h2 {
+    color: white;
 }
 </style>

@@ -91,7 +91,7 @@ CREATE TABLE billdetails (
 CREATE TABLE billstatus (
   bill_id INT,
   user_id INT,
-  deliverperson_id INT,
+  dp_id INT,
   bill_phone VARCHAR(255),
   bill_address TEXT,
   bill_when VARCHAR(255),
@@ -101,6 +101,7 @@ CREATE TABLE billstatus (
   bill_total INT,
   bill_paid VARCHAR(255),
   bill_status INT(11),
+  bill_food VARCHAR(255);
   primary key (bill_id)
 );
 
@@ -122,5 +123,5 @@ INSERT INTO languagestatus (lang_id, langstatus) VALUES (1, 0);
 -- ALTER TABLE `user`
 -- CHANGE COLUMN `user_name` `user_fname` VARCHAR(255),
 -- ADD COLUMN `user_lname` VARCHAR(255) AFTER `user_fname`;
-ALTER TABLE billstatus ADD COLUMN bill_food VARCHAR(255);
+-- ALTER TABLE billstatus ADD COLUMN bill_food VARCHAR(255);
 

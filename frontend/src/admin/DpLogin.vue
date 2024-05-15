@@ -34,7 +34,7 @@
 
         <div class="form-group">
           <input type="submit" value="login now" class="btn r" />
-          <p>
+          <p v-if="user">
             don't have an account?
             <router-link @click="scrollToTop()" to="/dpregister"
               >create one
@@ -60,21 +60,21 @@ export default {
     };
   },
   computed: {
-    ...mapState(["admin"]),
+    ...mapState(["admin", "dp"]),
   },
-  mounted() {
-    if (!this.admin) {
-      this.$router.push("/");
-    }
-  },
-  // created(){
-  //     // if(!this.dp){
-  //     //     this.$router.push("/")
-  //     // }
-  //      if(!this.admin) {
-  //         this.$router.push("/")
-  //     }
+  // mounted() {
+  //   if (!this.admin) {
+  //     this.$router.push("/");
+  //   }
   // },
+  created(){
+      // if(!this.dp){
+      //     this.$router.push("/")
+      // }
+       if(!this.admin) {
+          this.$router.push("/")
+      }
+  },
   methods: {
     ...mapMutations(["setDp"]),
 

@@ -1,16 +1,16 @@
 <template>
     <div class="admin-container">
         <div class="d-flex justify-content-between">
-            <h1>Deliver Person Order Dashboard</h1>
+            <h1>Order Dashboard</h1>
             
-            <button class="btn" @click="handleLogout()">Logout</button>
+            <button class="px-4 btn-danger " @click="handleLogout()">Logout</button>
         </div>
 
         <div class="table-responsive">
             <table class="table colored-header datatable project-list">
-                <thead>
+                <thead class="thead">
+                        
                     <tr>
-                        <th>Bill Id</th>
                         <th>User Id</th>
                         <th>Phone</th>
                         <th>Foods</th>
@@ -24,8 +24,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="(b) in filterBills.slice().reverse()" :key="b.bill_id">
-                        <td>{{ b.bill_id }}</td>
-                        <td>{{ b.user_id }}</td>
+                       <td>{{ b.user_id }}</td>
                         <td>{{ b.bill_phone }}</td>
                         <td>{{ b.bill_food }}</td>
                         <td>{{ b.bill_address }}</td>
@@ -34,12 +33,12 @@
                         <td>{{ b.bill_total }}birr</td>
                         <td>{{ avaiableStatus[b.bill_status] }}</td>
                         <td>
-                            <button v-if="b.bill_status < 5" class="action-btn" @click="nextStatusBtn(b.bill_id)">
+                            <button v-if="b.bill_status < 5" class="action-btn" v-bind:class="{'animated-btn': b.bill_status < 5}" @click="nextStatusBtn(b.bill_id)">
                                 {{ avaiableStatus[b.bill_status + 1] }}
                             </button>
 
                             
-                            <button v-if="b.bill_status > 4" class="undo-btn" @click="undoBillStatusBtn(b.bill_id)">
+                            <button v-if="b.bill_status > 4" class="undo-btn px-4" @click="undoBillStatusBtn(b.bill_id)">
                             Undo
                         </button>
                             <button v-else-if="b.bill_status == 5 && b.bill_paid == 'false'" class="paid-btn"
@@ -79,7 +78,7 @@ export default {
 
     created() {
         this.getAllBills();
-        if (!this.admin) {
+        if (!this.admin ) {
             this.$router.push("/");
         }
     },
@@ -180,18 +179,21 @@ export default {
 }
 
 .action-btn {
-    background-color: #0da9ef;
+    border: 1px #15c71e solid;
+    color: black;
     margin-right: 10px;
 }
-
+.action-btn:hover {
+    background-color: #05ac0e;
+    color: white;
+}
 .cancel-btn,
 .paid-btn {
+    
     background-color: red;
 }
 
-.action-btn:hover {
-    background-color: #27ae60;
-}
+
 
 .table-contain{
   height: 5px;
@@ -200,7 +202,45 @@ export default {
 }
 
 .colored-header{
-    background-color: #929fa6;
+    background-color: #feffff;
+    color: rgb(0, 0, 0);
+}
+.undo-btn{
+    background-color: white;
+    border: 1px black solid;
+}
+.undo-btn:hover{
+    background-color: black;
     color: white;
+}
+.thead{
+  background-color: #06910d;
+  color: white;
+}
+.b{
+    border: 1px #000000 solid;
+    color: black;
+}
+.b:hover{
+    background-color: black;
+    color: white;
+}
+
+.animated-btn {
+  background-color: #4CAF50;  /* Initial color */
+  margin-right: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border: none;
+  cursor: default; /* Prevent hover cursor style */
+  animation: colorChange 2.5s infinite alternate; /* Animation properties */
+}
+
+@keyframes colorChange {
+  0% { background-color: #0bc511; }
+  50% { background-color:rgb(162, 230, 166); }
+  100% { background-color: #0bc511; }
 }
 </style>

@@ -2,7 +2,7 @@
     <div class="register-container">
         <div class="register-form-container">
             <form id="registerForm row" @submit="handleSubmit" novalidate autocomplete="off">
-                <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
+                <span>{{ langObj[this.newLangStatus].words[0] }}</span>
                 <div class="form-group col-md-12">
                     <!-- <label for="uName">{{ langObj[this.newLangStatus].words[1] }}
                     </label> -->
@@ -55,6 +55,8 @@
                     <input type="submit" :value="langObj[this.newLangStatus].words[11]" class="btn g" />
                     <p>{{ langObj[this.newLangStatus].words[12] }} <router-link @click="scrollToTop()" to="/login">{{ langObj[this.newLangStatus].words[13] }}</router-link>
                     </p>
+                    <p>login as deliver person <router-link @click="scrollToTop()" to="/dplogin">login</router-link>  </p>
+                    <input type="button" id="myButton">
                 </div>
             </form>
         </div>
@@ -78,10 +80,10 @@ export default {
 
             languageStatus : 0,
             langObj: [
-                { words: ["Create your account","Enter your name:","your first name","Enter your email:","example@gmail.com","Enter your password:","enter your password","Check your password again:","enter your password again","Enter your phone number:","enter your phone number","create account","have an account?","login", "Enter your name:","your last name"
+                { words: ["Create account","Enter your name:","your first name","Enter your email:","example@gmail.com","Enter your password:","enter your password","Check your password again:","enter your password again","Enter your phone number:","enter your phone number","create account","have an account?","login", "Enter your name:","your last name"
 ] },
                     
-                    { words: ["Akkaawuntii keessan uumi", "Maqaa kee galchi:","maqaa kee guutuu", "Email keessan galchaa:","fakkeenyaaf@gmail.com", "Jecha icciitii keessan galchaa:","jecha icciitii keessan galchaa", "Jecha icciitii keessan irra deebi'aa ilaalaa:","irra deebi'ii jecha icciitii kee galchi", "Lakkoofsa bilbila keessanii galchaa:","lakkoofsa bilbila keessanii galchaa", "account uumuu", "akkaawuntii qabduu?","seenuu"] },
+                    { words: ["Akkaawuntii uumi", "Maqaa kee galchi:","maqaa kee guutuu", "Email keessan galchaa:","fakkeenyaaf@gmail.com", "Jecha icciitii keessan galchaa:","jecha icciitii keessan galchaa", "Jecha icciitii keessan irra deebi'aa ilaalaa:","irra deebi'ii jecha icciitii kee galchi", "Lakkoofsa bilbila keessanii galchaa:","lakkoofsa bilbila keessanii galchaa", "account uumuu", "akkaawuntii qabduu?","seenuu"] },
             ],
             newLangStatus : 0,
             interval: "",
@@ -375,5 +377,28 @@ export default {
   z-index: 1;
 }
 
+.dp{
+    border: 1px rgb(66, 235, 15) solid;
+    margin: 1rem 0;
+    width: 70%;
+    text-align: center;
+}
+.animated-btn {
+  background-color: #4CAF50;  /* Initial color */
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border: none;
+  cursor: default; /* Prevent hover cursor style */
+  animation: colorChange 3.5s infinite alternate; /* Animation properties */
+}
+
+@keyframes colorChange {
+  0% { background-color: #4CAF50; }
+  50% { background-color: #ffffff; }
+  100% { background-color: #4CAF50; }
+}
 
 </style>

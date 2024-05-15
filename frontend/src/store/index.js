@@ -33,6 +33,7 @@ const store = createStore({
             .catch(function (error) {
                 console.log(error);
             });
+            
         },
     }
 })

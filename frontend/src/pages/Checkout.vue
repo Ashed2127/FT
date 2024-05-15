@@ -167,7 +167,7 @@ export default {
   },
 
   computed: {
-    ...mapState(["allFoods", "user", "deliver_person"]),
+    ...mapState(["allFoods", "user", "dp"]),
 
     filterFoods: function () {
       return this.allFoods.filter((f) => this.matchID(f, this.cartItem));
@@ -366,7 +366,7 @@ export default {
         let billStatus = {
           bill_id: parseInt(billId),
           user_id: parseInt(this.user.user_id),
-          deliverperson_id: parseInt(this.deliver_person.deliverperson_id),
+          dp_id: parseInt(this.dp.dp_id),
           bill_phone: this.phone,
           bill_address: this.checkoutObj.address,
           bill_when: currentTime,

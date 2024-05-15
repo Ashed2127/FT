@@ -157,7 +157,7 @@ export default {
             "Reserved",
             "No Table",
             "You do not have any Reservation yet",
-            "book now!",
+            "reserve now!",
           ],
         },
 
@@ -172,7 +172,7 @@ export default {
             "Kan qabame",
             "Gabatee Hin Qabu",
             "Ammatti Reservation tokkollee hin qabdan",
-            "amma buufadhu!",
+            "amma reserve godhaa!",
           ],
         },
       ],
@@ -239,7 +239,7 @@ export default {
       this.interval = setInterval(
         function () {
           this.getAllBooks();
-          //    this.getStatus();
+             this.getStatus();
         }.bind(this),50);
     },
   },

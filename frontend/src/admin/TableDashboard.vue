@@ -15,9 +15,8 @@
     <br />
   
     <div class="table-responsive">
-          <h1>Table Dashboard</h1>
       <table class="table colored-header datatable project-list">
-        <thead>
+        <thead class="thead">
           <tr>
             <!-- <th>User Id</th> -->
             <th>Name</th>
@@ -45,14 +44,14 @@
             <td>{{ avaiableBookStatus[allBook.book_status] }}</td>
             <button
               v-if="allBook.book_status < 4"
-              class="action-btn"
+              class="action-btn" v-bind:class="{'animated-btn': allBook.book_status < 3}"
               @click="nextBookBtn(allBook.book_id)"
             >
               {{ avaiableBookStatus[allBook.book_status + 1] }}
             </button>
             <button
               v-if="allBook.book_status >= 2"
-              class="undo-btn"
+              class="undo-btn px-4"
               @click="undoBookStatusBtn(allBook.book_id)"
             >
               Undo
@@ -236,7 +235,6 @@ export default {
   width: 22px;
 }
 .table-responsive {
-  margin-top: 8vh;
   margin-left: 20vh;
   /* width: 800px; */
 }
@@ -250,20 +248,25 @@ export default {
   
 }
 .action-btn {
-  background-color: #0da9ef;
-  margin-right: 10px;
+   border: 1px #15c71e solid;
+    color: black;
+    margin-right: 10px;
+}
+.action-btn:hover {
+background-color: #05ac0e;
+    color: white;
 }
 .cancel-btn,
 .paid-btn {
   background-color: red;
 }
-.undo-btn {
-  width: 60px;
-  height: 25px;
-  background-color: rgb(233, 138, 14);
+.undo-btn{
+    background-color: white;
+    border: 1px black solid;
 }
-.action-btn:hover {
-  background-color: #27ae60;
+.undo-btn:hover{
+    background-color: black;
+    color: white;
 }
 .table-contain {
   height: 5px;
@@ -339,5 +342,27 @@ export default {
   align-items: center;
   font-size: 24px;
   color: #333; /* Icon color */
+}
+.thead{
+  background-color: #06910d;
+  color: white;
+}
+
+.animated-btn {
+  background-color: #4CAF50;  /* Initial color */
+  margin-right: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border: none;
+  cursor: default; /* Prevent hover cursor style */
+  animation: colorChange 2.5s infinite alternate; /* Animation properties */
+}
+
+@keyframes colorChange {
+  0% { background-color: #0bc511; }
+  50% { background-color:rgb(162, 230, 166); }
+  100% { background-color: #0bc511; }
 }
 </style>

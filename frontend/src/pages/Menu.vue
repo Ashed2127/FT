@@ -176,7 +176,7 @@ export default {
             "hot-drink",
             "dessert",
             "soft-drink",
-            "our special dishes",
+            "menu",
             "Add to cart",
             "No match found!",
           ],
@@ -191,7 +191,7 @@ export default {
             "dhugaatii ho’aa",
             "nyaatatti aantuu",
             "dhugaatii lallaafaa",
-            "nyaata addaa keenya",
+            "nyaata keenya",
             "Gara gaariitti dabali",
             "Walsimsiisaa hin argamne!",
           ],
@@ -649,6 +649,7 @@ hr {
 .menu-section .box-container .box .image img {
   height: 15rem;
 }
+
 
 .menu-section .box-container .box .content h3 {
   font-size: 2rem;
