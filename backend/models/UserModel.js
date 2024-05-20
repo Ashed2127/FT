@@ -100,3 +100,50 @@ export const getLastName = (data,result) => {
         }
     });
 };
+
+//////////////////lang status////////////
+export const langStatus = (id, result) => {
+  db.query(
+    "SELECT langstatus FROM user WHERE user_id = ?",
+    [id],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        result(err, null);
+      } else {
+        result(null, results);
+      }
+    }
+  );
+};
+
+
+export const updateEngIndex = (data, result) => {
+  db.query(
+    "UPDATE user SET langstatus = langstatus - 1  WHERE user_id = ?",
+    [data],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        result(err, null);
+      } else {
+        result(null, results);
+      }
+    }
+  );
+};
+
+export const updateOroIndex = (data, result) => {
+  db.query(
+    "UPDATE user SET langstatus = langstatus + 1 WHERE user_id = ?",
+    [data],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        result(err, null);
+      } else {
+        result(null, results);
+      }
+    }
+  );
+};

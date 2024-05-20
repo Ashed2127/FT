@@ -73,3 +73,19 @@ export const deleteAllItemsByUser = (id,result) => {
         }
     });
 };
+
+//////////////getFoodId///////////
+// export const getFoodId = (user_id, result) => {
+//   db.query(
+//     "SELECT * FROM cart WHERE user_id = ?",
+//     [user_id],
+//     (err, results) => {
+//       if (err) {
+//         console.log(err);
+//         result(err, null);
+//       } else {
+//         result(null, results);
+//       }
+//     }
+//   );
+// };

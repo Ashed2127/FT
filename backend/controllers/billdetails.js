@@ -1,7 +1,8 @@
 import {
   insertBillDetails,
   getBillDetails,
-  getAllFood
+  getAllFood,
+  // getFoodId
 } from "../models/BillDetailsModel.js";
 
 // create BillDetails
@@ -37,3 +38,4 @@ export const getAllFoods = (req, res) => {
     }
   });
 };
+

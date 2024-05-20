@@ -39,3 +39,19 @@ export const getAllFood = (req, result) => {
     }
   );
 };
+
+  // getFoodId
+// export const getFoodId = (id, result) => {
+//   db.query(
+//     "SELECT * FROM billdetails WHERE bill_id = ?",
+//     [id],
+//     (err, results) => {
+//       if (err) {
+//         console.log(err);
+//         result(err, null);
+//       } else {
+//         result(null, results);
+//       }
+//     }
+//   );
+// };

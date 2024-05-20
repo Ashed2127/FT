@@ -1,14 +1,17 @@
 // import functions from User model
 
 import {
-    getAllUser,
-    getUserByEmail,
-    insertUser,
-    getUserphone,
-    getEmail,
-    getPhone,
-    getFirstName,
-    getLastName,
+  getAllUser,
+  getUserByEmail,
+  insertUser,
+  getUserphone,
+  getEmail,
+  getPhone,
+  getFirstName,
+  getLastName,
+  langStatus,
+  updateEngIndex,
+  updateOroIndex,
 } from "../models/UserModel.js";
 
 // get all Users
@@ -102,4 +105,40 @@ export const getUserLastName = (req,res)=>{
             res.json(results);
         }
     });
+};
+
+/////////lanaguage status/////////////
+export const getLangStatus = (req, res) => {
+  langStatus(req.params.id, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(results);
+    }
+  });
+};
+
+
+export const engIndex = (req, res) => {
+  //   const data = req.body;
+  //   const id = req.params.id;
+  updateEngIndex(req.params.id, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(results);
+    }
+  });
+};
+
+export const oroIndex = (req, res) => {
+  //   const data = req.body;
+  //     const id = req.params.id;
+  updateOroIndex(req.params.id, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(results);
+    }
+  });
 };

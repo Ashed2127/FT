@@ -1,12 +1,12 @@
 // import functions from User model
 
 import {
-    getAllItems,
-    getAItem,
-    insertToCart,
-    updateCartItemQty,
-    deleteItemInCart,
-    deleteAllItemsByUser
+  getAllItems,
+  getAItem,
+  insertToCart,
+  updateCartItemQty,
+  deleteItemInCart,
+  deleteAllItemsByUser,
 } from "../models/CartModel.js";
 
 // get all Items
@@ -82,3 +82,4 @@ export const deleteItems=(req,res)=>{
         }
     });
 };
+

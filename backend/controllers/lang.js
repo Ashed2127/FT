@@ -41,6 +41,7 @@ export const getAllStatus = (req, res) => {
 
 // getLangStatus
 export const getLangStatus = (req, res) => {
+  const id = req.params.id;
   langStatus((err, results) => {
     if (err) {
       res.send(err);

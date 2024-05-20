@@ -8,6 +8,7 @@ import {
   deleteFood,
   getFoodsByFoodId,
   updateFoodsByFoodName,
+
 } from "../controllers/food.js";
 
 import {
@@ -50,6 +51,7 @@ import {
   createBillDetails,
   getBillDetailsById,
   getAllFoods,
+  // getFoodIdByBillId
 } from "../controllers/billdetails.js";
 
 import {
@@ -69,7 +71,7 @@ import { format } from "mysql2";
 // init express router
 import { responseData, getCheckoutUrl} from "../pay.js";
 
-import { engIndex, oroIndex, getLangStatus } from "../controllers/lang.js";
+import { engIndex, oroIndex, getLangStatus } from "../controllers/user.js";
 const router = express.Router();
 
 ////////////////////////// FOOD ////////////////////////////////
@@ -152,6 +154,8 @@ router.get("/api/user/:id", getUserId);
 ////////////////////////// Bill Details ///////////////////////
 router.post("/api/billdetails", createBillDetails);
 router.get("/api/billdetails/:id", getBillDetailsById);
+// router.get("/api/getfoodid/:id", getFoodIdByBillId);
+
 
 //////////////////////// Bill Status ////////////////////////
 router.get("/api/billstatus/new", showNewestStatusId);
@@ -177,12 +181,12 @@ router.get("/api/checkout-url/", async (req, res) => {
     console.error("Error fetching checkout URL:", error);
     res.status(500).json({ error: "Internal server error." });
   }
-
 });
 
 ////////////////////////language/////////////////////////
-router.put("/api/english/", engIndex);
-router.put("/api/oromo/", oroIndex);
-router.get("/api/langstatus/", getLangStatus);
+router.put("/api/english/:id", engIndex);
+router.put("/api/oromo/:id", oroIndex);
+router.get("/api/langstatus/:id", getLangStatus);
+router.get("/api/langstatus", getLangStatus);
 
 export default router;
