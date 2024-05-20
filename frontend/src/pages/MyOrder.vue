@@ -154,7 +154,7 @@ export default {
             this.showOrderDetails = !this.showOrderDetails;
         },
         async getStatus(){
-          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          let langStatus = await axios.get('/langstatus/' + this.user.user_id);
           this.newLangStatus = langStatus.data[0].langstatus;
         //   console.log(this.newLangStatus);
         //   console.log(this.langObj[this.newLangStatus].words[0] )

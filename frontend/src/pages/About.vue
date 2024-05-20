@@ -19,6 +19,7 @@
   
   <script>
   import axios from 'axios';
+  import { mapState } from 'vuex';
   export default {
     name: "About",
     data(){
@@ -29,7 +30,7 @@
         langObj: [
                 { words: ["Our Cafe","In 2003, Lewi Café started in Woliso, Ethiopia, without delivery or formal reservations. Initially focused on sharing unique flavors, it evolved with delivery services and a community space. Today, it's a multifaceted establishment offering authentic dishes and fostering community unity through food."] },
                 
-                { words: ["Caffeen keenya,", "Bara 2003tti, Lewi Café, Ethiopia Woliso keessatti, osoo hin geessin ykn sirnaan reservation malee eegale. Jalqaba mi'aa addaa qooddachuu irratti kan xiyyeeffate yoo ta'u, tajaajila geejjibaa fi iddoo hawaasaa waliin guddate. Har'a dhaabbata roga hedduu qabuu fi nyaata dhugaa dhiyeessuu fi tokkummaa hawaasaa karaa nyaataa guddisudha."] },
+                { words: ["Kaffeen keenya,", "Bara 2003tti, Lewi Café, Ethiopia Woliso keessatti, osoo hin geessin ykn sirnaan reservation malee eegale. Jalqaba mi'aa addaa qooddachuu irratti kan xiyyeeffate yoo ta'u, tajaajila geejjibaa fi iddoo hawaasaa waliin guddate. Har'a dhaabbata roga hedduu qabuu fi nyaata dhugaa dhiyeessuu fi tokkummaa hawaasaa karaa nyaataa guddisudha."] },
         ],
          newLangStatus : 0,
          interval: "",
@@ -37,7 +38,9 @@
             //  langObj[0].words[0]
             //  langObj[1].words[0] 
     }},
-
+  computed: {
+        ...mapState(["user"])
+    },
     
     created() {
         this.getStatus()
@@ -56,7 +59,7 @@
             window.scrollTo(0, 0);
         },
         async getStatus(){
-          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          let langStatus = await axios.get('/langstatus/' + this.user.user_id);
           this.newLangStatus = langStatus.data[0].langstatus;
         //   console.log(this.newLangStatus);
         //   console.log(this.langObj[this.newLangStatus].words[0] )

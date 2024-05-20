@@ -292,7 +292,7 @@ export default {
             window.scrollTo(0, 0);
         },
         async getStatus(){
-          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          let langStatus = await axios.get('/langstatus/'+ this.user.user_id);
           this.newLangStatus = langStatus.data[0].langstatus;
         //   console.log(this.newLangStatus);
         //   console.log(this.langObj[this.newLangStatus].words[0] )

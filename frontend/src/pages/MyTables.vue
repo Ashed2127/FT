@@ -3,34 +3,32 @@
     class="my-order-container banner"
     :class="filterBooks.length > 0 ? '' : 'fit-screen'"
   >
-    <div class="mb-5 " v-if="filterBooks.length > 0" :class="my - order - cards">
+    <div class="mb-5" v-if="filterBooks.length > 0" :class="my - order - cards">
       <div
         v-for="book in filterBooks.slice().reverse()"
-        class="card mb-5 "
+        class="card mb-5"
         :key="book.book_id"
       >
         <div
-          class="card-head d-flex flex-wrap flex-sm-nowrap justify-content-between card-summary "
+          class="card-head d-flex flex-wrap flex-sm-nowrap justify-content-between card-summary"
         >
           <!-- -->
           <div class=" ">
             <!-- <h1 class="">{{ langObj[this.newLangStatus].words[0] }}</h1> -->
             <span>Table No - </span>
-                        <span>{{ book.book_id }}</span>
+            <span>{{ book.book_id }}</span>
           </div>
           <!-- <button @click="sendBillId(book.book_id)">Bill Detail</button> -->
         </div>
 
-        <div
-          class="d-flex  flex-sm-nowrap justify-content-between card-summary"
-        >
+        <div class="d-flex flex-sm-nowrap justify-content-between card-summary">
           <!-- <div class="w-100 text-center py-1 px-2"><span>Paid:</span>{{ " " + b.bill_paid }}
                     </div> -->
           <!-- <div class="w-100 text-center py-1 px-2">
             <span>{{ langObj[this.newLangStatus].words[1] }}</span
             >{{ avaiableStatus[book.book_status] }}
           </div> -->
-          <div class="w-10 text-center  px-2">
+          <div class="w-10 text-center px-2">
             <span>{{ langObj[this.newLangStatus].words[2] }}</span>
             {{ book.book_when }}
           </div>
@@ -217,9 +215,7 @@ export default {
 
     async getAllBooks() {
       if (this.user) {
-        const response = await axios.get(
-          "/booktable/id/" + this.user.user_id
-        );
+        const response = await axios.get("/booktable/id/" + this.user.user_id);
         if (Array.isArray(response.data)) {
           this.allBooks = response.data;
         } else {
@@ -230,7 +226,7 @@ export default {
     },
 
     async getStatus() {
-      let langStatus = await axios.get("/langstatus/", this.languageStatus);
+      let langStatus = await axios.get("/langstatus/" + this.user.user_id);
       this.newLangStatus = langStatus.data[0].langstatus;
       //   console.log(this.newLangStatus);
       //   console.log(this.langObj[this.newLangStatus].words[0] )
@@ -239,8 +235,10 @@ export default {
       this.interval = setInterval(
         function () {
           this.getAllBooks();
-             this.getStatus();
-        }.bind(this),50);
+          this.getStatus();
+        }.bind(this),
+        50
+      );
     },
   },
 };
@@ -450,15 +448,14 @@ export default {
   background-color: #f5f5f5 !important;
 }
 
-.w{
+.w {
   background-color: rgb(126, 85, 31);
 }
-.w:hover{
+.w:hover {
   background-color: rgb(150, 113, 64);
 }
 
-.track{
-    box-shadow: 0 2px 20px rgba(0.9, 0, 0, 0.9);
-
+.track {
+  box-shadow: 0 2px 20px rgba(0.9, 0, 0, 0.9);
 }
 </style>

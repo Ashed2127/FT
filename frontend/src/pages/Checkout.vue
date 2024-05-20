@@ -149,7 +149,7 @@ export default {
       paymentProcessing: false, // Flag to indicate payment processing state
       paymentError: null, // Store any errors during payment processing
       checkoutUrl: "",
-      foodName: "",
+      foodName: [],
       //////new part/////
       food_Name: [],
       food_Id: null,
@@ -158,6 +158,7 @@ export default {
         { words: ["Teessoo Keessan Asirratti...", "kaffaluu"] },
       ],
       newLangStatus: 0,
+      quantity: 0,
     };
   },
 
@@ -226,7 +227,7 @@ export default {
       return [subtotal, discount, delivery, total];
     },
     async getStatus() {
-      let langStatus = await axios.get("/langstatus/", this.languageStatus);
+      let langStatus = await axios.get("/langstatus/" + this.user.user_id);
       this.newLangStatus = langStatus.data[0].langstatus;
       //   console.log(this.newLangStatus);
       //   console.log(this.langObj[this.newLangStatus].words[0] )
@@ -243,6 +244,7 @@ export default {
           for (let i = 0; i < this.allFoods.length; i++) {
             this.food_Id = this.allFoods[i].food_id;
             this.food_Name = this.allFoods[i].food_name;
+            console.log("cartFood:", this.allFoods[1]);
             if (this.cartItem[0] === this.food_Id) {
               console.log("they are equal", this.cartItem[0], this.food_Id);
               console.log("foodId", this.food_Id, "foodName", this.food_Name);
@@ -329,6 +331,7 @@ export default {
 
     async sendBillDetails(billId, foodId, qty) {
       let billDetails = {
+        user_id: parseInt(this.user.user_id),
         bill_id: parseInt(billId),
         food_id: parseInt(foodId),
         item_qty: parseInt(qty),
@@ -375,6 +378,7 @@ export default {
           bill_total: parseInt(this.calculateSummaryPrice()[3]),
           bill_paid: this.isPaid(),
           bill_status: 1,
+          item_qty: parseInt(this.quantity),
         };
         console.log(billStatus);
 
@@ -404,6 +408,7 @@ export default {
 
         this.cartItem.forEach((foodId, index) => {
           this.sendBillDetails(billId, foodId, this.itemQuantity[index]);
+          this.quantity = this.itemQuantity[index];
         });
 
         var now = new Date();
@@ -436,6 +441,7 @@ export default {
           bill_paid: "pending",
           bill_status: 1,
           bill_food: this.food_Name,
+          item_qty: parseInt(this.quantity),
         };
         console.log("the response data ", response);
         console.log("the food name ", this.food_Name);
@@ -455,6 +461,7 @@ export default {
           bill_paid: "pending",
           bill_status: 1,
           bill_food: this.food_Name,
+          item_qty: parseInt(this.quantity),
         };
         axios.post("/billstatus", billStatus);
         axios.delete("/cartItem/" + this.user.user_id);

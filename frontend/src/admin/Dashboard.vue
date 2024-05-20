@@ -7,7 +7,7 @@
       <router-link @click="scrollToTop()" to="/tabledashboard" class="sidebar-link">Table Dashboard</router-link>
       <router-link @click="scrollToTop()" to="/updateAmount" class="sidebar-link" >Update Amount</router-link>
       <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link">Add Deliver Person</router-link>
-      <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link">Remove DP</router-link>
+      <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link-r">Remove DP</router-link>
       <button class="sidebar-logout-btn" @click="handleLogout()">Logout</button>
     </div>
 
@@ -24,6 +24,7 @@
               <th>Phone</th>
               <th>Address</th>
               <th>Foods</th>
+              <th>Quantity</th>
               <th>When</th>
               <th>Paid</th>
               <th>Total</th>
@@ -38,6 +39,7 @@
               <td>{{ b.bill_phone }}</td>
               <td>{{ b.bill_address }}</td>
               <td>{{ b.bill_food }}</td>
+              <td>{{ b.item_qty }}</td>
               <td>{{ b.bill_when }}</td>
               <td>{{ b.bill_paid }}</td>
               <td>{{ b.bill_total }}birr</td>
@@ -50,9 +52,9 @@
                 <button v-if="b.bill_status >= 2" class="undo-btn px-4 " @click="undoBillStatusBtn(b.bill_id)">
                   Undo
                 </button>
-                <button v-else-if="b.bill_status == 5 && b.bill_paid == 'false'" class="paid-btn" @click="paidBtn(b.bill_id)">
+                <!-- <button v-else-if="b.bill_status == 5 && b.bill_paid == 'false'" class="paid-btn" @click="paidBtn(b.bill_id)">
                   Paid
-                </button>
+                </button> -->
                 <button v-else-if="b.bill_status == 5 && b.bill_paid == 'true'" class="action-btn" @click="nextStatusBtn(b.bill_id)">
                   {{ avaiableStatus[b.bill_status + 1] }}
                 </button>
@@ -103,6 +105,8 @@ export default {
       // newMyId: null,
 
       orderedFoodId: 0,
+      foodId: [],
+      billID: 0,
     };
   },
   created() {
@@ -110,7 +114,7 @@ export default {
     this.getAllBooks();
     // this.getFoodsData();
     this.getFoodsById();
-
+    // this.getFoodIdByBillId();
     if (!this.admin) {
       this.$router.push("/");
     }
@@ -122,10 +126,11 @@ export default {
     clearInterval(this.interval);
   },
   computed: {
-    ...mapState(["allFoods", "admin"]),
+    ...mapState(["allFoods", "admin", "user"]),
     filterBills: function () {
       return this.allBills.filter(
-        (b) => b.bill_status < 6 && b.bill_status > 0
+        (b) => b.bill_status < 6 && b.bill_status > 0,
+        // this.billID = b.bill_id,
       );
     },
     filterBooks: function () {
@@ -133,12 +138,17 @@ export default {
         (allbook) => allbook.book_status < 6 && allbook.book_status > 0
       );
     },
+      
   },
   methods: {
     ...mapMutations(["setAdmin"]),
     scrollToTop() {
             window.scrollTo(0, 0);
         },
+
+    //     filterBillId: function () {
+    //   return this.allBills;
+    // },
     //get all bill status from billstatus table
     async getAllBills() {
       this.allBills = (await axios.get("/billstatus")).data;
@@ -188,15 +198,24 @@ export default {
     async getFoodsById() {
       // const foodId = this.filterFoodId;
       this.userFoods = await axios.get(`/getuserfoods/${this.myID}`);
-      console.log("foodName: ", this.userFoods.data[0].food_name);
+      // console.log("foodName: ", this.userFoods.data[0].food_name);
       return this.userFoods.data[0].food_name;
     },
+
+    /////////get food if by bill id/////////////
+    // async getFoodIdByBillId(){
+    //   this.foodId = await axios.get("/getfoodid/" + this.billID);
+    //   this.billID = this.filterBillId();
+    //   console.log("foodId: ", this.billID);
+    //   // console.log("foodidData: ", this.foodId.data);
+    // },
 
     autoUpdate: function () {
       this.interval = setInterval(
         function () {
           this.getAllBills();
           this.getAllBooks();
+          // this.getFoodIdByBillId();
           // this.getFoodsData();
           // this.getFoodsById();
           // this.display();
@@ -290,7 +309,7 @@ background-color: #05ac0e;
   position: fixed;
 }
 
-.sidebar-link {
+.sidebar-link-r, .sidebar-link {
   display: block;
   color: white;
   text-decoration: none;
@@ -300,7 +319,10 @@ background-color: #05ac0e;
 
 .sidebar-link:hover {
   text-decoration: underline;
-  color: #c1282d;
+  color: #06eb25;
+}
+.sidebar-link-r:hover{
+  color: #fa040c
 }
 
 .sidebar-logout-btn {

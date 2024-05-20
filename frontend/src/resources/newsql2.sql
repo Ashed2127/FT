@@ -82,11 +82,13 @@ CREATE TABLE booktable(
 
 
 CREATE TABLE billdetails (
+  user_id INT,
   bill_id INT,
   food_id INT,
   item_qty INT,
-  primary key (bill_id, food_id)
+  PRIMARY KEY (bill_id, food_id)
 );
+
 
 CREATE TABLE billstatus (
   bill_id INT,
@@ -101,7 +103,8 @@ CREATE TABLE billstatus (
   bill_total INT,
   bill_paid VARCHAR(255),
   bill_status INT(11),
-  bill_food VARCHAR(255);
+  bill_food VARCHAR(255),
+  item_qty INT,
   primary key (bill_id)
 );
 
@@ -125,3 +128,5 @@ INSERT INTO languagestatus (lang_id, langstatus) VALUES (1, 0);
 -- ADD COLUMN `user_lname` VARCHAR(255) AFTER `user_fname`;
 -- ALTER TABLE billstatus ADD COLUMN bill_food VARCHAR(255);
 
+ALTER TABLE user
+ADD COLUMN langstatus INT CHECK (langstatus IN (0, 1));

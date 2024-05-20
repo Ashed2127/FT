@@ -56,6 +56,7 @@
 
 <script>
 import axios from 'axios';
+import { mapState } from 'vuex';
 export default {
     name: "Home",
     data(){
@@ -69,7 +70,9 @@ export default {
          newLangStatus : 0,
          interval: "",
     }},
-
+  computed: {
+        ...mapState(["user"])
+    },
     created() {
         this.getStatus()
     },
@@ -89,7 +92,7 @@ export default {
             window.scrollTo(0, 0);
         },
         async getStatus(){
-          let langStatus = await axios.get('/langstatus/', this.languageStatus);
+          let langStatus = await axios.get('/langstatus/' + this.user.user_id);
           this.newLangStatus = langStatus.data[0].langstatus;
         //   console.log(this.newLangStatus);
         //   console.log(this.langObj[this.newLangStatus].words[0] )
