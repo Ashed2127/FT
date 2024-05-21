@@ -19,7 +19,7 @@
         <table class="table colored-header datatable project-list">
           <thead class="thead">
             <tr>
-              <th>User Id</th>
+              <!-- <th>User Id</th> -->
               <th>Bill Id</th>
               <th>Phone</th>
               <th>Address</th>
@@ -34,7 +34,7 @@
           </thead>
           <tbody>
             <tr v-for="b in filterBills.slice().reverse()" :key="b.bill_id">
-              <td>{{ b.user_id }}</td>
+              <!-- <td>{{ b.user_id }}</td> -->
               <td>{{ b.bill_id }}</td>
               <td>{{ b.bill_phone }}</td>
               <td>{{ b.bill_address }}</td>

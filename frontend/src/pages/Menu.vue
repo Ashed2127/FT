@@ -119,7 +119,7 @@
         </div>
         <div v-if="calculatePages > 1" class="action-row">
           <button v-if="pageNum != 0" @click="previous()" class="action-btn">
-            {{ "Previous" }}
+            {{ langObj[this.newLangStatus].words[10] }}
           </button>
           <div v-for="(p, i) in calculatePages" :key="i" class="d-inline">
             <span v-if="i == pageNum" class="highlight" @click="set(i)">{{
@@ -132,7 +132,7 @@
             @click="next()"
             class="action-btn"
           >
-            {{ "Next" }}
+            {{ langObj[this.newLangStatus].words[11] }}
           </button>
         </div>
       </div>
@@ -179,6 +179,8 @@ export default {
             "menu",
             "Add to cart",
             "No match found!",
+             "Previous" ,
+             "Next"
           ],
         },
 
@@ -194,6 +196,8 @@ export default {
             "nyaata keenya",
             "Gara gaariitti dabali",
             "Walsimsiisaa hin argamne!",
+            "Kan duraa" ,
+            "Kan itti aanu"
           ],
         },
       ],
@@ -694,7 +698,7 @@ hr {
 
 .menu-section .action-row .action-btn {
   background-color: #66af29;
-  width: 16vh;
+  width: 26vh;
   height: 6vh;
   padding: 3px;
   border: 2px solid #66af29;

@@ -159,6 +159,8 @@ export default {
       ],
       newLangStatus: 0,
       quantity: 0,
+      food_name: "",
+      cartItemQty: [],
     };
   },
 
@@ -234,25 +236,56 @@ export default {
       return this.newLangStatus;
     },
 
+    // async getAllCartItem() {
+    //   if (this.user) {
+    //     let existItem = await axios.get("/cartItem/" + this.user.user_id);
+    //     existItem.data.forEach((element) => {
+    //       this.cartItem.push(element.food_id);
+    //       // console.log("cartfoodID: ", this.cartItem)
+    //       // console.log("cartfoodqty: ", this.itemQuantity)
+
+    //       this.itemQuantity.push(element.item_qty);
+
+    //       for (let i = 0; i < this.allFoods.length; i++) {
+    //         this.food_Id = this.allFoods[i].food_id;
+    //         this.food_Name = this.allFoods[i].food_name;
+    //         // console.log("cartFood:", this.allFoods[i]);
+    //         console.log("food_Name: ", this.food_Name);
+    //         if (this.cartItem[0] === this.food_Id) {
+    //           // console.log("they are equal", this.cartItem[0], this.food_Id);
+    //           // console.log("foodId", this.food_Id, "foodName", this.food_Name);
+
+    //           return this.foodName;
+    //         }
+    //       }
+    //     });
+    //   }
+    // },
     async getAllCartItem() {
       if (this.user) {
-        let existItem = await axios.get("/cartItem/" + this.user.user_id);
-        existItem.data.forEach((element) => {
-          this.cartItem.push(element.food_id);
-          this.itemQuantity.push(element.item_qty);
+        try {
+          let existItem = await axios.get("/cartItem/" + this.user.user_id);
+          let cartItemIds = existItem.data.map((item) => item.food_id);
+          this.cartItem = cartItemIds; // Store cart item food IDs
 
-          for (let i = 0; i < this.allFoods.length; i++) {
-            this.food_Id = this.allFoods[i].food_id;
-            this.food_Name = this.allFoods[i].food_name;
-            console.log("cartFood:", this.allFoods[1]);
-            if (this.cartItem[0] === this.food_Id) {
-              console.log("they are equal", this.cartItem[0], this.food_Id);
-              console.log("foodId", this.food_Id, "foodName", this.food_Name);
+          this.itemQuantity = existItem.data.map((item) => item.item_qty); // Store item quantities
+          this.cartItemQty = this.itemQuantity.join(",");
+          // Filter allFoods to get the names of foods that are in the cart
+          this.food_Name = this.allFoods
+            .filter((food) => this.cartItem.includes(food.food_id))
+            .map((food) => food.food_name);
+          console.log("cartItemQty: ", typeof this.cartItemQty);
+          // console.log("cartitem: ", this.cartItemQty);
+          // console.log("cartitemjoined: ", this.cartItemQty);
+          // console.log("itemqty: ", this.itemQuantity);
+          // console.log("existitem: ", existItem);
 
-              return this.foodName;
-            }
-          }
-        });
+          // this.food_name = this.food_Name.join(',');
+          // console.log("food_Name: ", this.food_Name);
+          // console.log("food_Name: ", this.food_Name.join(','));
+        } catch (error) {
+          console.error("Error fetching cart items: ", error);
+        }
       }
     },
 
@@ -378,7 +411,8 @@ export default {
           bill_total: parseInt(this.calculateSummaryPrice()[3]),
           bill_paid: this.isPaid(),
           bill_status: 1,
-          item_qty: parseInt(this.quantity),
+          item_qty: this.quantity,
+          // item_qty: this.quantity.join(','),
         };
         console.log(billStatus);
 
@@ -440,8 +474,9 @@ export default {
           bill_total: parseInt(this.calculateSummaryPrice()[3]),
           bill_paid: "pending",
           bill_status: 1,
-          bill_food: this.food_Name,
-          item_qty: parseInt(this.quantity),
+          // bill_food: this.food_Name,
+          bill_food: this.food_Name.join(","),
+          item_qty: this.cartItemQty,
         };
         console.log("the response data ", response);
         console.log("the food name ", this.food_Name);
@@ -460,8 +495,9 @@ export default {
           bill_total: parseInt(this.calculateSummaryPrice()[3]),
           bill_paid: "pending",
           bill_status: 1,
-          bill_food: this.food_Name,
-          item_qty: parseInt(this.quantity),
+          bill_food: this.food_Name.join(","),
+          // item_qty: this.quantity.join(','),
+          item_qty: this.cartItemQty,
         };
         axios.post("/billstatus", billStatus);
         axios.delete("/cartItem/" + this.user.user_id);

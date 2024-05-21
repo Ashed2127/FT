@@ -104,7 +104,8 @@ CREATE TABLE billstatus (
   bill_paid VARCHAR(255),
   bill_status INT(11),
   bill_food VARCHAR(255),
-  item_qty INT,
+  item_qty VARCHAR(255)
+  -- item_qty INT,
   primary key (bill_id)
 );
 
