@@ -6,7 +6,7 @@
       <router-link @click="scrollToTop()" to="/tabledashboard" class="sidebar-link">Table Dashboard</router-link>
       <router-link @click="scrollToTop()" to="/updateAmount" class="sidebar-link" >Update Amount</router-link>
       <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link">Add Deliver Person</router-link>
-      <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link">Remove DP</router-link>
+      <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link-r">Remove DP</router-link>
       <button class="sidebar-logout-btn" @click="handleLogout()">Logout</button>
 
     </div>
@@ -312,7 +312,7 @@ export default {
   position: fixed;
 }
 
-.sidebar-link {
+.sidebar-link, .sidebar-link-r {
   display: block;
   color: white;
   text-decoration: none;
@@ -322,7 +322,10 @@ export default {
 
 .sidebar-link:hover {
   text-decoration: underline;
-  color: #c1282d;
+  color: #06eb25;
+}
+.sidebar-link-r:hover{
+  color: #fa040c
 }
 
 .sidebar-logout-btn {

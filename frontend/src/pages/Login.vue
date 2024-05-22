@@ -5,7 +5,7 @@
     <div class="login-container">
         <div class="login-form-container">
 
-            <form id="loginForm" @submit="handleSubmit" novalidate autocomplete="off">
+            <form v-if="user" id="loginForm" @submit="handleSubmit" novalidate autocomplete="off">
 
                 <span class="size">{{ langObj[this.newLangStatus].words[0] }}</span>
 
@@ -36,7 +36,39 @@
       <div class="z-1"></div>
                 
             </form>
-            
+
+            <!-- GUEST -->
+             <form v-else id="loginForm" @submit="handleSubmit" novalidate autocomplete="off">
+
+                <span class="size">{{ langObj[this.localLangStatus].words[0] }}</span>
+
+                <div v-if="errors.length" class="error-box">
+                    <ul>
+                        <li v-for="error in errors" :key="error">{{ error }}</li>
+                    </ul>
+                </div>
+
+                <div class="form-group">
+                    <input type="email" id="uEmail" name="uEmail" class="form-control" :placeholder="langObj[this.localLangStatus].words[1]"
+                        v-model="loginObj.email" />
+                </div>
+
+                <div class="form-group">
+                    <input type="password" id="uPass" name="uPass" class="form-control"
+                        :placeholder="langObj[this.localLangStatus].words[2]" v-model="loginObj.pass" />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" :value="langObj[this.localLangStatus].words[3]" class="btn g">
+                    <p>{{ langObj[this.localLangStatus].words[4] }}<router-link @click="scrollToTop()" to="/register">{{ langObj[this.localLangStatus].words[5] }}
+                        </router-link>
+                    </p>
+                    <p>{{ langObj[this.localLangStatus].words[6] }} <router-link @click="scrollToTop()" to="/dplogin">{{ langObj[this.localLangStatus].words[7] }} </router-link>  </p>
+                </div>
+      <div class="z-0"></div>
+      <div class="z-1"></div>
+                
+            </form>
         </div>
 
     </div>
@@ -65,10 +97,16 @@ export default {
             ],
             newLangStatus : 0,
             interval: "",
+            localLangStatus: null,
+
                 }
     },
     created() {
         this.getStatus();
+        const storedLangStatus = localStorage.getItem('newLangStatus');
+        if (storedLangStatus !== null) {
+        this.localLangStatus = parseInt(storedLangStatus, 10);
+    }
     },
     mounted: function () {
         this.autoUpdate(); 
@@ -85,6 +123,7 @@ export default {
 
         scrollToTop() {
             window.scrollTo(0, 0);
+                
         },
 
         async getMatchUser(email) {
@@ -114,33 +153,38 @@ export default {
             }
             else {
                 e.preventDefault();
+                 
                 await this.getMatchUser(this.loginObj.email);
                 if (!this.matchUser) {
                     this.errors.push("Incorrect email or password!")
                 }
                 else {
+                    
                     if (this.matchUser.user_password === this.loginObj.pass) {
                         this.matchUser.user_password = "";
-
-                        this.setUser(this.matchUser);
                         
+                        this.setUser(this.matchUser);
+                       axios.put("/loadstatus/" + this.loginObj.email, this.localLangStatus )
                         // this.$refs.alert.showAlert('Booking Successfully !')
-
+                        
                         this.$router.push("/");
-
-
+                  
+                    // const currentStatus = localStorage.getItem('newLangStatus');
+                    //    await axios.post("/updatelanggstatus/" + this.user.user_id, { langstatus: currentStatus });
 
                     }
                     
                     else {
                         this.errors.push("Incorrect email or password!")
                     }
+                       
                 }
             }
         },
-
+        
         async getStatus(){
-          let langStatus = await axios.get('/langstatus/' + this.user.user_id);
+            
+          const langStatus = await axios.get('/langstatus/' + this.user.user_id);
           this.newLangStatus = langStatus.data[0].langstatus;
         //   console.log(this.newLangStatus);
         //   console.log(this.langObj[this.newLangStatus].words[0] )

@@ -38,8 +38,8 @@
               <td>{{ b.bill_id }}</td>
               <td>{{ b.bill_phone }}</td>
               <td>{{ b.bill_address }}</td>
-              <td>{{ b.bill_food }}</td>
-              <td>{{ b.item_qty }}</td>
+              <td >{{ b.bill_food }}</td>
+              <td >{{ b.item_qty }}</td>
               <td>{{ b.bill_when }}</td>
               <td>{{ b.bill_paid }}</td>
               <td>{{ b.bill_total }}birr</td>
@@ -360,7 +360,16 @@ background-color: #05ac0e;
   background-color: #06910d;
   color: white;
 }
-
+.focus-btn {
+  background-color: #0bc511a1; /* Initial color */
+  margin-right: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border: none;
+  cursor: default; /* Prevent hover cursor style */
+}
 .animated-btn {
   background-color: #4CAF50;  /* Initial color */
   margin-right: 10px;
@@ -378,4 +387,6 @@ background-color: #05ac0e;
   50% { background-color:rgb(162, 230, 166); }
   100% { background-color: #0bc511; }
 }
+
+
 </style>

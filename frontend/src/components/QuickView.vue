@@ -12,10 +12,16 @@
                 </div>
                 <div class="content">
                     <p class="desc">{{ f.food_desc }}</p>
-                    <p class="money">{{ parseFloat(f.food_price) - parseFloat(f.food_discount) }}birr<span
+                    <p v-if="this.newLangStatus == 0 || localStorage == 0" class="money">{{ parseFloat(f.food_price) - parseFloat(f.food_discount) }}{{ langObj[this.newLangStatus].words[5] }}<span
                             v-if="parseFloat(f.food_discount) > 0">{{
                                     parseFloat(f.food_price)
-                            }}birr</span></p>
+                            }}{{ langObj[this.newLangStatus].words[5] }}</span></p>
+                            <!--  -->
+
+                             <p v-else class="money">{{ parseFloat(f.food_price) - parseFloat(f.food_discount) }}birr<span
+                            v-if="parseFloat(f.food_discount) > 0">{{ langObj[this.localLangStatus].words[5] }}{{
+                                    parseFloat(f.food_price)
+                            }}</span></p>
                     <div class="qty">
                         <label for="qty">{{ langObj[this.newLangStatus].words[0] }}</label>
                         <input type="number" name="qty" id="qty" value="1" min="1" max="1000"
@@ -28,11 +34,18 @@
     </div>
     <div v-else class="quick-view">
         <div class="quick-view-inner">
-            <h2 class="d-flex justify-content-between">{{ langObj[this.newLangStatus].words[2] }}
+            <h2 v-if="user" class="d-flex justify-content-between">{{ langObj[this.newLangStatus].words[2] }}
                 <slot></slot>
             </h2>
-            <div class="link-to-login " style="text-align: center; margin-top: 120px;">
+            <h2 v-else class="d-flex justify-content-between">{{ langObj[this.localLangStatus].words[2] }}
+                <slot></slot>
+            </h2>
+            <div v-if="user" class="link-to-login " style="text-align: center; margin-top: 120px;">
                 <router-link class="btn g" to="/login" style="padding: 28px; font-size: 24px">{{ langObj[this.newLangStatus].words[3] }}
+                </router-link>
+            </div>
+             <div v-else class="link-to-login " style="text-align: center; margin-top: 120px;">
+                <router-link class="btn g" to="/login" style="padding: 28px; font-size: 24px">{{ langObj[this.localLangStatus].words[3] }}
                 </router-link>
             </div>
         </div>
@@ -53,13 +66,15 @@ export default {
             languageStatus : 0,
 
             langObj: [
-                { words: ["Quantity:","again click to add","Please login first","login now", "Added  Successfully"
+                { words: ["Quantity:","again click to add","Please login first","login to your account", "Added  Successfully", "birr"
             ] },
                     
-                    { words: ["Baay'ina:","ammas itti dabaluuf cuqaasaa", "Mee dursa Galmaa'aa", "amma seeni", "Milkaa'inaan Dabalame"] },
+                    { words: ["Baay'ina:","ammas itti dabaluuf cuqaasaa", "Mee dursa Galmaa'aa", "akkaawuntii keessanitti seena", "Milkaa'inaan Dabalame", "qarshii"] },
             ],
             newLangStatus : 0,
             interval: "",
+            localLangStatus: null,
+
         }
     },
 
@@ -71,8 +86,12 @@ export default {
         }
     },
     created() {
-        this.getStatus()
-    },
+        this.getStatus();
+        const storedLangStatus = localStorage.getItem('newLangStatus');
+        if (storedLangStatus !== null) {
+        this.localLangStatus = parseInt(storedLangStatus, 10);
+    }
+},
     mounted: function () {
         this.autoUpdate(); 
         window.addEventListener('scroll', this.handleScroll);

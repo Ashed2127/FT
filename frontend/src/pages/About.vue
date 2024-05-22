@@ -1,20 +1,26 @@
 <template>
     <section class="about-section">
       <div class="heading">
-        <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
+        <h3 v-if="user">{{ langObj[this.newLangStatus].words[0] }}</h3>
+        <h3 v-else>{{ langObj[this.localLangStatus].words[0] }}</h3>
+
       </div>
   
       <div class="row">
         <div class="about-content">
           <img src="../assets/images/dp.jpg" class="image" alt="">
           <div class="about-content-text">
-            <h2>
+            <h2 v-if="user">
                 {{ langObj[this.newLangStatus].words[1] }}
+            </h2>
+            <h2 v-else>
+                {{ langObj[this.localLangStatus].words[1] }}
             </h2>
           </div>
         </div>
       </div>
     </section>
+
   </template>
   
   <script>
@@ -34,6 +40,8 @@
         ],
          newLangStatus : 0,
          interval: "",
+        localLangStatus: null,
+
 
             //  langObj[0].words[0]
             //  langObj[1].words[0] 
@@ -43,7 +51,11 @@
     },
     
     created() {
-        this.getStatus()
+        this.getStatus();
+        const storedLangStatus = localStorage.getItem('newLangStatus');
+        if (storedLangStatus !== null) {
+        this.localLangStatus = parseInt(storedLangStatus, 10);
+    }
     },
     mounted: function () {
         this.autoUpdate(); 
@@ -114,7 +126,7 @@
   }
   
   .about-content img {
-    width: 35%;
+    width: 30%;
     border-radius: 10px;
   }
   

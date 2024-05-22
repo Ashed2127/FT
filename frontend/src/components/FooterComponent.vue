@@ -1,8 +1,8 @@
 <template>
-    <div class="footer">
+    <div class="footer" v-if="user">
     
 
-        <div class="box-container">
+        <div class="box-container" >
                 <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
                 <div class="box">
                 <router-link @click="scrollToTop()" to="/"      class="footer-items">  {{ langObj[this.newLangStatus].words[1] }}</router-link>
@@ -10,11 +10,20 @@
                 <router-link @click="scrollToTop()" to="/table" class="footer-items"> {{ langObj[this.newLangStatus].words[3] }}
                 </router-link>
                 <router-link @click="scrollToTop()" to="/about" class="footer-items"> {{ langObj[this.newLangStatus].words[4] }}</router-link>
-           
-                
                 </div>
-        </div>
+        </div>    </div> 
+    <div class="footer" v-else>
 
+                <div class="box-container" >
+                <h3>{{ langObj[this.localLangStatus].words[0] }}</h3>
+                <div class="box">
+                <router-link @click="scrollToTop()" to="/"      class="footer-items">  {{ langObj[this.localLangStatus].words[1] }}</router-link>
+                <router-link @click="scrollToTop()" to="/menu"  class="footer-items"> {{ langObj[this.localLangStatus].words[2] }}</router-link>
+                <router-link @click="scrollToTop()" v-if="user" to="/table" class="footer-items"> {{ langObj[this.localLangStatus].words[3] }}
+                </router-link>
+                <router-link @click="scrollToTop()" to="/about" class="footer-items"> {{ langObj[this.localLangStatus].words[4] }}</router-link>
+                </div>
+                </div>
     </div>
 </template>
 
@@ -35,14 +44,18 @@ data(){
         ],
          newLangStatus : 0,
          interval: "",
+         localLangStatus: null,
         }},
 
     computed: {
         ...mapState(['user'])
     },
     created() {
-        this.getStatus()
-    },
+        this.getStatus();
+         const storedLangStatus = localStorage.getItem('newLangStatus');
+        if (storedLangStatus !== null) {
+        this.localLangStatus = parseInt(storedLangStatus, 10);
+    }},
     mounted: function () {
         this.autoUpdate(); 
         window.addEventListener('scroll', this.handleScroll);

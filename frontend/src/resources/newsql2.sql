@@ -110,10 +110,10 @@ CREATE TABLE billstatus (
 );
 
 
-CREATE TABLE languagestatus (
-  lang_id INT(11) PRIMARY KEY AUTO_INCREMENT,
-  langstatus INT CHECK (langstatus IN (0, 1))
-);
+-- CREATE TABLE languagestatus (
+--   lang_id INT(11) PRIMARY KEY AUTO_INCREMENT,
+--   langstatus INT CHECK (langstatus IN (0, 1))
+-- );
 
 INSERT INTO languagestatus (lang_id, langstatus) VALUES (1, 0);
 

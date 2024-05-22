@@ -1,11 +1,13 @@
 <template>
   <div class="menu-section">
     <div class="heading">
-      <h3>{{ langObj[this.newLangStatus].words[7] }}</h3>
+      <h3 v-if="user">{{ langObj[this.newLangStatus].words[7] }}</h3>
+      <h3 v-else>{{ langObj[this.localLangStatus].words[7] }}</h3>
+
     </div>
 
     <div class="row">
-      <div
+      <div v-if="user"
         class="col-sm-12 col-xl-11 col-lg-11 col-md-12 filter-box mx-5 border-color box-shadow"
       >
         <div class="row search-box">
@@ -13,20 +15,20 @@
             type="text"
             class="search-input col-sm-12 col-md-12 col-lg-11"
             v-model="foodObj.name"
-            :placeholder="langObj[this.newLangStatus].words[0]"
+            :placeholder="user ? langObj[this.newLangStatus].words[0] : langObj[this.localLangStatus].words[0]"
           />
         </div>
       </div>
 
       <div class="col-sm-12 col-md-11 col-lg-11 mx-5">
-        <div class="row">
+        <!-- <div class="row">
           <div class="menu-tabs">
             <input
               type="button"
               id="breakfastFilterFoodBtn"
               name="breakfastFilterFoodBtn"
               class="menu-tab-item"
-              :value="langObj[this.newLangStatus].words[1]"
+              :value="user ? langObj[this.newLangStatus].words[1] : langObj[this.localLangStatus].words[1]"
               @click="filterFoodBtn($event)"
             />
             <input
@@ -34,7 +36,7 @@
               id="lunchFilterFoodBtn"
               name="lunchFilterFoodBtn"
               class="menu-tab-item"
-              :value="langObj[this.newLangStatus].words[2]"
+              :value="user ? langObj[this.newLangStatus].words[2] : langObj[this.localLangStatus].words[2]"
               @click="filterFoodBtn($event)"
             />
             <input
@@ -42,7 +44,7 @@
               id="dinnerFilterFoodBtn"
               name="dinnerFilterFoodBtn"
               class="menu-tab-item"
-              :value="langObj[this.newLangStatus].words[3]"
+              :value="user ? langObj[this.newLangStatus].words[2] : langObj[this.localLangStatus].words[2]"
               @click="filterFoodBtn($event)"
             />
             <input
@@ -50,7 +52,7 @@
               id="hot-drinkFilterFoodBtn"
               name="hot-drinkFilterFoodBtn"
               class="menu-tab-item"
-              :value="langObj[this.newLangStatus].words[4]"
+              :value="user ? langObj[this.newLangStatus].words[4] : langObj[this.localLangStatus].words[4]"
               @click="filterFoodBtn($event)"
             />
             <input
@@ -58,7 +60,7 @@
               id="dessertFilterFoodBtn"
               name="dessertFilterFoodBtn"
               class="menu-tab-item"
-              :value="langObj[this.newLangStatus].words[5]"
+              :value="user ? langObj[this.newLangStatus].words[5] : langObj[this.localLangStatus].words[5]"
               @click="filterFoodBtn($event)"
             />
             <input
@@ -66,21 +68,27 @@
               id="soft-drinkFilterFoodBtn"
               name="soft-drinkFilterFoodBtn"
               class="menu-tab-item"
-              :value="langObj[this.newLangStatus].words[6]"
+              :value="user ? langObj[this.newLangStatus].words[6] : langObj[this.localLangStatus].words[6]"
               @click="filterFoodBtn($event)"
             />
           </div>
-        </div>
+        </div> -->
 
         <div class="row box-container">
           <div v-for="(f, index) in currentPageItems" :key="index">
             <div class="box border-shadow b-r">
               <div class="food_status col-md-12 mt-4 py-2 paper">
-                <h4> {{
+                <h4 v-if="user && this.newLangStatus == 0  || !user && this.localLangStatus == 0"> {{
                     parseFloat(f.food_price) - parseFloat(f.food_discount)
-                  }}birr
+                  }} {{ langObj[this.newLangStatus].words[12] }}
                   <span class="del" v-if="parseFloat(f.food_discount) != 0.0"
-                    >{{ parseFloat(f.food_price) }}birr</span
+                    >{{ parseFloat(f.food_price) }} {{ langObj[this.newLangStatus].words[12] }}</span
+                  ></h4>
+                  <h4 v-else-if="user && this.newLangStatus == 0 || this.localLangStatus == 0 ||  !user">{{ langObj[this.localLangStatus].words[12] }}   {{
+                    parseFloat(f.food_price) - parseFloat(f.food_discount)
+                  }}
+                  <span class="del" v-if="parseFloat(f.food_discount) != 0.0"
+                    >{{ langObj[this.localLangStatus].words[12] }}{{ parseFloat(f.food_price) }}</span
                   ></h4>
               </div>
 
@@ -101,17 +109,23 @@
                     >{{ parseFloat(f.food_price) }}birr</span
                   >
                 </div> -->
-                <button class="btn g g-h" @click="addItem(index)">
+                <button v-if="user" class="btn g g-h" @click="addItem(index)">
                   {{ langObj[this.newLangStatus].words[8] }}
+                </button>
+                <button v-else class="btn g g-h" @click="addItem(index)">
+                  {{ langObj[this.localLangStatus].words[8] }}
                 </button>
               </div>
             </div>
           </div>
           <div v-if="!filterFoods.length">
             <div class="box">
-              <div class="content">
-                <h1 style="color: #6ca404">
+              <div class="content my">
+                <h1 v-if="user" style="color: #6ca404" class="py">
                   {{ langObj[this.newLangStatus].words[9] }}
+                </h1>
+                 <h1 v-else style="color: #6ca404" class="py">
+                  {{ langObj[this.localLangStatus].words[9] }}
                 </h1>
               </div>
             </div>
@@ -119,7 +133,9 @@
         </div>
         <div v-if="calculatePages > 1" class="action-row">
           <button v-if="pageNum != 0" @click="previous()" class="action-btn">
-            {{ langObj[this.newLangStatus].words[10] }}
+            <h2 v-if="user">{{ langObj[this.newLangStatus].words[10] }}</h2>
+            <h2 v-else>{{ langObj[this.localLangStatus].words[10] }}</h2>
+
           </button>
           <div v-for="(p, i) in calculatePages" :key="i" class="d-inline">
             <span v-if="i == pageNum" class="highlight" @click="set(i)">{{
@@ -132,7 +148,9 @@
             @click="next()"
             class="action-btn"
           >
-            {{ langObj[this.newLangStatus].words[11] }}
+           <h2 v-if="user" >{{ langObj[this.newLangStatus].words[11] }}</h2> 
+           <h2 v-else>{{ langObj[this.localLangStatus].words[11] }}</h2> 
+
           </button>
         </div>
       </div>
@@ -180,7 +198,8 @@ export default {
             "Add to cart",
             "No match found!",
              "Previous" ,
-             "Next"
+             "Next",
+             "birr"
           ],
         },
 
@@ -197,18 +216,21 @@ export default {
             "Gara gaariitti dabali",
             "Walsimsiisaa hin argamne!",
             "Kan duraa" ,
-            "Kan itti aanu"
+            "Kan itti aanu",
+            "Qarshii"
           ],
         },
       ],
       newLangStatus: 0,
       interval: "",
+        localLangStatus: null,
+
     };
   },
 
   computed: {
-    ...mapState(["allFoods", "user"]),
-
+    ...mapState(["allFoods", "user", "aallfoods"]),
+    
     filterFoods: function () {
       return this.allFoods.filter(
         (f) =>
@@ -238,10 +260,15 @@ export default {
 
   created() {
     this.getStatus();
-  },
+    const storedLangStatus = localStorage.getItem('newLangStatus');
+        if (storedLangStatus !== null) {
+        this.localLangStatus = parseInt(storedLangStatus, 10);
+  }
+},
   mounted: function () {
     this.autoUpdate();
     window.addEventListener("scroll", this.handleScroll);
+
   },
 
   beforeUnmount() {
@@ -886,6 +913,11 @@ hr {
   width: 10%;
   height: 8%;
   z-index: 1;
+}
+
+.py{
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="register-container">
         <div class="register-form-container">
-            <form id="registerForm row" @submit="handleSubmit" novalidate autocomplete="off">
+            <form v-if="user" id="registerForm row" @submit="handleSubmit" novalidate autocomplete="off">
                 <span>{{ langObj[this.newLangStatus].words[0] }}</span>
                 <div class="form-group col-md-12">
                     <!-- <label for="uName">{{ langObj[this.newLangStatus].words[1] }}
@@ -60,6 +60,68 @@
                     <input type="button" id="myButton">
                 </div>
             </form>
+
+        <!-- guest -->
+        <form v-else id="registerForm row" @submit="handleSubmit" novalidate autocomplete="off">
+                <span>{{ langObj[this.localLangStatus].words[0] }}</span>
+                <p class="error-mess text-danger" v-if="errorObj.emailErr.length > 0 || errorObj.phoneErr.length > 0">{{ errorObj.emailErr[0] }}</p>
+                <div class="form-group col-md-12">
+                    <!-- <label for="uName">{{ langObj[this.newLangStatus].words[1] }}
+                    </label> -->
+                    <input type="text" name="uName" :placeholder="langObj[this.localLangStatus].words[2] " id="uName" class="form-control"
+                        v-model="registerObj.fname" />
+                    <p class="error-mess" v-if="errorObj.fName.length > 0">{{ errorObj.fName[0] }}</p>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <!-- <label for="uName">{{ langObj[this.newLangStatus].words[14] }}
+                    </label> -->
+                    <input type="text" name="uName" :placeholder="langObj[this.localLangStatus].words[15] " id="uName" class="form-control"
+                        v-model="registerObj.lname" />
+                    <p class="error-mess" v-if="errorObj.lName.length > 0">{{ errorObj.lName[10] }}</p>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <!-- <label for="uEmail">{{ langObj[this.newLangStatus].words[3] }}
+                    </label> -->
+                    <input type="email" name="uEmail" :placeholder="langObj[this.localLangStatus].words[4]" id="uEmail" class="form-control"
+                        v-model="registerObj.email" />
+                    <!-- <p class="error-mess" v-if="errorObj.emailErr.length > 0">{{ errorObj.emailErr[0] }}</p> -->
+                </div>
+
+                <div class="form-group col-md-12">
+                    <!-- <label for="uPass">{{ langObj[this.newLangStatus].words[5] }}
+                    </label> -->
+                    <input type="password" name="uPass" :placeholder="langObj[this.localLangStatus].words[6]" id="uPass"
+                        class="form-control" v-model="registerObj.pass" />
+                    <p class="error-mess" v-if="errorObj.passErr.length > 0">{{ errorObj.passErr[0] }}</p>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <!-- <label for="uPassConfirm">{{ langObj[this.newLangStatus].words[7] }}
+                    </label> -->
+                    <input type="password" name="uPassConfirm" :placeholder="langObj[this.localLangStatus].words[8]" id="uPassConfirm"
+                        class="form-control" v-model="registerObj.confirm" />
+                    <p class="error-mess" v-if="errorObj.confirmErr.length > 0">{{ errorObj.confirmErr[0] }}</p>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <!-- <label for="uPhone">{{ langObj[this.newLangStatus].words[9] }}
+                    </label> -->
+                    <input type="tel" name="uPhone" :placeholder="langObj[this.localLangStatus].words[10]" id="uPhone"
+                        class="form-control" v-model="registerObj.phone" />
+                    <p class="error-mess" v-if="errorObj.phoneErr.length > 0">{{ errorObj.phoneErr[0] }}</p>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <input type="submit" :value="langObj[this.localLangStatus].words[11]" class="btn g" />
+                    <p>{{ langObj[this.localLangStatus].words[12] }} <router-link @click="scrollToTop()" to="/login">{{ langObj[this.localLangStatus].words[13] }}</router-link>
+                    </p>
+                    <!-- <div class="dp pb-3"></div> -->
+                    
+                    <input type="button" id="myButton">
+                </div>
+            </form>
         </div>
       <div class="z-0"></div>
       <div class="z-1"></div>
@@ -78,20 +140,29 @@ export default {
             registerObj: { fname: "",lname: "", email: "", pass: "", confirm: "", phone: ""},
             errorObj: { fName:[], lName:[], emailErr: [], passErr: [], confirmErr: [], phoneErr: [] },
             matchUser: undefined,
-
+            macthPhone: undefined,
             languageStatus : 0,
             langObj: [
                 { words: ["Create account","Enter your name:","your first name","Enter your email:","example@gmail.com","Enter your password:","enter your password","Check your password again:","enter your password again","Enter your phone number:","enter your phone number","create account","have an account?","login", "Enter your name:","your last name"
 ] },
                     
-                    { words: ["Akkaawuntii uumi", "Maqaa kee galchi:","maqaa kee guutuu", "Email keessan galchaa:","fakkeenyaaf@gmail.com", "Jecha icciitii keessan galchaa:","jecha icciitii keessan galchaa", "Jecha icciitii keessan irra deebi'aa ilaalaa:","irra deebi'ii jecha icciitii kee galchi", "Lakkoofsa bilbila keessanii galchaa:","lakkoofsa bilbila keessanii galchaa", "account uumuu", "akkaawuntii qabduu?","seenuu"] },
+                    { words: ["Akkaawuntii uumi", "Maqaa kee galchi:","maqaa kee isa jalqabaa", "Email keessan galchaa:","fakkeenyaaf@gmail.com", "Jecha icciitii keessan galchaa:","jecha icciitii keessan galchaa", "Jecha icciitii keessan irra deebi'aa ilaalaa:","irra deebi'ii jecha icciitii kee galchi", "Lakkoofsa bilbila keessanii galchaa:","lakkoofsa bilbila keessanii galchaa", "account uumuu", "akkaawuntii qabduu?","seenuu", "Maqaa kee galchi:", "maqaa kee isa dhumaa"] },
             ],
             newLangStatus : 0,
             interval: "",
+            localLangStatus: null,
+            engIndex: null,
+
+
         }
     },
     created() {
-        this.getStatus()
+        this.getStatus();
+         const storedLangStatus = localStorage.getItem('newLangStatus');
+        if (storedLangStatus !== null) {
+        this.localLangStatus = parseInt(storedLangStatus, 10);
+    }
+        this.engIndex = this.localLangStatus;
     },
     mounted: function () {
         this.autoUpdate(); 
@@ -108,7 +179,10 @@ export default {
             let data = await axios.get('/users/' + email);
             this.matchUser = data.data;
         },
-
+        async getMatchPhone(phone){
+            let data = await axios.get('/usersphone/' + phone);
+            this.macthPhone = data.data;
+        },
         scrollToTop() {
             window.scrollTo(0, 0);
         },
@@ -215,9 +289,13 @@ export default {
             } else {
                 e.preventDefault();
                 await this.getMatchUser(this.registerObj.email);
-                if (this.matchUser) {
+                await this.getMatchPhone(this.registerObj.phone);
+                if (this.matchUser || this.macthPhone) {
                     this.errorObj.emailErr.push("Account already exist")
                 }
+                // else if (this.matchPhone) {
+                //     this.errorObj.phoneErr.push("Phone number already exist")
+                // }
 
                 else {
                     let data = {
@@ -226,6 +304,7 @@ export default {
                         user_email: this.registerObj.email,
                         user_phone: this.registerObj.phone,
                         user_password: this.registerObj.pass,
+                        langstatus: this.engIndex,
                    
                     }
                     await axios.post("/users/", data);

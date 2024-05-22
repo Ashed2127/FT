@@ -2,7 +2,7 @@
   <div class="header">
     <!-- <div class=" paper">
 </div> -->
-    <nav class="navbar">
+    <nav class="navbar" v-if="user">
       <router-link @click="scrollToTop()" to="/">{{
         langObj[this.newLangStatus].words[0]
       }}</router-link>
@@ -18,25 +18,41 @@
       <!-- <router-link @click="scrollToTop()" to="/pay">pay</router-link> -->
       <!-- <router-link @click="scrollToTop()" to="/newPay">neway</router-link> -->
     </nav>
+    <nav class="navbar" v-else>
+      <router-link @click="scrollToTop()" to="/">{{
+        langObj[this.currentLangStatus].words[0]
+      }}</router-link>
+      <router-link @click="scrollToTop()" to="/menu">{{
+        langObj[this.currentLangStatus].words[1]
+      }}</router-link>
+      <!-- <router-link @click="scrollToTop()" to="/table">{{
+        langObj[this.currentLangStatus].words[2]
+      }}</router-link> -->
+      <router-link @click="scrollToTop()" to="/about">{{
+        langObj[this.currentLangStatus].words[3]
+      }}</router-link>
+      <!-- <router-link @click="scrollToTop()" to="/pay">pay</router-link> -->
+      <!-- <router-link @click="scrollToTop()" to="/newPay">neway</router-link> -->
+    </nav>
 
     <!-- language drop down  -->
 
     <div class="icons">
-      <div id="menu-btn" class="fas fa-bars menu-btn" @click="showNav"></div>
+      <div id="menu-btn" class="fas fa-bars menu-btn" @click="showNav" ></div>
       <router-link @click="scrollToTop()" to="cart">
-        <div class="fas fa-shopping-cart cart"></div>
+        <div class="fas fa-shopping-cart cart" v-if="user"></div>
       </router-link>
 
       <div v-if="!user" class="fas fa-user account" @click="showLog">
         <ul class="drop-down-select">
           <li>
             <router-link @click="scrollToTop()" to="/login">{{
-              langObj[this.newLangStatus].words[4]
+              langObj[this.currentLangStatus].words[4]
             }}</router-link>
           </li>
           <li>
             <router-link @click="scrollToTop()" to="/register">{{
-              langObj[this.newLangStatus].words[5]
+              langObj[this.currentLangStatus].words[5]
             }}</router-link> 
           </li>
         </ul>
@@ -75,7 +91,7 @@
         style="color: white; width: 40px"
         @click="showLog"
       >
-        <ul class="drop-down-select">
+        <ul class="drop-down-select" v-if="this.user">
           <li>
             <router-link @click="english()" to="#">eng</router-link>
           </li>
@@ -87,7 +103,7 @@
                         <router-link @click="handleLogout" to="#">amharic</router-link>
                     </li> -->
         </ul>
-           <ul class="drop-down-select" v-if="!this.user">
+           <ul class="drop-down-select" v-else>
           <li>
             <router-link @click="eng()" to="#">eng</router-link>
           </li>
@@ -114,7 +130,7 @@ export default {
   data() {
     return {
       languageStatus: 0,
-      engIndex: 1,
+      engIndex: 0,
       oroIndex: 1,
       langObj: [
         {
@@ -151,16 +167,28 @@ export default {
       //  langObj[0].words[0]
       //  langObj[1].words[0]
       langValue: 0,
+      currentLangStatus: null,
     };
   },
 
+  created(){
+    // this.eng();
+    // this.oro();
+    const storedLangStatus = localStorage.getItem('newLangStatus');
+        if (storedLangStatus !== null) {
+        this.currentLangStatus = parseInt(storedLangStatus, 10);
+    }
+  },
   computed: {
     ...mapState(["user"]),
   },
 
   mounted() {
+    
     this.autoUpdate();
     window.addEventListener("scroll", this.handleScroll);
+    // this.eng();
+    // this.oro();
   },
   unmounted() {
     clearInterval(this.interval);
@@ -189,11 +217,17 @@ export default {
       this.langValue = 0;
       let langStatus = this.langValue;
       this.newLangStatus = langStatus;
+      localStorage.setItem('newLangStatus', this.newLangStatus);
+      window.location.reload();
+
     },
     async oro(){
       this.langValue = 1;
       let langStatus = this.langValue;
       this.newLangStatus = langStatus;
+      localStorage.setItem('newLangStatus', this.newLangStatus);
+      window.location.reload();
+
     },
 
     async getStatus() {
@@ -231,6 +265,7 @@ export default {
       this.interval = setInterval(
         function () {
           this.getStatus();
+          localStorage;
         }.bind(this),
         50
       );

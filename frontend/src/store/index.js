@@ -23,10 +23,11 @@ const store = createStore({
         setDp(state, payload){
             state.dp = payload;
         },
+        
     },
     actions: {
         async getFoodsData(context){
-            await axios.get('/foods')
+                await axios.get('/foods')
             .then(function (response) {
                 context.commit("setFoodsData", response.data);
             })
@@ -35,7 +36,22 @@ const store = createStore({
             });
             
         },
-    }
-})
+
+        ////////////updater/////////////
+        //  async pollFoodsData(context) {
+        //     // Polling interval in milliseconds (e.g., 10 seconds)
+        //     const pollingInterval = 1000;
+
+        //     setInterval(async () => {
+        //         try {
+        //             const response = await axios.get('/foods');
+        //             context.commit("setFoodsData", response.data);
+        //         } catch (error) {
+        //             console.error(error);
+        //         }
+        //     }, pollingInterval);
+        // },
+    },
+});
 
 export default store;

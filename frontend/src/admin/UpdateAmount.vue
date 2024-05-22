@@ -1,4 +1,6 @@
 <template>
+    <vue-basic-alert :duration="300" :closeIn="2000" ref="alert" />
+
   <!-- Sidebar -->
   <div class="sidebar">
     <div class="admin-profile"><i class="fas fa-user"></i></div>
@@ -21,7 +23,7 @@
     <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link"
       >Add Deliver Person</router-link
     >
-    <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link"
+    <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link-r"
       >Remove DP</router-link
     >
     <button class="sidebar-logout-btn" @click="handleLogout()">Logout</button>
@@ -106,6 +108,8 @@
 
 <script>
 import axios from "axios";
+import VueBasicAlert from 'vue-basic-alert';
+
 import { mapState, mapMutations } from "vuex";
 
 export default {
@@ -148,6 +152,9 @@ export default {
       }
       try {
         const response = await axios.put("/foodname/", this.food);
+        const message = "Food updated successfully";
+        this.$refs.alert.showAlert(message);
+
         console.log("Food updated successfully:", response.data);
         // Handle successful update (e.g., clear form, show confirmation message)
         this.food.name = "";
@@ -160,7 +167,10 @@ export default {
       }
     },
   },
-};
+  components: {
+        VueBasicAlert
+    }
+}
 </script>
 
 <style scoped>
@@ -216,7 +226,7 @@ export default {
   position: fixed;
 }
 
-.sidebar-link {
+.sidebar-link, .sidebar-link-r {
   display: block;
   color: white;
   text-decoration: none;
@@ -226,7 +236,10 @@ export default {
 
 .sidebar-link:hover {
   text-decoration: underline;
-  color: #c1282d;
+  color: #06eb25;
+}
+.sidebar-link-r:hover{
+  color: #fa040c
 }
 
 .sidebar-logout-btn {

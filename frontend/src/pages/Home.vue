@@ -14,27 +14,37 @@
             <div class="grid-banner row ">
                 <div class="grid col-md-6 r col-sm-12 mt-5 col-12 z-1 img-1">
                     <img src="../assets/images/burger.png" class="mt-5 " alt="">
-                    <div class="content">
-                        <h3>{{ langObj[this.newLangStatus].words[0] }}</h3>
-                        <h3>{{ langObj[this.newLangStatus].words[1] }}</h3>
-                        <router-link @click="scrollToTop()" to="/menu" class="btn g g-h">{{ langObj[this.newLangStatus].words[2] }}</router-link>
+                    <div class="content" v-if="user">
+                        <h3 >{{ langObj[this.newLangStatus].words[0] }}</h3>
+                        <!-- <h3>{{ langObj[this.newLangStatus].words[1] }}</h3> -->
+                        <router-link @click="scrollToTop()"  to="/menu" v-if="user" class="btn g g-h">{{ langObj[this.newLangStatus].words[1] }}</router-link>
+                      
+                    </div>
+                    <div class="content" v-else>
+                        <h3 >{{ langObj[this.localLangStatus].words[0] }}</h3>
+                        <!-- <h3>{{ langObj[this.newLangStatus].words[1] }}</h3> -->
+                        <router-link @click="scrollToTop()"  to="/menu" class="btn g g-h">{{ langObj[this.localLangStatus].words[1] }}</router-link>
                     </div>
                 </div>
 <!-- 
                 <div class="grid col-md-4">
                     <img src="../assets/images/delivery-bike.jpg" alt="">
                     <div class="content center">
-                        <span>{{ langObj[this.newLangStatus].words[3] }}</span>
+                        <span>{{ langObj[this.newLangStatus].words[2] }}</span>
                       
                     </div>
                 </div> -->
 
                 <div class="grid col-md-6 col-sm-12 my-5 col-12">
                     <img src="../assets/images/table.jpg" alt="">
-                    <div class="content">
-                        <h3>{{ langObj[this.newLangStatus].words[4] }}</h3>
-                        <router-link @click="scrollToTop()" to="/table" class="btn g g-h">{{ langObj[this.newLangStatus].words[5] }}</router-link>
+                    <div class="content" v-if="user">
+                        <h3>{{ langObj[this.newLangStatus].words[3] }}</h3>
+                        <router-link @click="scrollToTop()" to="/table" class="btn g g-h">{{ langObj[this.newLangStatus].words[4] }}</router-link>
                     </div>
+                    <!-- <div class="content" v-else>
+                        <h3>{{ langObj[this.localLangStatus].words[3] }}</h3>
+                        <router-link @click="scrollToTop()" to="/table" class="btn g g-h">{{ langObj[this.localLangStatus].words[4] }}</router-link>
+                    </div> -->
                 </div>
 
             </div>
@@ -43,10 +53,15 @@
 
         <div class="home-about g-l ">
             
-            <div class="content z-2">
-                <h3 class="title">{{ langObj[this.newLangStatus].words[6] }}</h3>
-                <p>{{ langObj[this.newLangStatus].words[7] }}</p>
-                <router-link @click="scrollToTop()" to="/about" class="btn g g-h">{{ langObj[this.newLangStatus].words[8] }}</router-link>
+            <div class="content z-2" v-if="user">
+                <h3 class="title">{{ langObj[this.newLangStatus].words[5] }}</h3>
+                <p>{{ langObj[this.newLangStatus].words[6] }}</p>
+                <router-link @click="scrollToTop()" to="/about" class="btn g g-h">{{ langObj[this.newLangStatus].words[7] }}</router-link>
+            </div>
+            <div class="content z-2" v-else>
+                <h3 class="title">{{ langObj[this.localLangStatus].words[5] }}</h3>
+                <p>{{ langObj[this.localLangStatus].words[6] }}</p>
+                <router-link @click="scrollToTop()"  to="/about" class="btn g g-h">{{ langObj[this.localLangStatus].words[7] }}</router-link>
             </div>
       <div class="paper-1"></div>
 
@@ -63,22 +78,32 @@ export default {
         return{
         languageStatus : 0,
         langObj: [
-            { words: ["Make it easy","with delivery","order now","ready to deliver","reserve table","reserve now","delicious food","We guarantee exceptional quality in every dish. Explosive, delicate, and unforgettable flavors await, whether you dine in or enjoy our seamless delivery service.","read more"] },
+            { words: ["Convenience Delivered","order now","ready to deliver","reserve table","reserve now","Fast Delivery","We Ensure Speed and Reliability in Every Order. Quick, Efficient, and Convenient Service Awaits, Whether You Order In or Take Away.","read more"] },
                 
-                { words: ["Salphaa godhaa", "geejjibaa wajjin", "amma ajajaa", "geessuuf qophaa'aa", "gabatee rizaabii", "amma reserve godhaa", "nyaata mi’aawaa", "Nyaata hunda keessatti qulqullina addaa wabii ni kennina. Mi'aan dhoo'aa, micciiramaa fi hin dagatamne isin eegaa, tajaajila geejjibaa keenya isa walxaxaa ta'e keessa nyaattan ykn itti gammaddan.","bal'inaan dubbisaa"] },
+                { words: ["Mijataa Geejjibsiifame", "amma ajajaa", "geessuuf qophaa'aa", "gabatee rizaabii", "amma reserve godhaa", "Saffisaan Geejjibaa", "Ajaja Hundaa Keessatti Saffisaa fi Amanamummaa Mirkaneessina. Tajaajilli Saffisaa, Gahumsaa fi Mijataa Ta'e Eegaa, Ajajni Yoos Fudhattan.","bal'inaan dubbisaa"] },
         ],
          newLangStatus : 0,
          interval: "",
+        langValue: 0,
+        localLangStatus: null,
+
     }},
   computed: {
         ...mapState(["user"])
     },
     created() {
-        this.getStatus()
+        this.getStatus();
+        const storedLangStatus = localStorage.getItem('newLangStatus');
+        if (storedLangStatus !== null) {
+        this.localLangStatus = parseInt(storedLangStatus, 10);
+    }
+    
+        // this.localLangStatus = localStorage.getItem('newLangStatus');
     },
     mounted: function () {
         this.autoUpdate(); 
         window.addEventListener('scroll', this.handleScroll);
+        
     },
 
     beforeUnmount() {
@@ -98,10 +123,21 @@ export default {
         //   console.log(this.langObj[this.newLangStatus].words[0] )
         
         },
+    //      async eng(){
+    //   this.langValue = 0;
+    //   let langStatus = this.langValue;
+    //   this.newLangStatus = langStatus;
+    // },
+    // async oro(){
+    //   this.langValue = 1;
+    //   let langStatus = this.langValue;
+    //   this.newLangStatus = langStatus;
+    // },
 
         autoUpdate: function () {
             this.interval = setInterval(function () {
                 this.getStatus();
+
             }.bind(this), 50);
         }
 

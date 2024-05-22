@@ -1,5 +1,5 @@
 <template>
-    <div class="shopping-cart-section ">
+    <div class="shopping-cart-section " v-if="user">
 
         <div class="heading">
             
@@ -53,15 +53,29 @@
                                                     class="fa fa-trash"></i>{{ langObj[this.newLangStatus].words[6] }}</button>
                                         </div>
 
-                                        <div class="item-price col-sm-1">
+                                        <div v-if="this.newLangStatus == 0 || this.localLangStatus == 0" class="item-price col-sm-1">
                                             <span class="sale-price">{{ parseFloat(f.food_price) -
                                                     parseFloat(f.food_discount)
-                                            }}birr</span>
+                                            }}{{ langObj[this.newLangStatus].words[15] }}</span>
                                             <p class="text-muted first-price"
                                                 v-if="parseFloat(f.food_discount) != 0.00">
                                                 {{
                                                         parseFloat(f.food_price)
-                                                }}birr
+                                                }}{{ langObj[this.newLangStatus].words[15] }}
+
+                                            </p>
+                                        </div>
+
+                                        <!-- guest -->
+                                        <div v-else class="item-price col-sm-1">
+                                            <span class="sale-price">{{ langObj[this.localLangStatus].words[15] }}{{ parseFloat(f.food_price) -
+                                                    parseFloat(f.food_discount)
+                                            }}</span>
+                                            <p class="text-muted first-price"
+                                                v-if="parseFloat(f.food_discount) != 0.00">
+                                               {{ langObj[this.localLangStatus].words[15] }} {{
+                                                        parseFloat(f.food_price)
+                                                }}
 
                                             </p>
                                         </div>
@@ -74,11 +88,19 @@
                                                 @change="onQtyChange($event, index)">
                                         </div>
 
-                                        <div class="cal-total col-sm-2">
-                                            <h4 class="item-total">{{
+                                        <div class="cal-total col-sm-2" v-if="this.newLangStatus == 0 || this.localLangStatus == 0">
+                                            <h4  class="item-total">{{
                                                     calculateItemPrice(index)
-                                            }}birr
+                                            }}{{ langObj[this.newLangStatus].words[15] }}
                                             </h4>
+                                             
+                                        </div>
+                                        <div v-else class="cal-total col-sm-2">
+                                            <h4  class="item-total">{{
+                                                    calculateItemPrice(index)
+                                            }}{{ langObj[this.localLangStatus].words[15] }}
+                                            </h4>
+                                             
                                         </div>
                                     </div>
                                 </div>
@@ -102,29 +124,38 @@
                                 <h3>{{ langObj[this.newLangStatus].words[9] }}</h3>
                             </div>
 
-                            <div class="box-content ">
+                            <div v-if="this.newLangStatus == 0 || this.localLangStatus == 0" class="box-content ">
                                 <span>{{ langObj[this.newLangStatus].words[10] }}</span>
-                                <h3 class="font-bold total-first-price">{{ calculateSummaryPrice()[0] }}birr</h3>
+                                <h3 class="font-bold total-first-price">{{ calculateSummaryPrice()[0] }}{{ langObj[this.newLangStatus].words[15] }}</h3>
 
                                 <span>{{ langObj[this.newLangStatus].words[11] }}</span>
-                                <h3 class="font-bold total-discount">{{ calculateSummaryPrice()[1] }}birr</h3>
+                                <h3 class="font-bold total-discount">{{ calculateSummaryPrice()[1] }}{{ langObj[this.newLangStatus].words[15] }}</h3>
 
                                 <span>{{ langObj[this.newLangStatus].words[12] }}</span>
-                                <h3 class="font-bold total-delivery">{{ calculateSummaryPrice()[2] }}birr</h3>
+                                <h3 class="font-bold total-delivery">{{ calculateSummaryPrice()[2] }}{{ langObj[this.newLangStatus].words[15] }}</h3>
 
                                 <hr />
 
                                 <span>{{ langObj[this.newLangStatus].words[13] }}</span>
-                                <h2 class="font-bold total-sale">{{ calculateSummaryPrice()[3] }}birr</h2>
-<!-- 
-                                <div class="btn-group">
-                                    <button class="btn check-out-btn" :disabled="filterFoods.length ? false : true"
-                                        @click="checkOutBtn()"><i class="fa fa-shopping-cart"></i>
-                                        Checkout</button>
-                                    <button class="btn cancel-btn" @click="cancelBtn()"
-                                        :disabled="filterFoods.length ? false : true">
-                                        Cancel</button>
-                                </div> -->
+                                <h2 class="font-bold total-sale">{{ calculateSummaryPrice()[3] }}{{ langObj[this.newLangStatus].words[15] }}</h2>
+
+                            </div>
+                            <!--  -->
+                            <div v-else class="box-content ">
+                                <span>{{ langObj[this.newLangStatus].words[10] }}</span>
+                                <h3 class="font-bold total-first-price">{{ langObj[this.newLangStatus].words[15] }}{{ calculateSummaryPrice()[0] }}</h3>
+
+                                <span>{{ langObj[this.newLangStatus].words[11] }}</span>
+                                <h3 class="font-bold total-discount">{{ langObj[this.newLangStatus].words[15] }}{{ calculateSummaryPrice()[1] }}</h3>
+
+                                <span>{{ langObj[this.newLangStatus].words[12] }}</span>
+                                <h3 class="font-bold total-delivery">{{ langObj[this.newLangStatus].words[15] }}{{ calculateSummaryPrice()[2] }}</h3>
+
+                                <hr />
+
+                                <span>{{ langObj[this.newLangStatus].words[13] }}</span>
+                                <h2 class="font-bold total-sale">{{ langObj[this.newLangStatus].words[15] }}{{ calculateSummaryPrice()[3] }}</h2>
+
                             </div>
                         </div>
 
@@ -148,21 +179,24 @@ export default {
 
             languageStatus : 0,
             langObj: [
-                { words: ["your cart","item","items","in your cart","Empty Cart, Add Now","Description","Remove item","Back to menu","Checkout","Cart Summary","Summary","Discount","Delivery fee","Total","Quantity:"
-
-
-            ] },
+                { words: ["your cart","item","items","in your cart","Empty Cart, Add Now","Description","Remove item","Back to menu","Checkout","Cart Summary","Summary","Discount","Delivery fee","Total","Quantity:",   "birr"] },
                     
-                    { words: ["gaarii kee", "wanta","wantoota","gaarii keessan keessa", "Gaarii Duwwaa, Amma Dabaluu", "Ibsa","Meeshaa balleessi", "Gara menutti deebi'a", "Kaffaltii", "Cuunfaa Gaarii", "Cuunfaa","Gatii gadi bu'aa","Kaffaltii geejjibaa", "Ida'ama","Baay'ina:"] },
+                    { words: ["gaarii kee", "wanta","wantoota","gaarii keessan keessa", "Gaarii Duwwaa, Amma Dabaluu", "Ibsa","Meeshaa balleessi", "Gara menutti deebi'a", "Kaffaltii", "Cuunfaa Gaarii", "Cuunfaa","Gatii gadi bu'aa","Kaffaltii geejjibaa", "Ida'ama","Baay'ina:",  "Qarshii"] },
             ],
             newLangStatus : 0,
             interval: "",
+        localLangStatus: null,
+
         };
     },
 
     created() {
         this.getAllCartItem();
         this.getStatus();
+        const storedLangStatus = localStorage.getItem('newLangStatus');
+        if (storedLangStatus !== null) {
+        this.localLangStatus = parseInt(storedLangStatus, 10);
+  }
     },
     mounted: function () {
         this.autoUpdate(); 
