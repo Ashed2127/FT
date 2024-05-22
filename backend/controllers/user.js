@@ -12,6 +12,9 @@ import {
   langStatus,
   updateEngIndex,
   updateOroIndex,
+  getUserByPhone,
+  //   updateStatus,
+  updatelangStatus,
 } from "../models/UserModel.js";
 
 // get all Users
@@ -37,6 +40,16 @@ export const showAUser = (req,res)=>{
     });
 };
 
+/////show user phone///////
+export const showAPhone = (req, res) => {
+  getUserByPhone(req.params.phone, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(results);
+    }
+  });
+};
 // create user
 export const createAccount=(req,res)=>{
     const data = req.body;
@@ -135,6 +148,32 @@ export const oroIndex = (req, res) => {
   //   const data = req.body;
   //     const id = req.params.id;
   updateOroIndex(req.params.id, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(results);
+    }
+  });
+};
+
+// updateLangStatus;
+// export const updateLangStatus = (req, res) => {
+//     const { langstatus } = req.body;
+//     const {id} = req.params.id;
+//   updateStatus(langstatus, id, (err, results) => {
+//     if (err) {
+//       res.send(err);
+//     } else {
+//       res.json(results);
+//     }
+//   });
+// };
+
+// updatestatus;
+export const updatestatus = (req, res) => {
+    const  langstatus  = req.body;
+    const email = req.params.email;
+  updatelangStatus(langstatus, email, (err, results) => {
     if (err) {
       res.send(err);
     } else {

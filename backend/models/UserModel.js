@@ -26,6 +26,21 @@ export const getUserByEmail = (data,result) => {
     });
 };
 
+//////////get by phone////////////
+export const getUserByPhone = (data, result) => {
+  db.query(
+    "SELECT user_id, user_fname, user_password FROM user WHERE user_phone = ?",
+    [data],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        result(err, null);
+      } else {
+        result(null, results[0]);
+      }
+    }
+  );
+};
 // insert User
 export const insertUser = (data,result) => {
     db.query("INSERT INTO user SET ?",data, (err,results)=> {
@@ -137,6 +152,39 @@ export const updateOroIndex = (data, result) => {
   db.query(
     "UPDATE user SET langstatus = langstatus + 1 WHERE user_id = ?",
     [data],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        result(err, null);
+      } else {
+        result(null, results);
+      }
+    }
+  );
+};
+
+// updateStatus
+// export const updateStatus = (langstatus, id ,result) => {
+//   db.query(
+//     "UPDATE user SET langstatus = ? WHERE user_id = ?",
+//     [langstatus, id],
+//     (err, results) => {
+//       if (err) {
+//         console.log(err);
+//         result(err, null);
+//       } else {
+//         result(null, results);
+//       }
+//     }
+//   );
+// };
+
+// getUserByPhone;
+// updatelangStatus;
+export const updatelangStatus = (langstatus, email, result) => {
+  db.query(
+    "UPDATE user SET langstatus = ? WHERE user_email = ?",
+    [langstatus, email],
     (err, results) => {
       if (err) {
         console.log(err);

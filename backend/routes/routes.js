@@ -11,6 +11,15 @@ import {
 
 } from "../controllers/food.js";
 
+// import {
+//   showAFoods,
+//   showAFoodById,
+//   createAFood,
+//   updateAFood,
+//   deleteAFood,
+//   getAFoodsByFoodId,
+//   updateAFoodsByFoodName,
+// } from "../controllers/afoods.js";
 import {
   showAUser,
   createAccount,
@@ -19,6 +28,9 @@ import {
   getUserPhone,
   getUserFirstName,
   getUserLastName,
+  // updateLangStatus,
+  showAPhone,
+  updatestatus,
 } from "../controllers/user.js";
 
 import {
@@ -90,13 +102,26 @@ router.put("/api/foods/:id", updateFood);
 // delete Food
 router.delete("/api/foods/:id", deleteFood);
 router.put("/api/foodname/", updateFoodsByFoodName);
+
+///////////////////////AFOOD///////////////////////////
+// router.get("/api/afoods", showAFoods);
+// router.get("/api/afoods/:id", showAFoodById);
+// router.post("/api/afoods", createAFood);
+// router.put("/api/afoods/:id", updateAFood);
+// router.delete("/api/afoods/:id", deleteAFood);
+// router.put("/api/afoodname/", updateAFoodsByFoodName);
+
+
 ////////////////////////// USER ///////////////////////
 // get all user
 router.get("/api/users/:email", showAUser);
+router.get("/api/usersphone/:phone", showAPhone);
 router.get("/api/useremail/:id", getUserEmail);
 router.get("/api/userphone/:id", getUserPhone);
 router.get("/api/userfname/:id", getUserFirstName);
 router.get("/api/userlname/:id", getUserLastName);
+// router.post("/api/updatelanggstatus/:id", updateLangStatus);
+router.put("/api/loadstatus/:id", updatestatus);
 
 // create account
 router.post("/api/users/", createAccount);
@@ -170,7 +195,7 @@ router.put("/api/billstatus/undo/:id", undoBillStatusBtn);
 
 router.get("/api/userfoods/", getAllFoods);
 router.get("/api/getuserfoods/:id", getFoodsByFoodId);
-
+// router.get("/api/getuserafoods/:id", getAFoodsByFoodId)
 ///////////////////////PAYMENT////////////////////////////////
 router.post("/api/initiate-payment/", responseData, createBillStatus);
 router.get("/api/checkout-url/", async (req, res) => {
