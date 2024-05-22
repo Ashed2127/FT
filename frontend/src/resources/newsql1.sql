@@ -11,37 +11,73 @@ CREATE TABLE deliver_person (
   dp_password varchar(255)
 )ENGINE=INNODB;
 
+-- CREATE TABLE food( 
+--     food_id INT(11) PRIMARY KEY AUTO_INCREMENT, 
+--     food_name VARCHAR(255), 
+--     food_price VARCHAR(255),
+--     food_discount VARCHAR(255),
+--     food_type VARCHAR(255),
+--     food_category VARCHAR(255),
+--     food_src VARCHAR(255)
+-- ) ENGINE=INNODB;
+
+-- INSERT INTO food (food_name, food_price, food_discount, food_type, food_category, food_src) 
+-- VALUES 
+-- ("dulet", "165.00", "5.00", "meat", "breakfast", "breakfast/taco-1.png"), 
+-- ("tibs", "185.00", "5.00", "meat", "breakfast", "breakfast/taco-2.png"), 
+-- ("tibs-ferfer", "160.00", "10.00", "meat", "breakfast", "breakfast/taco-3.png"), 
+-- ("special(addaa)", "450.00", "50.00", "meat", "lunch", "lunch/burrito-1.png"), 
+-- ("bozena-shiro", "180.00", "3.00", "meat", "lunch", "lunch/burrito-2.png"), 
+-- ("fast shiro(shiroo saffisaa)", "85.00", "5.00", "vegan", "lunch", "lunch/burrito-3.png"), 
+-- ("special pizza", "280.00", "10.00", "meat", "dinner", "dinner/nachos-1.png"), 
+-- ("pasta-enkulal(hanqaaquu paastaa)", "110.00", "10.00", "meat", "dinner", "dinner/nachos-2.png"), 
+-- ("shiro", "152.00", "2.00", "meat", "dinner", "dinner/nachos-3.png"), 
+-- ("coffee(buna)", "24.00", "4.00", "vegan", "hot-drink", "hot-drink/side-1.png"), 
+-- ("macchiato", "35.00", "3.00", "meat", "hot-drink", "hot-drink/side-2.png"), 
+-- ("special milk(aannan addaa)", "38.00", "35.00", "vegan", "hot-drink", "hot-drink/side-3.png"), 
+-- ("Cake(Keekii)", "45.00", "5.00", "vegan", "dessert", "dessert/dessert-1.png"), 
+-- ("bombolino", "40.00", "5.00", "vegan", "dessert", "dessert/dessert-2.png"), 
+-- ("Doughnut", "45.00", "5.00", "vegan", "dessert", "dessert/dessert-3.png"), 
+-- ("coca cola", "33.00", "3.00", "vegan", "soft-drink", "soft-drink/drink-1.png"), 
+-- ("ambo weeha(amboo weeha)", "33.00", "3.00", "vegan", "soft-drink", "soft-drink/drink-2.png"), 
+-- ("pepsi(pepsii)", "33.00", "3.00", "vegan", "soft-drink", "soft-drink/drink-3.png");
+
 CREATE TABLE food( 
     food_id INT(11) PRIMARY KEY AUTO_INCREMENT, 
     food_name VARCHAR(255), 
     food_price VARCHAR(255),
     food_discount VARCHAR(255),
-    food_desc VARCHAR(255),
-    food_status VARCHAR(255),
     food_type VARCHAR(255),
     food_category VARCHAR(255),
     food_src VARCHAR(255)
 ) ENGINE=INNODB;
-INSERT INTO food (food_name, food_price, food_discount, food_desc, food_status, food_type, food_category, food_src) 
+
+INSERT INTO food (food_name, food_price, food_discount, food_type, food_category, food_src) 
 VALUES 
-("dulet", "165.00", "5.00", "Minced meat cooked with spices.", "Savory Tradition", "meat", "breakfast", "breakfast/taco-1.png"), 
-("tibs", "185.00", "5.00", "Stir-fried meat with onions and tomatoes.", "Spice-infused Delight", "meat", "breakfast", "breakfast/taco-2.png"), 
-("tibs-ferfer", "160.00", "10.00", "Spicy minced meat with onions and tomatoes.", "Savory Tradition", "meat", "breakfast", "breakfast/taco-3.png"), 
-("special", "450.00", "50.00", "Custom recipe.", "Exclusively Exceptional", "meat", "lunch", "lunch/burrito-1.png"), 
-("bozena-shiro", "180.00", "3.00", "Chickpea flour, onions, garlic, spices.", "Flavorful Elegance", "meat", "lunch", "lunch/burrito-2.png"), 
-("fast shiro", "85.00", "5.00", "Chickpea flour, onions, garlic, spices.", "Quick and Delicious", "vegan", "lunch", "lunch/burrito-3.png"), 
-("special pizza", "280.00", "10.00", "Dough, tomato sauce, cheese, toppings.", "Uniquely Irresistible", "meat", "dinner", "dinner/nachos-1.png"), 
-("pasta-enkulal", "110.00", "10.00", "Pasta, garlic, olive oil, spices.", "Simply Tempting", "meat", "dinner", "dinner/nachos-2.png"), 
-("shiro", "152.00", "2.00", "Chickpea flour, onions, garlic, spices.", "Ethiopian Delight", "meat", "dinner", "dinner/nachos-3.png"), 
-("coffee", "24.00", "4.00", "Coffee beans, water, milk (optional), sugar.", "Awaken Your Senses", "vegan", "hot-drink", "hot-drink/side-1.png"), 
-("macchiato", "35.00", "3.00", "Espresso, milk, foam.", "Indulge in Perfection", "meat", "hot-drink", "hot-drink/side-2.png"), 
-("special milk", "38.00", "35.00", "Milk, flavorings.", "Creamy Delight", "vegan", "hot-drink", "hot-drink/side-3.png"), 
-("Cake", "45.00", "5.00", "Flour, sugar, eggs, butter, flavorings.", "best seller", "vegan", "dessert", "dessert/dessert-1.png"), 
-("bombolino", "40.00", "5.00", "Flour, sugar, yeast, oil, filling.", "A Burst of Joy", "vegan", "dessert", "dessert/dessert-2.png"), 
-("Doughnut", "45.00", "5.00", "Flour, sugar, yeast, oil, glaze.","Irresistibly Sweet", "vegan", "dessert", "dessert/dessert-3.png"), 
-("coca cola", "33.00", "3.00", "Carbonated water, sugar, flavorings.", "Classic Refreshment", "vegan", "soft-drink", "soft-drink/drink-1.png"), 
-("ambo weeha", "33.00", "3.00", "Carbonated water, sugar, flavorings.", "Refreshing Bliss", "vegan", "soft-drink", "soft-drink/drink-2.png"), 
-("pepsi", "33.00", "3.00", "Carbonated water, sugar, flavorings.", "Bold and Bubbly", "vegan", "soft-drink", "soft-drink/drink-3.png");
+("chechebsa", "280.00", "10.00", "meat", "breakfast", "breakfast/chechebsa-1.png"), 
+("burger", "110.00", "10.00", "meat", "breakfast", "breakfast/burger-1.png"), 
+("tematem silse", "152.00", "2.00", "meat", "breakfast", "breakfast/tematem-silse-1.png"), 
+
+("dulet", "165.00", "5.00", "meat", "dinner", "dinner/dulet-1.png"), 
+("tibs", "185.00", "5.00", "meat", "dinner", "dinner/tibs-1.png"), 
+("tibs-ferfer", "160.00", "10.00", "meat", "dinner", "dinner/tibs-ferer-1.png"), 
+
+("special", "450.00", "50.00", "meat", "lunch", "lunch/special-1.png"), 
+("bozena-shiro", "180.00", "3.00", "meat", "lunch", "lunch/bozena-shiro-1.png"), 
+("fast shiro", "85.00", "5.00", "bean", "lunch", "lunch/fast-shiro-1.png"), 
+
+("Cake", "45.00", "5.00", "powder", "dessert", "dessert/cake-1.png"), 
+("bombolino", "40.00", "5.00", "powder", "dessert", "dessert/bombolino-1.png"), 
+("Doughnut", "45.00", "5.00", "powder", "dessert", "dessert/donut-1.png"),
+
+("coffee", "24.00", "4.00", "coffe", "hot-drink", "hot-drink/coffee-1.png"), 
+("macchiato", "35.00", "3.00", "meat", "hot-drink", "hot-drink/machiatto-1.png"), 
+("special milk", "38.00", "35.00", "milk", "hot-drink", "hot-drink/special-milk-1.png"), 
+
+("coca cola", "33.00", "3.00", "drink", "soft-drink", "soft-drink/coca-cola-1.png"), 
+("ambo weeha", "33.00", "3.00", "drink", "soft-drink", "soft-drink/ambo-weeha-1.png"), 
+("pepsi", "33.00", "3.00", "drink", "soft-drink", "soft-drink/pepsi-1.png");
+
 
 
 

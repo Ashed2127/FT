@@ -14,20 +14,13 @@
         >
           <!-- -->
           <div class=" ">
-            <!-- <h1 class="">{{ langObj[this.newLangStatus].words[0] }}</h1> -->
             <span>Table No - </span>
             <span>{{ book.book_id }}</span>
           </div>
-          <!-- <button @click="sendBillId(book.book_id)">Bill Detail</button> -->
         </div>
 
         <div class="d-flex flex-sm-nowrap justify-content-between card-summary">
-          <!-- <div class="w-100 text-center py-1 px-2"><span>Paid:</span>{{ " " + b.bill_paid }}
-                    </div> -->
-          <!-- <div class="w-100 text-center py-1 px-2">
-            <span>{{ langObj[this.newLangStatus].words[1] }}</span
-            >{{ avaiableStatus[book.book_status] }}
-          </div> -->
+          
           <div class="w-10 text-center px-2">
             <span>{{ langObj[this.newLangStatus].words[2] }}</span>
             {{ book.book_when }}
@@ -36,13 +29,6 @@
         <div
           class="d-flex flex-wrap flex-sm-nowrap justify-content-between card-summary"
         >
-          <!-- <div class="w-100 text-center py-1 px-2"><span>Total:</span> {{ b.bill_total }}birr</div> -->
-          <!-- <div class="w-100 text-ce¦nter py-1 px-2"><span>Address:</span>{{ " " + b.bill_address }}
-                    </div> -->
-          <!-- <div class="w-10 text-center py-1 px-2">
-            <span>{{ langObj[this.newLangStatus].words[3] }}</span
-            >{{ " " + book.book_phone }}
-          </div> -->
         </div>
 
         <div class="card-body track">
@@ -101,12 +87,7 @@
                 {{ langObj[this.newLangStatus].words[7] }}
               </h4>
             </div>
-            <!-- <div class="step" :class="book.book_status >= 5 ? 'completed' : ''">
-                            <div class="step-icon-wrap">
-                                <div class="step-icon"><i class="fa-solid fa-house-user"></i></div>
-                            </div>
-                            <h4 class="step-title">Delivered</h4>
-                        </div> -->
+           
           </div>
         </div>
       </div>
@@ -116,9 +97,7 @@
       <div class="content">
         <h2>{{ langObj[this.newLangStatus].words[8] }}</h2>
       </div>
-      <!-- <div>
-                <img src="../assets/images/no-orders.png" alt="" />
-            </div> -->
+      
       <router-link class="btn w" to="/table">{{
         langObj[this.newLangStatus].words[9]
       }}</router-link>

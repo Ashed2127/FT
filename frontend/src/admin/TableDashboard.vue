@@ -22,7 +22,9 @@
             <th>Name</th>
             <th>Phone</th>
             <th>People</th>
-            <th>Tables</th>
+            <th>Price</th>
+            <th>paid</th>
+            <th>Method</th>
             <th>When</th>
             <th>Note</th>
             <th>Status</th>
@@ -35,10 +37,12 @@
             :key="allBook.book_id"
           >
             <!-- <td>{{ allBook.user_id }}</td> -->
-            <td>{{ allBook.book_name }}</td>
+            <td>{{ allBook.book_name.split(' ').join(' | ') }}</td>
             <td>{{ allBook.book_phone }}</td>
             <td>{{ allBook.book_people }}</td>
-            <td>{{ allBook.book_tables }}</td>
+            <td>{{ allBook.book_price }}birr</td>
+            <td>{{ allBook.book_paid}} </td>
+            <td>{{allBook.book_method}}</td>
             <td>{{ allBook.book_when }}</td>
             <td>{{ allBook.book_note }}</td>
             <td>{{ avaiableBookStatus[allBook.book_status] }}</td>

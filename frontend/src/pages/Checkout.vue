@@ -269,7 +269,7 @@ export default {
           this.cartItem = cartItemIds; // Store cart item food IDs
 
           this.itemQuantity = existItem.data.map((item) => item.item_qty); // Store item quantities
-          this.cartItemQty = this.itemQuantity.join(",");
+          this.cartItemQty = this.itemQuantity.join(" | ");
           // Filter allFoods to get the names of foods that are in the cart
           this.food_Name = this.allFoods
             .filter((food) => this.cartItem.includes(food.food_id))
@@ -475,7 +475,7 @@ export default {
           bill_paid: "pending",
           bill_status: 1,
           // bill_food: this.food_Name,
-          bill_food: this.food_Name.join(","),
+          bill_food: this.food_Name.join(" | "),
           item_qty: this.cartItemQty,
         };
         console.log("the response data ", response);
@@ -495,7 +495,7 @@ export default {
           bill_total: parseInt(this.calculateSummaryPrice()[3]),
           bill_paid: "pending",
           bill_status: 1,
-          bill_food: this.food_Name.join(","),
+          bill_food: this.food_Name.join(" | "),
           // item_qty: this.quantity.join(','),
           item_qty: this.cartItemQty,
         };
