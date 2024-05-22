@@ -82,7 +82,7 @@ import { format } from "mysql2";
 // import customerInfo from "../cha.js";
 // init express router
 import { responseData, getCheckoutUrl} from "../pay.js";
-
+import { bookResponseData, getBookCheckoutUrl } from "../bookpay.js";
 import { engIndex, oroIndex, getLangStatus } from "../controllers/user.js";
 const router = express.Router();
 
@@ -208,6 +208,16 @@ router.get("/api/checkout-url/", async (req, res) => {
   }
 });
 
+router.post("/api/initiate-book-payment/",bookResponseData, createBooking);
+router.get("/api/checkout-book-url/", async (req, res) => {
+  try {
+    const checkoutUrl = await getBookCheckoutUrl(req, res);
+    res.send(checkoutUrl); // Send the checkout URL directly
+  } catch (error) {
+    console.error("Error fetching checkout URL:", error);
+    res.status(500).json({ error: "Internal server error." });
+  }
+});
 ////////////////////////language/////////////////////////
 router.put("/api/english/:id", engIndex);
 router.put("/api/oromo/:id", oroIndex);
