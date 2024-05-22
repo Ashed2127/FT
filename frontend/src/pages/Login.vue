@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" :value="langObj[this.localLangStatus].words[3]" class="btn g">
+                    <input :disabled="isFormValid" type="submit" :value="langObj[this.localLangStatus].words[3]" class="btn g">
                     <p>{{ langObj[this.localLangStatus].words[4] }}<router-link @click="scrollToTop()" to="/register">{{ langObj[this.localLangStatus].words[5] }}
                         </router-link>
                     </p>
@@ -90,10 +90,10 @@ export default {
 
             languageStatus : 0,
             langObj: [
-                { words: ["welcome to order and reserve","enter your email","enter your password","login to your account","don't have an account? ","create account","for deliver person", "login"
+                { words: ["welcome to order and reserve","enter your email","enter your password","login to your account","don't have an account? ","create account","for deliver person", "login", "email is required"
             ] },
                     
-                    { words: ["baga nagaan dhuftan ajajuu fi reserve gochuuf", "email keessan galchaa", "jecha icciitii keessan galchaa", "akkaawuntii keessanitti seena", "account hin qabdan? ", "account uumuu", "nama geessuu","seenuu"] },
+                    { words: ["baga nagaan dhuftan ajajuu fi reserve gochuuf", "email keessan galchaa", "jecha icciitii keessan galchaa", "akkaawuntii keessanitti seena", "account hin qabdan? ", "account uumuu", "nama geessuu","seenuu", "email barbaachisa"] },
             ],
             newLangStatus : 0,
             interval: "",
@@ -117,10 +117,14 @@ export default {
         clearInterval(this.interval);
         window.removeEventListener('scroll', this.handleScroll);
     },
-
+    computed: {
+         isFormValid(){
+            return !this.loginObj.email || !this.loginObj.pass;
+        },
+    },
     methods: {
         ...mapMutations(["setUser"]),
-
+       
         scrollToTop() {
             window.scrollTo(0, 0);
                 
@@ -134,8 +138,8 @@ export default {
         async handleSubmit(e) {
             this.errors = [];
 
-            if (!this.loginObj.email) {
-                this.errors.push("Entering a email is required");
+            if (!this.loginObj.email && localStorage == 0) {
+                this.errors.push('email is required');
             }
             else {
                 if (!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(this.loginObj.email)) {

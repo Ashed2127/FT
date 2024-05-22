@@ -55,7 +55,7 @@
         </div>
 
         <div class="form-group">
-          <input type="submit" value="create account" class="btn brwn" />
+          <input :disabled="isFormValid" type="submit" value="create account" class="btn brwn" />
           <!-- <p>
             have an account?
             <router-link @click="scrollToTop()" to="adminlogin"
@@ -106,6 +106,9 @@ export default {
   // },
   computed: {
     ...mapState(["admin"]),
+    isFormValid(){
+            return !this.registerObj.email || !this.registerObj.pass || !this.registerObj.confirm;
+        }
   },
   methods: {
     async getMatchUser(email) {
@@ -208,6 +211,7 @@ export default {
           };
           await axios.post("/admin/", data);
           this.$router.push("/adminlogin");
+
         }
       }
     },
@@ -217,6 +221,7 @@ export default {
     //     console.log(adminData.data);
     // }
   },
+  
 };
 </script>
 

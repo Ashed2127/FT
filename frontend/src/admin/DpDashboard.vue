@@ -11,7 +11,7 @@
                 <thead class="thead">
                         
                     <tr>
-                        <th>User Id</th>
+                        <th>Bill Id</th>
                         <th>Phone</th>
                         <th>Foods</th>
                         <th>Address</th>
@@ -24,7 +24,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="(b) in filterBills.slice().reverse()" :key="b.bill_id">
-                       <td>{{ b.user_id }}</td>
+                       <td>{{ b.bill_id }}</td>
                         <td>{{ b.bill_phone }}</td>
                         <td>{{ b.bill_food }}</td>
                         <td>{{ b.bill_address }}</td>
@@ -33,7 +33,7 @@
                         <td>{{ b.bill_total }}birr</td>
                         <td>{{ avaiableStatus[b.bill_status] }}</td>
                         <td>
-                            <button v-if="b.bill_status < 5" class="action-btn" v-bind:class="{'animated-btn': b.bill_status < 5}" @click="nextStatusBtn(b.bill_id)">
+                            <button v-if="b.bill_status < 5" class="action-btn" v-bind:class="{'animated-btn': b.bill_status > 2}" @click="nextStatusBtn(b.bill_id)">
                                 {{ avaiableStatus[b.bill_status + 1] }}
                             </button>
 

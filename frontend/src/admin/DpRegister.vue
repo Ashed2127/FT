@@ -24,6 +24,9 @@
         > -->
         <h2>create deliver person account</h2>
         <div class="form-group">
+          <p class="error-mess" v-if="errorObj.emailErr.length > 0">
+            {{ errorObj.emailErr[0] }}
+          </p>
           <input
             type="email"
             name="aEmail"
@@ -32,9 +35,7 @@
             class="form-control"
             v-model="registerObj.email"
           />
-          <p class="error-mess" v-if="errorObj.emailErr.length > 0">
-            {{ errorObj.emailErr[0] }}
-          </p>
+          
         </div>
 
         <div class="form-group">
@@ -66,7 +67,7 @@
         </div>
 
         <div class="form-group">
-          <input type="submit" value="create account" class="btn r" />
+          <input :disabled="isFormValid" type="submit" value="create account" class="btn r" />
           <p>
             have an account?
             <router-link @click="scrollToTop()" to="dplogin">login</router-link>
@@ -101,6 +102,9 @@ export default {
 
     computed:{
       ...mapState(["admin"]),
+      isFormValid(){
+            return !this.registerObj.email || !this.registerObj.pass || !this.registerObj.confirm;
+        }
     },
   methods: {
       ...mapMutations(["setDp"]),

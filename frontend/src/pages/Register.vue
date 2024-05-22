@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="form-group col-md-12">
-                    <input type="submit" :value="langObj[this.localLangStatus].words[11]" class="btn g" />
+                    <input type="submit" :disabled="isFormValid" :value="langObj[this.localLangStatus].words[11]" class="btn g" />
                     <p>{{ langObj[this.localLangStatus].words[12] }} <router-link @click="scrollToTop()" to="/login">{{ langObj[this.localLangStatus].words[13] }}</router-link>
                     </p>
                     <!-- <div class="dp pb-3"></div> -->
@@ -174,6 +174,11 @@ export default {
         window.removeEventListener('scroll', this.handleScroll);
     },
 
+    computed: {
+         isFormValid(){
+            return !this.registerObj.fname || !this.registerObj.lname || !this.registerObj.email || !this.registerObj.pass || !this.registerObj.confirm || !this.registerObj.phone.length || this.registerObj.phone.length < 10;
+        },
+    },
     methods: {
         async getMatchUser(email) {
             let data = await axios.get('/users/' + email);
@@ -269,6 +274,10 @@ export default {
                 if (!this.registerObj.phone.startsWith('09')) {
                     this.errorObj.phoneErr.push('Phone numbers must start with 09');
                 }
+                // if (!this.registerObj.phone.startsWith('07')){
+                //     this.errorObj.phoneErr.push('Phone numbers must start with 07');
+
+                // }
                 
                 if (this.registerObj.phone.length != 10) {
                     this.errorObj.phoneErr.push('Phone numbers must have exactly 10 digits');

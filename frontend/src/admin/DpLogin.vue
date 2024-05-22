@@ -36,7 +36,7 @@
 <!-- v-bind:class="{'hidden': loginObj.email == 0 && loginObj.pass == 0 }" -->
 
         <div class="form-group">
-          <input type="submit" :value="langObj[this.newLangStatus].words[3]" class="btn g"  />
+          <input :disabled="isFormValid" type="submit" :value="langObj[this.newLangStatus].words[3]" class="btn g"  />
           <p v-if="user">
             {{ langObj[this.newLangStatus].words[4] }}
             <router-link @click="scrollToTop()" to="/dpregister"
@@ -72,6 +72,9 @@ export default {
   },
   computed: {
     ...mapState(["admin", "dp"]),
+    isFormValid(){
+            return !this.loginObj.email || !this.loginObj.pass;
+        },
   },
   // mounted() {
   //   if (!this.admin) {

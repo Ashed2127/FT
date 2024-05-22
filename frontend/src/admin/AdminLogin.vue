@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="login now" class="btn brwn">
+                    <input :disabled="isFormValid" type="submit" value="login now" class="btn brwn">
                     <!-- <p >don't have an account? <router-link @click="scrollToTop()" to="adminregister">create one
                         </router-link>
                     </p> -->
@@ -45,7 +45,10 @@ export default {
             errors: [],
         }
     },
-
+ computed: {
+         isFormValid(){
+            return !this.loginObj.email || !this.loginObj.pass;
+        }},
     methods: {
         ...mapMutations(["setAdmin"]),
 

@@ -78,15 +78,36 @@
           <div v-for="(f, index) in currentPageItems" :key="index">
             <div class="box border-shadow b-r">
               <div class="food_status col-md-12 mt-4 py-2 paper">
-                <h4 v-if="user && this.newLangStatus == 0  || !user && this.localLangStatus == 0"> {{
+                <h4 v-if="user && this.newLangStatus == 0 "> {{
                     parseFloat(f.food_price) - parseFloat(f.food_discount)
                   }} {{ langObj[this.newLangStatus].words[12] }}
                   <span class="del" v-if="parseFloat(f.food_discount) != 0.0"
                     >{{ parseFloat(f.food_price) }} {{ langObj[this.newLangStatus].words[12] }}</span
                   ></h4>
-                  <h4 v-else-if="user && this.newLangStatus == 0 || this.localLangStatus == 0 ||  !user">{{ langObj[this.localLangStatus].words[12] }}   {{
+                  
+                  <!--  -->
+                <h4 v-if="user && this.newLangStatus == 1 "> {{ langObj[this.newLangStatus].words[12] }}{{
                     parseFloat(f.food_price) - parseFloat(f.food_discount)
-                  }}
+                  }} 
+                  <span class="del" v-if="parseFloat(f.food_discount) != 0.0"
+                    >{{ langObj[this.newLangStatus].words[12] }}{{ parseFloat(f.food_price) }} </span
+                  ></h4>
+
+
+
+<!--  -->
+
+
+                  <h4 v-else-if="!user && this.localLangStatus == 0">  {{
+                    parseFloat(f.food_price) - parseFloat(f.food_discount)
+                  }} {{ langObj[this.localLangStatus].words[12] }}
+                  <span class="del" v-if="parseFloat(f.food_discount) != 0.0"
+                    >{{ parseFloat(f.food_price) }}{{ langObj[this.localLangStatus].words[12] }}</span
+                  ></h4>
+
+                   <h4 v-else-if="!user && this.localLangStatus == 1">  {{ langObj[this.localLangStatus].words[12] }}{{
+                    parseFloat(f.food_price) - parseFloat(f.food_discount)
+                  }} 
                   <span class="del" v-if="parseFloat(f.food_discount) != 0.0"
                     >{{ langObj[this.localLangStatus].words[12] }}{{ parseFloat(f.food_price) }}</span
                   ></h4>
