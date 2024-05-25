@@ -119,9 +119,9 @@
               <div class="content">
                 <h3>{{ f.food_name }}</h3>
 
-                <div class="desc">
+                <!-- <div class="desc">
                   <p>{{ f.food_desc }}</p>
-                </div>
+                </div> -->
                 <!-- <div class="price">
                   {{
                     parseFloat(f.food_price) - parseFloat(f.food_discount)
@@ -250,7 +250,7 @@ export default {
   },
 
   computed: {
-    ...mapState(["allFoods", "user", "aallfoods"]),
+    ...mapState(["allFoods", "user"]),
     
     filterFoods: function () {
       return this.allFoods.filter(

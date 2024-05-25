@@ -1,4 +1,4 @@
--- database name: "db_restaurant"
+-- database name: "the_system"
 CREATE TABLE admin (
   admin_id INT(11) PRIMARY KEY AUTO_INCREMENT,
   admin_email varchar(255),
@@ -53,7 +53,8 @@ CREATE TABLE user(
     user_lname VARCHAR(255), 
     user_email VARCHAR(255),
     user_phone VARCHAR(255),
-    user_password VARCHAR(255)
+    user_password VARCHAR(255),
+    langstatus INT CHECK (langstatus IN (0, 1))
 ) ENGINE=INNODB;
 
 
@@ -66,13 +67,13 @@ CREATE TABLE cart (
 
 CREATE TABLE booktable( 
     book_id INT(11) PRIMARY KEY AUTO_INCREMENT, 
+    user_id INT(11) ,
     book_name VARCHAR(255), 
     book_phone VARCHAR(255),
     book_people INT,
     book_price INT,
     book_paid VARCHAR(255),
     book_method VARCHAR(255),
-    user_id INT(11) ,
     book_when VARCHAR(255),
     book_note TEXT,
     book_status int(11) 
@@ -91,7 +92,6 @@ CREATE TABLE billdetails (
 CREATE TABLE billstatus (
   bill_id INT,
   user_id INT,
-  dp_id INT,
   bill_phone VARCHAR(255),
   bill_address TEXT,
   bill_when VARCHAR(255),
@@ -102,30 +102,7 @@ CREATE TABLE billstatus (
   bill_paid VARCHAR(255),
   bill_status INT(11),
   bill_food VARCHAR(255),
-  item_qty VARCHAR(255)
-  -- item_qty INT,
+  item_qty VARCHAR(255),
   primary key (bill_id)
 );
 
-
--- CREATE TABLE languagestatus (
---   lang_id INT(11) PRIMARY KEY AUTO_INCREMENT,
---   langstatus INT CHECK (langstatus IN (0, 1))
--- );
-
-INSERT INTO languagestatus (lang_id, langstatus) VALUES (1, 0);
-
--- ////////////////SQL////////////
--- // UPDATE YourTableName
--- // SET YourColumnName = 1
--- // WHERE YourCondition;
-
-
--- first user table modified by this sql
--- ALTER TABLE `user`
--- CHANGE COLUMN `user_name` `user_fname` VARCHAR(255),
--- ADD COLUMN `user_lname` VARCHAR(255) AFTER `user_fname`;
--- ALTER TABLE billstatus ADD COLUMN bill_food VARCHAR(255);
-
-ALTER TABLE user
-ADD COLUMN langstatus INT CHECK (langstatus IN (0, 1));

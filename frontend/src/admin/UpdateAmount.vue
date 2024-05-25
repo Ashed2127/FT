@@ -18,13 +18,13 @@
       >Table Dashboard</router-link
     >
     <router-link @click="scrollToTop()" to="/updateAmount" class="sidebar-link"
-      >Update Amount</router-link
+      >Update Food Detail</router-link
     >
     <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link"
-      >Add Deliver Person</router-link
+      >Create Delivery Person Account</router-link
     >
     <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link-r"
-      >Remove DP</router-link
+      >Delete Delivery Person Account</router-link
     >
     <button class="sidebar-logout-btn" @click="handleLogout()">Logout</button>
   </div>
@@ -79,6 +79,7 @@
               v-model.number="food.price"
               class="form-control"
               required
+              
             />
           </div>
           <div class="col-md-12 mb-3 text-danger" v-if="priceErr">
@@ -231,7 +232,7 @@ export default {
   color: white;
   text-decoration: none;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .sidebar-link:hover {

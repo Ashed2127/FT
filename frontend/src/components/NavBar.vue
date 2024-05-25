@@ -15,48 +15,49 @@
       <router-link @click="scrollToTop()" to="/about">{{
         langObj[this.newLangStatus].words[3]
       }}</router-link>
-      <!-- <router-link @click="scrollToTop()" to="/pay">pay</router-link> -->
-      <!-- <router-link @click="scrollToTop()" to="/newPay">neway</router-link> -->
+     
     </nav>
     <nav class="navbar" v-else>
-      <router-link @click="scrollToTop()" to="/">{{
-        langObj[this.currentLangStatus].words[0]
-      }}</router-link>
+      <router-link @click="scrollToTop()" to="/">
+        {{ langObj[this.currentLangStatus].words[0] }}</router-link
+      >
+
       <router-link @click="scrollToTop()" to="/menu">{{
         langObj[this.currentLangStatus].words[1]
       }}</router-link>
+
       <!-- <router-link @click="scrollToTop()" to="/table">{{
         langObj[this.currentLangStatus].words[2]
       }}</router-link> -->
       <router-link @click="scrollToTop()" to="/about">{{
         langObj[this.currentLangStatus].words[3]
       }}</router-link>
-      <!-- <router-link @click="scrollToTop()" to="/pay">pay</router-link> -->
-      <!-- <router-link @click="scrollToTop()" to="/newPay">neway</router-link> -->
+
+   
     </nav>
 
     <!-- language drop down  -->
 
     <div class="icons">
-      <div id="menu-btn" class="fas fa-bars menu-btn" @click="showNav" ></div>
+      <div id="menu-btn" class="fas fa-bars menu-btn" @click="showNav"></div>
       <router-link @click="scrollToTop()" to="cart">
         <div class="fas fa-shopping-cart cart" v-if="user"></div>
       </router-link>
 
       <div v-if="!user" class="fas fa-user account" @click="showLog">
         <ul class="drop-down-select">
+          
+          <li>
+            <router-link @click="scrollToTop()" to="/register">{{
+              langObj[this.currentLangStatus].words[5]
+            }}</router-link>
+          </li>
           <li>
             <router-link @click="scrollToTop()" to="/login">{{
               langObj[this.currentLangStatus].words[4]
             }}</router-link>
           </li>
-          <li>
-            <router-link @click="scrollToTop()" to="/register">{{
-              langObj[this.currentLangStatus].words[5]
-            }}</router-link> 
-          </li>
         </ul>
-        
       </div>
 
       <div
@@ -82,7 +83,6 @@
               langObj[this.newLangStatus].words[8]
             }}</router-link>
           </li>
-          
         </ul>
       </div>
 
@@ -93,27 +93,24 @@
       >
         <ul class="drop-down-select" v-if="this.user">
           <li>
-            <router-link @click="english()" to="#">eng</router-link>
+            <router-link @click="english()" to="#">english</router-link>
           </li>
           <li>
-            <router-link @click="oromo()" to="#">Oro</router-link>
+            <router-link @click="oromo()" to="#">Oromiffa</router-link>
           </li>
 
           <!-- <li>
                         <router-link @click="handleLogout" to="#">amharic</router-link>
                     </li> -->
         </ul>
-           <ul class="drop-down-select" v-else>
+        <ul class="drop-down-select" v-else>
           <li>
-            <router-link @click="eng()" to="#">eng</router-link>
+            <router-link @click="eng()" to="#">english</router-link>
           </li>
           <li>
-            <router-link @click="oro()" to="#">Oro</router-link>
+            <router-link @click="oro()" to="#">Oromiffa</router-link>
           </li>
 
-          <!-- <li>
-                        <router-link @click="handleLogout" to="#">amharic</router-link>
-                    </li> -->
         </ul>
       </div>
     </div>
@@ -139,8 +136,8 @@ export default {
             "menu",
             "table",
             "about",
-            "login",
-            "register",
+            "login account",
+            "register account",
             "my orders",
             "my tables",
             "logout",
@@ -159,24 +156,20 @@ export default {
             "ba'uu",
           ],
         },
-        // { words: ["home", "menu", "table", "about"] },
-        // { words: ["mana", "meenuu", "Minjaala", "Waa'ee"] },
       ],
       newLangStatus: 0,
       interval: "",
-      //  langObj[0].words[0]
-      //  langObj[1].words[0]
       langValue: 0,
       currentLangStatus: null,
     };
   },
 
-  created(){
+  created() {
     // this.eng();
     // this.oro();
-    const storedLangStatus = localStorage.getItem('newLangStatus');
-        if (storedLangStatus !== null) {
-        this.currentLangStatus = parseInt(storedLangStatus, 10);
+    const storedLangStatus = localStorage.getItem("newLangStatus");
+    if (storedLangStatus !== null) {
+      this.currentLangStatus = parseInt(storedLangStatus, 10);
     }
   },
   computed: {
@@ -184,7 +177,6 @@ export default {
   },
 
   mounted() {
-    
     this.autoUpdate();
     window.addEventListener("scroll", this.handleScroll);
     // this.eng();
@@ -213,21 +205,19 @@ export default {
       // console.log(oro);
       this.getStatus();
     },
-    async eng(){
+    async eng() {
       this.langValue = 0;
       let langStatus = this.langValue;
       this.newLangStatus = langStatus;
-      localStorage.setItem('newLangStatus', this.newLangStatus);
+      localStorage.setItem("newLangStatus", this.newLangStatus);
       window.location.reload();
-
     },
-    async oro(){
+    async oro() {
       this.langValue = 1;
       let langStatus = this.langValue;
       this.newLangStatus = langStatus;
-      localStorage.setItem('newLangStatus', this.newLangStatus);
+      localStorage.setItem("newLangStatus", this.newLangStatus);
       window.location.reload();
-
     },
 
     async getStatus() {
@@ -356,7 +346,7 @@ export default {
   font-size: 15px;
   font-weight: 500;
   float: left;
-  width: 95px;
+  width: 140px;
 }
 
 .header .icons .account .drop-down-select.active {

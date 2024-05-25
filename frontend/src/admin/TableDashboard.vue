@@ -5,9 +5,9 @@
 
       <router-link @click="scrollToTop()" to="/admin/dashboard" class="sidebar-link" >order dashboard</router-link>
       <router-link @click="scrollToTop()" to="/tabledashboard" class="sidebar-link">Table Dashboard</router-link>
-      <router-link @click="scrollToTop()" to="/updateAmount" class="sidebar-link" >Update Amount</router-link>
-      <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link">Add Deliver Person</router-link>
-      <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link-r">Remove DP</router-link>
+      <router-link @click="scrollToTop()" to="/updateAmount" class="sidebar-link" >Update Food Detail</router-link>
+      <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link">Create Delivery Person Account</router-link>
+      <router-link @click="scrollToTop()" to="/dpRegister" class="sidebar-link-r">Delete Delivery Person Account</router-link>
       <button class="sidebar-logout-btn" @click="handleLogout()">Logout</button>
 
     </div>
@@ -307,7 +307,7 @@ background-color: #05ac0e;
   color: white;
   text-decoration: none;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .sidebar-link:hover {

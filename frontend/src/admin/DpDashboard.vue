@@ -14,6 +14,7 @@
                         <th>Bill Id</th>
                         <th>Phone</th>
                         <th>Foods</th>
+                        <th>Quantity</th>
                         <th>Address</th>
                         <th>When</th>
                         <th>Paid</th>
@@ -27,6 +28,7 @@
                        <td>{{ b.bill_id }}</td>
                         <td>{{ b.bill_phone }}</td>
                         <td>{{ b.bill_food }}</td>
+                         <td >{{ b.item_qty }}</td>
                         <td>{{ b.bill_address }}</td>
                         <td>{{ b.bill_when }}</td>
                         <td>{{ b.bill_paid }}</td>
