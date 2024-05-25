@@ -124,7 +124,7 @@ export const responseData = async (req, res) => {
       first_name: user.first_name,
       last_name: user.last_name,
       callback_url: "https://checkout.chapa.co/checkout/payment/:token",
-      return_url: "http://localhost:8082/login",
+      // return_url: "http://localhost:8080/login",
       customization: {
         title: "I love e-commerce",
         description: "It is time to pay",
